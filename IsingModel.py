@@ -260,6 +260,7 @@ parser.add_argument("--plotM",
                     type=int,
                     default=0,
                     help="Plot magnetization")
+                    
 args = parser.parse_args()
 print(args)
 start_time = time.time()
