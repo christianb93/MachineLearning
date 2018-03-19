@@ -478,16 +478,16 @@ Using this, we can already simplify the first term in the update rule as follows
 &= v_i P(h_j = 1 | v) = v_i \sigma(\beta (\sum_i W_{ij} v_i + c_j)) 
 = v_i \sigma(\beta (W^T v)_j + c_j)
 \end{align*}
-This is good news - we do not need to sample from the model distribution to calculate this! So let us see whether a similar simplification works for the second term works.  In fact, the second term can be written as an expectation value over the marginal distribution:
+This is good news - we do not need to sample from the model distribution to calculate this! So let us see whether a similar simplification works for the second term.  In fact, the second term can be written as an expectation value over the marginal distribution:
 \begin{align*}
 \langle v_i h_j \rangle_P &= \sum_v \sum_h v_i h_j P(v,h) \\
-&= \sum v v_i P(v) \sum_h h_j P(h | v) \\
+&= \sum_v v_i P(v) \sum_h h_j P(h | v) \\
 &= \sum_v v_i \sigma(\beta W^T v) P(v) = \langle v_i \sigma(\beta ((W^T v)_j + c_j)) \rangle_{P(v)}
 \end{align*}
 so that we now arrive at the update rule
 \begin{align}\label{eq:rbmupdaterule}
 \Delta W_{ij} = \beta \left[
-\langle v_i \sigma(\beta (W^T v)_j + c_j \rangle_{\mathcal D}
+\langle v_i \sigma(\beta (W^T v)_j + c_j) \rangle_{\mathcal D}
 -
 \langle v_i \sigma(\beta (W^T v)_j + c_j) \rangle_{P(v)}
 \right]
