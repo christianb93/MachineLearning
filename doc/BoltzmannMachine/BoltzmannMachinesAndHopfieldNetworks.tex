@@ -519,16 +519,16 @@ We can apply the same procedure to the bias and obtain an algorithm which is cal
 \begin{lstlisting}[mathescape=true,frame=single, label=lst:cdone, float=ht,
 captionpos=t, caption=One-step contrastive divergence]
 For each iteration do
-Sample a vector $v$ from the data set
-Set $e = \sigma(\beta( W^T v + c))$
-For each hidden unit
-set $h_j = 1$ with probability $e_j$
-For each visible unit
-set $\bar{v}_i = 1$ with probability $\sigma(\beta (W h + b))_i$
-Set $\bar{e} = \sigma(\beta (W^T \bar{v} + c))$
-Set $W = W + \lambda \beta \left[  v e^T - \bar{v} \bar{e}^T  \right]$
-Set $b = b + \lambda \beta \left[  v - \bar{v}  \right]$
-Set $c = c + \lambda \beta \left[  e - \bar{e}  \right]$
+  Sample a vector $v$ from the data set
+  Set $e = \sigma(\beta( W^T v + c))$
+  For each hidden unit
+  set $h_j = 1$ with probability $e_j$
+  For each visible unit
+  set $\bar{v}_i = 1$ with probability $\sigma(\beta (W h + b))_i$
+  Set $\bar{e} = \sigma(\beta (W^T \bar{v} + c))$
+  Set $W = W + \lambda \beta \left[  v e^T - \bar{v} \bar{e}^T  \right]$
+  Set $b = b + \lambda \beta \left[  v - \bar{v}  \right]$
+  Set $c = c + \lambda \beta \left[  e - \bar{e}  \right]$
 Done
 \end{lstlisting}
 
@@ -538,8 +538,7 @@ It is far from obvious why this algorithm gives useful results. Usually, we woul
 In any case, the algorithm is intuitively very appealing. We feed a sample from the training data set into the visible units, then forward the signal to the hidden units and sample from the hidden units to obtain a {\em reconstruction} of the training data. The weight update is then driven by the difference in the correlations between the original data and the hidden units and the reconstruction and the corresponding activations of the hidden units. 
 
 
-
-Even though constrastive divergence are very popular, alternative approaches to training restricted Boltzmann machines exist. We will look at one example in detail. 
+Even though constrastive divergence is very popular, alternative approaches to training restricted Boltzmann machines exist. We will look at one example in detail. 
 
 Remember that the key idea of the contrastive divergence algorithm is to start the Gibbs sampling procedure that is needed to calculate the contribution of the negative phase at a point which is hopefully close to the equilibrium state, namely a sample from the data set. For each iteration, a different sample is chosen, and therefore the chain is restarted with every iteration. The idea behind an algorithm known as {\em persistent contrastive divergence (PCD)} (see \cite{Tieleman2008}) is to instead of a data point the result of the previous iteration as starting point for a Gibbs sampling step. Thus in every iteration, we perform one Gibbs sampling step, save the result and use it as the starting point of the Gibbs sampling step for the next iteration.
 
