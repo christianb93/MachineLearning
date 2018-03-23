@@ -197,7 +197,7 @@ class RBM:
             dw.append(np.linalg.norm(dW))
             recon_error =np.linalg.norm(V - Vb) 
             error.append(recon_error)
-            if 0 == (_ % 2000):
+            if 0 == (_ % 500):
                 print("Iteration ",_," - reconstruction error is now", recon_error)
         return dw,error
     
@@ -235,31 +235,31 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--N", 
                     type=int,
-                    default=20,
+                    default=6,
                     help="Size of image")
     parser.add_argument("--patterns", 
                     type=int,
-                    default=120,
+                    default=20,
                     help="Number of patterns that we store")
     parser.add_argument("--hidden", 
                     type=int,
-                    default=128,
+                    default=16,
                     help="Number of hidden units")
     parser.add_argument("--beta", 
                     type=float,
-                    default=10.0,
+                    default=2.0,
                     help="Inverse temperature")
     parser.add_argument("--step",
                     type=float,
-                    default=0.01,
+                    default=0.05,
                     help="Step size of gradient descent")
     parser.add_argument("--train", 
                     type=int,
-                    default=5000,
+                    default=30000,
                     help="Number of iterations during training")
     parser.add_argument("--sample", 
                     type=int,
-                    default=100000,
+                    default=100,
                     help="Number of iterations during sampling")
     parser.add_argument("--errors", 
                     type=int,
@@ -313,41 +313,52 @@ if args.save == 1:
     tmp = tempfile.mktemp(dir="/tmp")
 
 #
-# Now test inference
+# Now test reconstruc
 #
 if args.run_reconstructions:
-    tests = 5
+    tests = 8
     cols = 4
     fig = plt.figure(figsize=(5,cols*tests/5))
+    I = np.zeros((tests, V.shape[1]))
     for t in range(tests):
         # Determine pattern that we test
         u = np.random.randint(low = 0, high = args.patterns)
-        I = V[u,:]
+        I[t,:] = V[u,:]
         # Plot original pattern
         ax = fig.add_subplot(tests,cols,cols*t+1)
         ax.set_yticks([],[])
         ax.set_xticks([],[])
-        ax.imshow(I.reshape(args.N,args.N), "binary")
-        sample = np.copy(I)
-        # Flip some bits at random
+        ax.imshow(I[t,:].reshape(args.N,args.N), "binary")
+
+    # 
+    # Flip some bits at random in each
+    # of the rows
+    # 
+    sample = np.copy(I)
+    for t in range(tests):
         for i in range(args.errors):
             field = np.random.randint(0,args.N*args.N)
-            if  I[field] == 0:
-                sample[field] = 1
-            else:
-                sample[field] = 0
-        # Sample
-        print("Sampling reconstruction ", t)
-        R0 = RBM.sampleFrom(initial = sample, iterations = int(args.sample / 2))
-        R = RBM.sampleFrom(initial = R0, iterations = int(args.sample / 2))
+            sample[t,field] = (1 if I[t,field] == 0 else 0)
+
+    # 
+    # Sample
+    #
+    print("Sampling reconstructions")
+    R0 = RBM.sampleFrom(initial = sample, iterations = int(args.sample / 2))
+    R = RBM.sampleFrom(initial = R0, iterations = int(args.sample / 2))
+
+    #
+    # Display results
+    #
+    for t in range(tests):
         # Display distorted image
         ax = fig.add_subplot(tests,cols,cols*t+2)
         ax.set_yticks([],[])
         ax.set_xticks([],[])
-        ax.imshow(sample.reshape(args.N,args.N), "binary")
+        ax.imshow(sample[t,:].reshape(args.N,args.N), "binary")
         # Display reconstructions
-        b0 = R0[0,:].reshape(args.N,args.N)    
-        b = R[0,:].reshape(args.N,args.N)    
+        b0 = R0[t,:].reshape(args.N,args.N)    
+        b = R[t,:].reshape(args.N,args.N)    
         ax = fig.add_subplot(tests,cols,cols*t+3)
         ax.set_yticks([],[])
         ax.set_xticks([],[])
