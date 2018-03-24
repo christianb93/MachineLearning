@@ -1,19 +1,6 @@
 #####################################################
 #
-# A restricted Boltzmann machine trained using the
-# constrastive divergence algorithm
-#
-# see 
-#
-# G. Hinton, Training products of experts by 
-# minimizing contrastive divergence, Journal Neural 
-# Computation Vol. 14, No. 8 (2002), 1771--1800
-#
-# G.~Hinton,
-# A practical guide to training restricted Boltzmann 
-# machines, Technical Report University of Montreal 
-# TR-2010-003 (2010)
-#
+# Train and test a restricted Boltzmann machine
 #
 # Copyright (c) 2018 christianb93
 # Permission is hereby granted, free of charge, to 
@@ -42,11 +29,17 @@
 #####################################################
 
 
+import RBM.CD
+import RBM.PCD
+
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.special import expit
 import tempfile
 import argparse
+import time
+import datetime
+from sklearn.datasets import fetch_mldata
+
 
 
 #
@@ -96,136 +89,42 @@ class BAS:
         return np.transpose(V)
 
         
-
 #
-# A restricted Boltzmann machine, trained using the contrastive divergence
-# algorithm
-#        
-class RBM:
+# A utility class to manage training data sets
+# that consist of quadratic images
+#
+class TrainingData: 
     
-    def __init__ (self, visible = 8, hidden = 3, beta = 1):
-        self.visible = visible
-        self.hidden = hidden
-        self.beta = beta
-        self.W = np.random.normal(loc = 0, scale = 0.01, size = (visible, hidden))
-        self.b = np.zeros(shape = (1,visible))
-        self.c = np.zeros(shape = (1,hidden))
-        
-    #
-    # Run one step in a Gibbs sampling Markov chain. 
-    # We sample the hidden units from the visible
-    # units V and the visible units V' from the
-    # hidden units. V' is returned
-    # 
-    def runGibbsStep(self, V, size = 1):
-        #
-        # Sample hidden units from visible units
-        #      
-        E = expit(self.beta*(np.matmul(V, self.W) + self.c))
-        U = np.random.random_sample(size=(size, self.hidden))
-        H = (U <= E).astype(int)
-        #
-        # and now sample visible units from hidden units
-        #
-        P = expit(self.beta*(np.matmul(H, np.transpose(self.W)) + self.b))
-        U = np.random.random_sample(size=(size, self.visible))
-        return (U <= P).astype(int), E
+    def __init__(self, N = 6, ds_size = 80, ds = "BAS"):
+        self.ds = ds
+        if ds == "BAS":
+            self.BAS = BAS(args.N)
+            self.ds_size = ds_size
+            self.S = self.BAS.getSample(size = ds_size)
+        elif ds == "MNIST":
+            if (N != 28):
+                raise ValueError("Please use N = 28 for the MNIST data set")
+            mnist = fetch_mldata("MNIST original")
+            label = mnist['target']
+            mnist = mnist.data
+            mnist = ((mnist / 255.0) + 0.5).astype(int)
+            images = []
+            for i in range(ds_size):
+                digit = i % 10
+                u = np.where(label == digit)[0]
+                images.append(mnist[u[i // 10], None,:])
+            self.S = np.concatenate(images, axis=0)
+            self.ds_size = ds_size
+        else:
+            raise ValueError("Unknown data set name")
+            
+    def get_batch(self, batch_size = 10):
+        images = []        
+        for i in range(batch_size):
+            u = np.random.randint(low = 0, high = self.ds_size)
+            images.append(self.S[u,None,:])
+        return np.concatenate(images, axis=0)
 
-    #
-    # Sample from the learned distribution, starting with a 
-    # random value
-    #
-    def sample(self, iterations = 100, size = 1):
-        return self.sampleFrom(np.random.randint(low=0, high=2, size=(size,self.visible)))
-
-    #
-    # Sample from the learned distribution, starting at some
-    # initial value
-    #
-    def sampleFrom(self, initial, iterations = 100, size = 1):
-        V = initial
-        for _ in range(iterations):
-            V, _ = self.runGibbsStep(V, size = size)
-        return V
-    #
-    # Train the model on a training data mini batch
-    # stored in V. Each row of V corresponds to one
-    # sample. The number of columns of V should
-    # be equal to the number of visible units
-    #
-    def train(self,  V, iterations = 100, step = 0.01):
-        # 
-        # Check geometry
-        #
-        batch_size = V.shape[0]
-        if (V.shape[1] != self.visible):
-            print("Shape of training data", V.shape)
-            raise ValueError("Data does not match number of visible units")
-        #
-        # Prepare logs
-        #
-        dw = []
-        error = []
-        # 
-        # Now do the actual training. First we calculate the expectation 
-        # values of the hidden units given the visible units. The result
-        # will be a matrix of shape (batch_size, hidden)
-        # 
-        for _ in range(iterations):
-            #
-            # Run one Gibbs sampling step and obtain new values
-            # for visible units and previous expectation values
-            #
-            Vb, E = self.runGibbsStep(V, batch_size)
-            # 
-            # Calculate new expectation values
-            #
-            Eb = expit(self.beta*(np.matmul(Vb, self.W) + self.c))
-            #
-            # Calculate contributions of positive and negative phase
-            # and update weights and bias
-            #
-            pos = np.tensordot(V, E, axes=((0),(0)))
-            neg = np.tensordot(Vb, Eb, axes=((0),(0)))
-            dW = step*self.beta*(pos -neg) / float(batch_size)
-            self.W += dW
-            self.b += step*self.beta*np.sum(V - Vb, 0) / float(batch_size)
-            self.c += step*self.beta*np.sum(E - Eb, 0) / float(batch_size)
-            #
-            # Update logs
-            #
-            dw.append(np.linalg.norm(dW))
-            recon_error =np.linalg.norm(V - Vb) 
-            error.append(recon_error)
-            if 0 == (_ % 500):
-                print("Iteration ",_," - reconstruction error is now", recon_error)
-        return dw,error
-    
-    
-    #
-    # Visualize the weights
-    #
-    def showWeights(self, fig, cols, rows, x_pix, y_pix):
-        for r in range(rows):
-            for c in range(cols):
-                j = r*cols + c
-                #
-                # We display the weigths connected to hidden unit j
-                #
-                w = self.W[:,j]
-                #
-                # Normalize
-                #
-                min = np.min(w)
-                w = w + min
-                max = np.max(w)
-                w = w / max
-                ax = fig.add_subplot(rows, cols, j+1)
-                ax.imshow(w.reshape(x_pix, y_pix), "Greys")
-                ax.set_yticks([],[])
-                ax.set_xticks([],[])
-    
-        
 
 ####################################################
 # Parse arguments
@@ -253,10 +152,14 @@ def get_args():
                     type=float,
                     default=0.05,
                     help="Step size of gradient descent")
-    parser.add_argument("--train", 
+    parser.add_argument("--iterations", 
+                    type=int,
+                    default=1,
+                    help="Number of iterations per batch during training")
+    parser.add_argument("--epochs", 
                     type=int,
                     default=30000,
-                    help="Number of iterations during training")
+                    help="Number of epochs (batches) during training")
     parser.add_argument("--sample", 
                     type=int,
                     default=100,
@@ -285,6 +188,22 @@ def get_args():
                     type=int,
                     default=0,
                     help="Display a few metrics after training")
+    parser.add_argument("--algorithm", 
+                    choices=["CD", "PCD"],
+                    default="CD",
+                    help="Algorithm: contrastive divergence (CD) or PCD")
+    parser.add_argument("--batch_size", 
+                    type=int,
+                    default=10,
+                    help="Batch size")                    
+    parser.add_argument("--weight_decay",
+                    type=float,
+                    default=0.0001,
+                    help="Weight decay")                    
+    parser.add_argument("--data",
+                    choices=["BAS", "MNIST"],
+                    default="BAS",
+                    help="Data set")                    
     args=parser.parse_args()
     return args
 
@@ -309,13 +228,39 @@ args = get_args()
 #
 # Create sample set
 #
-BAS = BAS(args.N)
-V= BAS.getSample(size = args.patterns)
+TrainingData = TrainingData(N = args.N, 
+                            ds_size = args.patterns, 
+                            ds = args.data)
+
 #
 # Init RBM and train
 # 
-RBM = RBM(visible=args.N*args.N, hidden=args.hidden, beta = args.beta)
-dw, error = RBM.train(V, iterations=args.train, step = args.step)
+dw = []
+error = []
+
+if args.algorithm == "CD":
+    RBM = RBM.CD.CDRBM(visible=args.N*args.N, hidden=args.hidden, beta = args.beta)
+elif args.algorithm == "PCD":
+    RBM = RBM.PCD.PCDRBM(visible=args.N*args.N, hidden=args.hidden, beta = args.beta, particles=args.batch_size)
+else:
+    raise ValueError("Unknown algorithm")
+start_time = time.time()
+print("Start time: ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+
+for e in range(args.epochs):
+    V = TrainingData.get_batch(batch_size = args.batch_size)
+    _dw, _error = RBM.train(V, 
+                          iterations=args.iterations, 
+                          epochs = args.epochs,
+                          step = args.step, 
+                          weight_decay=args.weight_decay)
+    dw.append(_dw)
+    if len(_error) > 0:
+        error.append(_error)
+
+end_time = time.time()
+run_time = end_time - start_time
+
 #
 # Get file name
 #
@@ -332,7 +277,7 @@ if args.run_reconstructions:
     #
     # Determine a sample set that we use for testing
     #
-    I = V[np.random.randint(low=0, high=V.shape[0], size=tests), :]
+    I =  TrainingData.get_batch(batch_size = tests)
     #
     # Now plot the original patterns
     #
@@ -398,10 +343,12 @@ if args.show_metrics == 1:
 # Now sample a few images and display them
 #
 if args.run_samples == 1:
-    cols = 4
-    rows = 4
+    cols = 5
+    rows = 5
+    sampling_start_time = time.time()
     print("Sampling ", rows*cols, "images")
-    V = RBM.sample(iterations = args.sample*100, size=rows*cols)
+    print("Start time: ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+    V = RBM.sample(iterations = args.sample, size=rows*cols)
     fig = plt.figure(figsize=(5,5))
     for i in range(rows*cols):
         show_pattern(fig.add_subplot(cols,rows,i+1), V[i,:])
