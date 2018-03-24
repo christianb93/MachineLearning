@@ -289,6 +289,16 @@ def get_args():
     return args
 
 
+#
+# Utility function to properly display an array
+# as an N x N binary image
+#
+def show_pattern(ax, v):
+    ax.set_yticks([],[])
+    ax.set_xticks([],[])
+    ax.imshow(v.reshape(args.N,args.N), "binary")
+    
+
 ####################################################
 #
 # Main
@@ -313,22 +323,21 @@ if args.save == 1:
     tmp = tempfile.mktemp(dir="/tmp")
 
 #
-# Now test reconstruc
+# Now test reconstructions
 #
 if args.run_reconstructions:
     tests = 8
     cols = 4
     fig = plt.figure(figsize=(5,cols*tests/5))
-    I = np.zeros((tests, V.shape[1]))
+    #
+    # Determine a sample set that we use for testing
+    #
+    I = V[np.random.randint(low=0, high=V.shape[0], size=tests), :]
+    #
+    # Now plot the original patterns
+    #
     for t in range(tests):
-        # Determine pattern that we test
-        u = np.random.randint(low = 0, high = args.patterns)
-        I[t,:] = V[u,:]
-        # Plot original pattern
-        ax = fig.add_subplot(tests,cols,cols*t+1)
-        ax.set_yticks([],[])
-        ax.set_xticks([],[])
-        ax.imshow(I[t,:].reshape(args.N,args.N), "binary")
+        show_pattern(fig.add_subplot(tests,cols,cols*t+1), I[t,:])
 
     # 
     # Flip some bits at random in each
@@ -352,21 +361,10 @@ if args.run_reconstructions:
     #
     for t in range(tests):
         # Display distorted image
-        ax = fig.add_subplot(tests,cols,cols*t+2)
-        ax.set_yticks([],[])
-        ax.set_xticks([],[])
-        ax.imshow(sample[t,:].reshape(args.N,args.N), "binary")
+        show_pattern(fig.add_subplot(tests,cols,cols*t+2), sample[t,:])
         # Display reconstructions
-        b0 = R0[t,:].reshape(args.N,args.N)    
-        b = R[t,:].reshape(args.N,args.N)    
-        ax = fig.add_subplot(tests,cols,cols*t+3)
-        ax.set_yticks([],[])
-        ax.set_xticks([],[])
-        ax.imshow(b0, "binary")
-        ax = fig.add_subplot(tests,cols,cols*t+4)
-        ax.set_yticks([],[])
-        ax.set_xticks([],[])
-        ax.imshow(b, "binary")
+        show_pattern(fig.add_subplot(tests,cols,cols*t+3), R0[t,:])        
+        show_pattern(fig.add_subplot(tests,cols,cols*t+4), R[t,:])
     
     
     if args.save == 1:
@@ -406,10 +404,7 @@ if args.run_samples == 1:
     V = RBM.sample(iterations = args.sample*100, size=rows*cols)
     fig = plt.figure(figsize=(5,5))
     for i in range(rows*cols):
-        ax = fig.add_subplot(cols,rows,i+1)
-        ax.set_yticks([],[])
-        ax.set_xticks([],[])
-        ax.imshow(V[i,:].reshape(args.N,args.N), "binary")
+        show_pattern(fig.add_subplot(cols,rows,i+1), V[i,:])
 
     if args.save == 1:
         outfile = tmp + "_RBMPartIII.png"
