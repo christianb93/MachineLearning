@@ -32,6 +32,7 @@ from __future__ import print_function
 
 import RBM.CD
 import RBM.PCD
+import RBM.PCDTF
 
 
 
@@ -192,9 +193,9 @@ def get_args():
                     default=0,
                     help="Display a few metrics after training")
     parser.add_argument("--algorithm", 
-                    choices=["CD", "PCD"],
+                    choices=["CD", "PCD", "PCDTF"],
                     default="CD",
-                    help="Algorithm: contrastive divergence (CD) or PCD")
+                    help="Algorithm: contrastive divergence (CD), PCD or PCD on TensorFlow (PCDTF)")
     parser.add_argument("--batch_size", 
                     type=int,
                     default=10,
@@ -246,6 +247,8 @@ if args.algorithm == "CD":
     RBM = RBM.CD.CDRBM(visible=args.N*args.N, hidden=args.hidden, beta = args.beta)
 elif args.algorithm == "PCD":
     RBM = RBM.PCD.PCDRBM(visible=args.N*args.N, hidden=args.hidden, beta = args.beta, particles=args.batch_size)
+elif args.algorithm == "PCDTF":
+    RBM = RBM.PCDTF.PCDRBM(visible=args.N*args.N, hidden=args.hidden, beta = args.beta, particles=args.batch_size)
 else:
     raise ValueError("Unknown algorithm")
 start_time = time.time()
