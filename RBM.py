@@ -228,6 +228,7 @@ def show_pattern(ax, v):
 ####################################################
 
 args = get_args()
+print("Parameter: ", args)
 #
 # Create sample set
 #
