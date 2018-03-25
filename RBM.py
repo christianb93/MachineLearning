@@ -28,9 +28,12 @@
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #####################################################
 
+from __future__ import print_function  
 
 import RBM.CD
 import RBM.PCD
+
+
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -247,6 +250,7 @@ else:
 start_time = time.time()
 print("Start time: ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
+
 for e in range(args.epochs):
     V = TrainingData.get_batch(batch_size = args.batch_size)
     _dw, _error = RBM.train(V, 
@@ -352,6 +356,9 @@ if args.run_samples == 1:
     fig = plt.figure(figsize=(5,5))
     for i in range(rows*cols):
         show_pattern(fig.add_subplot(cols,rows,i+1), V[i,:])
+    end_time = time.time()
+    run_time_sampling = end_time - sampling_start_time
+    
 
     if args.save == 1:
         outfile = tmp + "_RBMPartIII.png"
@@ -374,8 +381,16 @@ if args.save == 1:
     outfile = tmp + "_RBMDesc.txt"
     f= open(outfile, "w")
     print(args, file=f)
+    print("Run time: ", str(datetime.timedelta(seconds=int(run_time))), file = f)
+    if args.run_samples == 1:
+        print("Run time sampling: ", str(datetime.timedelta(seconds=int(run_time_sampling))), file=f)    
     f.close()
     print("Saved simulation description and results in ",outfile)
+
+
+print("Run time: ", str(datetime.timedelta(seconds=int(run_time))))
+if args.run_samples == 1:
+    print("Run time sampling: ", str(datetime.timedelta(seconds=int(run_time_sampling))))    
 
 
 plt.show()
