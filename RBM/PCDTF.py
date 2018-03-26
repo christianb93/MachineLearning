@@ -99,14 +99,10 @@ class PCDRBM (Base.BaseRBM):
             P = tf.sigmoid(self.beta*(tf.matmul(H,W, transpose_b=True) + b),
                             name = "P")
             Nb = self.bernoulli(P, name="Nb")
-            runStep = tf.assign(N, Nb)
-            #
-            # If Eb is invoked, this will trigger one sampling step
-            #
-            Eb = tf.sigmoid(self.beta*(tf.matmul(runStep, W) + c))
+            Eb = tf.sigmoid(self.beta*(tf.matmul(Nb, W) + c))
             self.tf.Eb = Eb
-            self.tf.neg = tf.tensordot(runStep, Eb, axes=[[0],[0]], name="neg")
-        return Eb, Nb, self.tf.neg
+            self.tf.neg = tf.tensordot(Nb, Eb, axes=[[0],[0]], name="neg")
+        return N, Eb, Nb, self.tf.neg
         
     #
     # Build the model that is calculating the positive phase
@@ -176,7 +172,7 @@ class PCDRBM (Base.BaseRBM):
         #
         # Now we build the model that is responsible for the particles
         #
-        Eb, Nb, neg = self.build_particle_model(batch_size, W, b, c)
+        N, Eb, Nb, neg = self.build_particle_model(batch_size, W, b, c)
         #
         # and the model for the positive phase
         #
@@ -199,7 +195,8 @@ class PCDRBM (Base.BaseRBM):
                 tf.assign(b, b + db),
                 tf.assign(c, c + dc),
                 tf.assign(W, W + dW),
-                tf.assign(globalStep, globalStep+1)
+                tf.assign(globalStep, globalStep+1),
+                tf.assign(N, Nb)
         )
         #
         # We need an operation to initialize everything from the placeholders

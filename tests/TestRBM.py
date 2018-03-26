@@ -241,8 +241,9 @@ def test_tc6():
     #
     # Now run the negative phase - this should correspond to one
     # step. We also retrieve the values of the random variables
+    # Note that this will NOT yet update N, only Nb
     #
-    neg, H_U, Nb_U = rbm.session.run([rbm.tf.neg,H_U_op.outputs[0], Nb_U_op.outputs[0]])
+    neg, H_U, Nb_U,  = rbm.session.run([rbm.tf.neg,H_U_op.outputs[0], Nb_U_op.outputs[0]])
     #
     # Now run one Gibbs sampling step manually, using the same
     # random values, and compare the results
@@ -254,12 +255,6 @@ def test_tc6():
     _Eb = expit(rbm.beta*(np.matmul(_Nb, rbm.W) + rbm.c))
     _neg = np.tensordot(_Nb, _Eb, axes=((0),(0)))
     error = np.linalg.norm(_neg - neg)
-    assert(error < epsilon)
-    #
-    # Verify that the negative particle states have been updated
-    #
-    N = rbm.session.run(rbm.tf.N)
-    error = np.linalg.norm(_Nb - N)
     assert(error < epsilon)
     
 #
@@ -351,6 +346,6 @@ def test_tc7():
     _b = rbm.b + _db
     _c = rbm.c + _dc
     W, b, c = rbm.session.run([rbm.tf.W, rbm.tf.b, rbm.tf.c])
-    assert(np.linalg.norm(W - _W) < 0.01)
+    assert(np.linalg.norm(W - _W) < 0.008)
     
     
