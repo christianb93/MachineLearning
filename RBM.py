@@ -331,8 +331,8 @@ if args.run_reconstructions:
     # Sample
     #
     print("Sampling reconstructions")
-    R0 = RBM.sampleFrom(initial = sample, iterations = int(args.sample / 2))
-    R = RBM.sampleFrom(initial = R0, iterations = int(args.sample / 2))
+    R0 = RBM.sampleFrom(initial = sample, iterations = int(args.sample / 2), size=tests)
+    R = RBM.sampleFrom(initial = R0, iterations = int(args.sample / 2), size=tests)
 
     #
     # Display results

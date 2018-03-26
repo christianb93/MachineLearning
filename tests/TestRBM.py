@@ -45,12 +45,42 @@ from scipy.special import expit
 epsilon = 0.000001
 
 #
+# A utility function to get a reference to a variable
+# in the default graph
+#
+def get_variable_by_name(name):
+    return  [v for v in tf.global_variables() if v.name == name]
+    
+    
+#
+# A helper function that will get an operation from the
+# current default graph and run it
+#
+def run_operation(rbm, name, feed_dict=None):
+    #
+    # Get a reference to the operation
+    #
+    op = tf.get_default_graph().get_operation_by_name(name)
+    #
+    # and run it
+    #
+    return rbm.session.run(op.outputs[0], feed_dict= feed_dict)
+    
+#
 # Test model building - this will make sure that
 # everything is syntactically correct
 #
 def test_tc1():
     rbm = RBM.PCDTF.PCDRBM(visible=3, hidden=2, beta = 1.0, particles=1)
     rbm.prepare_training(1, weight_decay = 0.001, total_steps = 10, initial_step_size = 0.05)
+    #
+    # Check that the TensorFlow model parameters have been initialized
+    #
+    N, W, b, c = rbm.session.run([rbm.tf.N, rbm.tf.W, rbm.tf.b, rbm.tf.c])
+    error = np.linalg.norm(W - rbm.W)
+    assert(error < epsilon)
+    error = np.linalg.norm(N - rbm.N)
+    assert(error < epsilon)
 
 
 #
@@ -62,6 +92,8 @@ def test_tc2():
     #
     rbm = RBM.PCDTF.PCDRBM(visible=3, hidden=2, beta = 1.0, particles=1)
     rbm.prepare_training(1, weight_decay = 0.001, total_steps = 10, initial_step_size = 0.05)
+    tf.summary.FileWriter('/tmp/logs', rbm.session.graph)
+    
     #
     # Prepare input data
     #
@@ -91,7 +123,7 @@ def test_tc3():
     # Run first step of the positive model
     #
     # all_ops = tf.get_default_graph().get_operations()
-    E = rbm.run_operation("positive/E", feed_dict = {rbm.tf.S0 : V})
+    E = run_operation(rbm, "positive/E", feed_dict = {rbm.tf.S0 : V})
     #
     # Check it
     #
@@ -102,7 +134,7 @@ def test_tc3():
     # Now the next step 
     #
     _pos = np.tensordot(V, E, axes=((0),(0)))
-    pos = rbm.run_operation("positive/pos", feed_dict = {rbm.tf.S0 : V})
+    pos = run_operation(rbm, "positive/pos", feed_dict = {rbm.tf.S0 : V})
     error = np.linalg.norm(pos - _pos)
     assert(error < epsilon)
     
@@ -130,7 +162,7 @@ def test_tc4():
     #
     # Now run the first operation - expectation value
     #
-    E = rbm.run_operation("negative/E")
+    E = run_operation(rbm, "negative/E")
     #
     # Check it
     #
@@ -172,7 +204,7 @@ def test_tc5():
     #
     # Now run the first operation - expectation value
     #
-    E = rbm.run_operation("negative/E")
+    E = run_operation(rbm, "negative/E")
     #
     # Check it
     #
@@ -192,12 +224,12 @@ def test_tc5():
     #
     # Next the backward pass
     # 
-    b = rbm.run_operation("b")
+    b = run_operation(rbm, "b")
     assert(np.linalg.norm(b - rbm.b) < epsilon)
-    W = rbm.run_operation("W")
+    W = run_operation(rbm, "W")
     assert(np.linalg.norm(W - rbm.W) < epsilon)
     _P = expit(rbm.beta*(np.matmul(H, np.transpose(rbm.W)) + rbm.b))
-    P = rbm.run_operation("negative/P")
+    P = run_operation(rbm, "negative/P")
     error = np.linalg.norm(P - _P)
     #
     # It turns out that the implementations of expit and
@@ -287,12 +319,17 @@ def test_tc7():
     # Now run one training step. We also retrieve the values of the random variables
     # as well as pos and neg
     #
+    db_op = tf.get_default_graph().get_operation_by_name("delta/db")
+    dc_op = tf.get_default_graph().get_operation_by_name("delta/dc")
+    dW_op = tf.get_default_graph().get_operation_by_name("delta/dW")
     _, ndw, H_U, Nb_U, neg, pos, db, dc, dW = rbm.session.run([rbm.tf.trainingStep,
                                             rbm.tf.norm_dW,
                                             H_U_op.outputs[0], 
                                             Nb_U_op.outputs[0],
                                             rbm.tf.neg, rbm.tf.pos,
-                                            rbm.tf.db, rbm.tf.dc, rbm.tf.dW],
+                                            db_op.outputs[0], 
+                                            dc_op.outputs[0], 
+                                            dW_op.outputs[0]],
                                             feed_dict = {rbm.tf.S0 : V})    
     #
     # Make sure that the global step has been updated
@@ -348,4 +385,126 @@ def test_tc7():
     W, b, c = rbm.session.run([rbm.tf.W, rbm.tf.b, rbm.tf.c])
     assert(np.linalg.norm(W - _W) < 0.008)
     
+#
+# Test sampling
+#
+def test_tc8():
+    #
+    # Create machine
+    #
+    rbm = RBM.PCDTF.PCDRBM(visible=3, hidden=2, beta = 1.0, particles=1)
+    rbm.prepare_training(1, weight_decay = 0.001, total_steps = 10, initial_step_size = 0.05)
+    #
+    # Prepare input data
+    #
+    V = np.zeros(shape=(1,3))
+    V[0,1] = 1
+    #
+    # Now train the model
+    #
+    for _ in range(10):
+        rbm.train(V, iterations=1, epochs=10)
+    #
+    # and sample
+    # 
+    V = rbm.sample(iterations = 5, size=4)
+    assert(V.shape[0] == 4)
+
+
+#
+# Test one sampling step in detail
+#
+def test_tc9():
+    #
+    # Create machine
+    #
+    rbm = RBM.PCDTF.PCDRBM(visible=3, hidden=2, beta = 1.0, particles=1)
+    rbm.prepare_training(1, weight_decay = 0.001, total_steps = 10, initial_step_size = 0.05)
+    #
+    # Prepare input data
+    #
+    V = np.zeros(shape=(1,3))
+    V[0,1] = 1
+    #
+    # Now train the model
+    #
+    for _ in range(10):
+        rbm.train(V, iterations=1, epochs=10)
+    #
+    # Get the parameters
+    #
+    rbm.postTraining()
+    params = rbm.getParameters()
+    _W = params['W']
+    _b = params['b']
+    _c = params['c']
+    initial = np.zeros(shape=(2,3))
+    initial[0,1] = 1
+    #
+    # Build sampling model
+    #
+    tf.reset_default_graph()
+    rbm.build_sampling_model(sample_size=2)
+    #
+    # Prepare session
+    #
+    session = tf.Session()
+    session.run(tf.global_variables_initializer())
+    rbm.tf.V.load(initial, session)
+    rbm.tf.W.load(_W, session)
+    rbm.tf.b.load(_b, session)
+    rbm.tf.c.load(_c, session)
+    #
+    # Get references to the two random variables used for sampling
+    #
+    Vb_U_op = tf.get_default_graph().get_operation_by_name("sampling/Vb_U")
+    H_U_op = tf.get_default_graph().get_operation_by_name("sampling/H_U")
+    _, Vb_U, H_U = session.run([rbm.tf.runGibbsStep, 
+                                Vb_U_op.outputs[0], 
+                                H_U_op.outputs[0]])
+    #
+    # and get result of sampling
+    #
+    V = session.run(rbm.tf.V)
+    #
+    # Now sample one step manually and compare
+    #
+    _E = expit(rbm.beta*(np.matmul(initial, _W) + _c))
+    _H = (H_U <= _E).astype(int)
+    _P  = expit(rbm.beta*(np.matmul(_H, np.transpose(_W)) + _b))
+    _V = (Vb_U <= _P).astype(int)
+    assert(0 == np.linalg.norm(V - _V))
     
+#
+# Test decreasing step size
+#
+def test_tc10():
+    #
+    # Create machine
+    #
+    rbm = RBM.PCDTF.PCDRBM(visible=3, hidden=2, beta = 1.0, particles=1)
+    rbm.prepare_training(1, weight_decay = 0.001, total_steps = 10, initial_step_size = 0.05)
+    #
+    # Prepare input data
+    #
+    V = np.zeros(shape=(1,3))
+    V[0,1] = 1
+    #
+    # Now train the model - run 2 of 10 iterations
+    # in one epoch
+    #
+    rbm.train(V, iterations=2, epochs=5, step = 0.1)
+    #
+    # Check global_step
+    #
+    global_step_v =  [v for v in tf.global_variables() if v.name == "globalStep:0"][0]
+    global_step = rbm.session.run(global_step_v)
+    #
+    # Get step size currently used
+    #
+    step = run_operation(rbm, "delta/step")
+    #
+    # The call to run has set this to the new value corresponding to global_step
+    #
+    _step = 0.05 * (1.0 - (1.0*global_step)/(1.0*5*2))
+    assert(np.abs(step - _step) < epsilon)
