@@ -35,6 +35,13 @@ from scipy.special import expit
 
 class BaseRBM:
     
+    
+    #
+    # Call this after the training has completed
+    #
+    def postTraining(self):
+        pass
+        
     #
     # Run one step in a Gibbs sampling Markov chain. 
     # We sample the hidden units from the visible
@@ -99,5 +106,21 @@ class BaseRBM:
                 ax.set_yticks([],[])
                 ax.set_xticks([],[])
     
+    #
+    # Retrieve the weights and parameters
+    #
+    def getParameters(self):
+        params = {}
+        params['W'] = self.W
+        params['b'] = self.b
+        params['c'] = self.c
+        return params
         
+    #
+    # Set parameter
+    #
+    def setParameters(self, params):
+        self.W = params['W']
+        self.b = params['b']
+        self.c = params['c']
 

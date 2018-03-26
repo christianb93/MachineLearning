@@ -26,6 +26,10 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# If you want to run this on a machine without X-server,
+# do a
+# export MPLBACKEND="AGG"
 #####################################################
 
 from __future__ import print_function  
@@ -34,8 +38,8 @@ import RBM.CD
 import RBM.PCD
 import RBM.PCDTF
 
-
-
+import pickle
+import socket
 import numpy as np
 import matplotlib.pyplot as plt
 import tempfile
@@ -208,12 +212,14 @@ def get_args():
                     choices=["BAS", "MNIST"],
                     default="BAS",
                     help="Data set")                    
+    parser.add_argument("--load",
+                    default=None)
     args=parser.parse_args()
     return args
 
 
 #
-# Utility function to properly display an array
+# Utility function to display an array
 # as an N x N binary image
 #
 def show_pattern(ax, v):
@@ -254,26 +260,45 @@ else:
 start_time = time.time()
 print("Start time: ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
-
-for e in range(args.epochs):
-    V = TrainingData.get_batch(batch_size = args.batch_size)
-    _dw, _error = RBM.train(V, 
+#
+# If the load parameter has not been specified, train 
+#
+if None == args.load:
+    for e in range(args.epochs):
+        V = TrainingData.get_batch(batch_size = args.batch_size)
+        _dw, _error = RBM.train(V, 
                           iterations=args.iterations, 
                           epochs = args.epochs,
                           step = args.step, 
                           weight_decay=args.weight_decay)
-    dw.append(_dw)
-    if len(_error) > 0:
-        error.append(_error)
+        dw.append(_dw)
+        if len(_error) > 0:
+            error.append(_error)
+    #
+    # Allow the model to finalize the training
+    #
+    RBM.postTraining()
+else:
+    print("Loading parameters from ", args.load)
+    f= open(args.load, "rb")
+    params = pickle.load(f)
+    f.close()
+    RBM.setParameters(params)
 
 end_time = time.time()
 run_time = end_time - start_time
 
 #
-# Get file name
+# Get file name and save model
 #
 if args.save == 1:
     tmp = tempfile.mktemp(dir="/tmp")
+    params = RBM.getParameters()
+    outfile = tmp + "_RBM.param"
+    f= open(outfile, "wb")
+    pickle.dump(params, f)
+    f.close()
+    print("Saved parameters in ", outfile)
 
 #
 # Now test reconstructions
@@ -388,6 +413,8 @@ if args.save == 1:
     print("Run time: ", str(datetime.timedelta(seconds=int(run_time))), file = f)
     if args.run_samples == 1:
         print("Run time sampling: ", str(datetime.timedelta(seconds=int(run_time_sampling))), file=f)    
+    name = socket.gethostname()
+    print("Host: ",  name, file=f)
     f.close()
     print("Saved simulation description and results in ",outfile)
 
