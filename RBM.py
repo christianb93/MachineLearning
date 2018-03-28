@@ -214,6 +214,15 @@ def get_args():
                     help="Data set")                    
     parser.add_argument("--load",
                     default=None)
+    parser.add_argument("--precision",
+                    type=int,
+                    choices=[32,64],
+                    default=32,
+                    help="Floating point precision")
+    parser.add_argument("--sample_size",
+                    type=str,
+                    default="5,5",
+                    help="X,Y: X- and Y-dimension of sampled set of images")
     args=parser.parse_args()
     return args
 
@@ -294,6 +303,7 @@ run_time = end_time - start_time
 if args.save == 1:
     tmp = tempfile.mktemp(dir="/tmp")
     params = RBM.getParameters()
+    params['args'] = args
     outfile = tmp + "_RBM.param"
     f= open(outfile, "wb")
     pickle.dump(params, f)
@@ -376,15 +386,15 @@ if args.show_metrics == 1:
 # Now sample a few images and display them
 #
 if args.run_samples == 1:
-    cols = 5
-    rows = 5
+    cols = int(args.sample_size.split(',')[1])
+    rows = int(args.sample_size.split(',')[0])
     sampling_start_time = time.time()
     print("Sampling ", rows*cols, "images")
     print("Start time: ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     V = RBM.sample(iterations = args.sample, size=rows*cols)
-    fig = plt.figure(figsize=(5,5))
+    fig = plt.figure(figsize=(8,8))
     for i in range(rows*cols):
-        show_pattern(fig.add_subplot(cols,rows,i+1), V[i,:])
+        show_pattern(fig.add_subplot(rows,cols,i+1), V[i,:])
     end_time = time.time()
     run_time_sampling = end_time - sampling_start_time
     

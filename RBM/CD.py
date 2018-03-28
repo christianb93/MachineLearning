@@ -48,14 +48,21 @@ from . import Base
 
 class CDRBM (Base.BaseRBM):
     
-    def __init__ (self, visible = 8, hidden = 3, beta = 1):
+    def __init__ (self, visible = 8, hidden = 3, beta = 1, precision=64):
         self.visible = visible
         self.hidden = hidden
         self.beta = beta
-        self.W = np.random.normal(loc = 0, scale = 0.01, size = (visible, hidden))
-        self.b = np.zeros(shape = (1,visible))
-        self.c = np.zeros(shape = (1,hidden))
+        if precision == 64:
+            self.np_type = np.float64
+        elif precision == 32:
+            self.np_type = np.float32
+        else:
+            raise ValueError("Unsupported precisions")
+        self.W = np.random.normal(loc = 0, scale = 0.01, size = (visible, hidden)).astype(self.np_type)
+        self.b = np.zeros(shape = (1,visible), dtype=self.np_type)
+        self.c = np.zeros(shape = (1,hidden), dtype=self.np_type)
         self.global_step = 0
+        self.precision = precision
         
     #
     # Train the model on a training data mini batch
@@ -90,13 +97,13 @@ class CDRBM (Base.BaseRBM):
             # 
             # Calculate new expectation values
             #
-            Eb = expit(self.beta*(np.matmul(Vb, self.W) + self.c))
+            Eb = expit(self.beta*(np.matmul(Vb, self.W) + self.c), dtype=self.np_type)
             #
             # Calculate contributions of positive and negative phase
             # and update weights and bias
             #
-            pos = np.tensordot(V, E, axes=((0),(0)))
-            neg = np.tensordot(Vb, Eb, axes=((0),(0)))
+            pos = np.tensordot(V, E, axes=((0),(0))).astype(self.np_type)
+            neg = np.tensordot(Vb, Eb, axes=((0),(0))).astype(self.np_type)
             dW = step*self.beta*(pos -neg) / float(batch_size)
             self.W += dW
             self.b += step*self.beta*np.sum(V - Vb, 0) / float(batch_size)

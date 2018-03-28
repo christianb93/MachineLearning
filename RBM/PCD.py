@@ -48,11 +48,18 @@ from . import Base
 
 class PCDRBM (Base.BaseRBM):
     
-    def __init__(self, visible = 8, hidden = 3, particles = 10, beta=2.0):
+    def __init__(self, visible = 8, hidden = 3, particles = 10, beta=2.0, precision=64):
         self.visible= visible
         self.hidden = hidden
         self.beta = beta
         self.particles = particles
+        if precision == 64:
+            self.np_type = np.float64
+        elif precision == 32:
+            self.np_type = np.float32
+        else:
+            raise ValueError("Unsupported precisions")
+        self.precision = precision
         #
         # Initialize weights with a random normal distribution
         #
@@ -65,7 +72,7 @@ class PCDRBM (Base.BaseRBM):
         #
         # Initialize the particles
         #
-        self.N = np.random.randint(low=0, high=2, size=(particles,self.visible))
+        self.N = np.random.randint(low=0, high=2, size=(particles,self.visible)).astype(int)
         self.global_step = 0
         
     #
@@ -103,8 +110,8 @@ class PCDRBM (Base.BaseRBM):
             #
             # and use this to calculate the negative phase
             # 
-            Eb = expit(self.beta*(np.matmul(self.N, self.W) + self.c))
-            neg = np.tensordot(self.N, Eb, axes=((0),(0)))
+            Eb = expit(self.beta*(np.matmul(self.N, self.W) + self.c), dtype=self.np_type)
+            neg = np.tensordot(self.N, Eb, axes=((0),(0))).astype(self.np_type)
             #
             # Now we compute the positive phase. We need the
             # expectation values of the hidden units

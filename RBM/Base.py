@@ -52,14 +52,14 @@ class BaseRBM:
         #
         # Sample hidden units from visible units
         #      
-        E = expit(self.beta*(np.matmul(V, self.W) + self.c))
-        U = np.random.random_sample(size=(size, self.hidden))
+        E = expit(self.beta*(np.matmul(V.astype(int), self.W) + self.c), dtype=self.np_type)
+        U = np.random.random_sample(size=(size, self.hidden)).astype(self.np_type)
         H = (U <= E).astype(int)
         #
         # and now sample visible units from hidden units
         #
-        P = expit(self.beta*(np.matmul(H, np.transpose(self.W)) + self.b))
-        U = np.random.random_sample(size=(size, self.visible))
+        P = expit(self.beta*(np.matmul(H, np.transpose(self.W)) + self.b), dtype=self.np_type)
+        U = np.random.random_sample(size=(size, self.visible)).astype(self.np_type)
         return (U <= P).astype(int), E
 
     #
@@ -74,7 +74,7 @@ class BaseRBM:
     # initial value
     #
     def sampleFrom(self, initial, iterations = 100, size = 1):
-        V = initial
+        V = initial.astype(int)
         for i in range(iterations):
             V, _ = self.runGibbsStep(V, size = size)
             if (iterations > 1000):
@@ -120,7 +120,7 @@ class BaseRBM:
     # Set parameter
     #
     def setParameters(self, params):
-        self.W = params['W']
-        self.b = params['b']
-        self.c = params['c']
+        self.W = params['W'].astype(self.np_type)
+        self.b = params['b'].astype(self.np_type)
+        self.c = params['c'].astype(self.np_type)
 

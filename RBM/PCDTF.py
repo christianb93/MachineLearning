@@ -56,25 +56,34 @@ class PCDRBM (Base.BaseRBM):
     #
     def bernoulli(self, E, name):
         return tf.nn.relu(tf.sign(E - tf.random_uniform(tf.shape(E), 
-                                                        dtype=tf.float64, 
+                                                        dtype=self.tf_type, 
                                                         minval=0, maxval=1.0, name = name + "_U")), 
                                                         name = name)
+                                                        
     
     
-    def __init__(self, visible = 8, hidden = 3, particles = 10, beta=2.0):
+    def __init__(self, visible = 8, hidden = 3, particles = 10, beta=2.0, precision = 64):
         self.visible= visible
         self.hidden = hidden
         self.beta = beta
         self.particles = particles
+        if precision == 64:
+            self.np_type = np.float64
+            self.tf_type = tf.float64
+        elif precision == 32:
+            self.np_type = np.float32
+            self.tf_type = tf.float32
+        else:
+            raise ValueError("Unsupported precision")
         #
         # Initialize weights with a random normal distribution
         #
-        self.W = np.random.normal(loc=0.0, scale=0.01, size=(visible, hidden))
+        self.W = np.random.normal(loc=0.0, scale=0.01, size=(visible, hidden)).astype(self.np_type)
         #
         # set bias to zero
         # 
-        self.b = np.zeros(dtype=float, shape=(1, visible))
-        self.c = np.zeros(dtype=float, shape=(1, hidden))
+        self.b = np.zeros(shape=(1, visible), dtype=self.np_type)
+        self.c = np.zeros(shape=(1, hidden), dtype = self.np_type)
         #
         # Initialize the particles
         #
@@ -89,9 +98,10 @@ class PCDRBM (Base.BaseRBM):
     def build_particle_model(self, batch_size, W, b, c):
         with tf.name_scope("negative") as scope:
             N = tf.get_variable(name="N",
-                            dtype=tf.float64,
+                            dtype=self.tf_type,
                             shape=[self.particles, self.visible],
-                            initializer = tf.zeros_initializer())
+                            initializer = tf.zeros_initializer(),
+                            trainable=False)
             self.tf.N = N
             E = tf.sigmoid(self.beta*(tf.matmul(N, W) + c), 
                             name="E")
@@ -132,28 +142,31 @@ class PCDRBM (Base.BaseRBM):
         #
         # Global step
         #
-        globalStep = tf.get_variable(name="globalStep", shape=[], initializer=tf.zeros_initializer())
+        globalStep = tf.get_variable(name="globalStep", shape=[], initializer=tf.zeros_initializer(), dtype=self.tf_type)
         #
         # The input batch
         #
-        self.tf.S0 = tf.placeholder(name="S0", dtype=tf.float64, shape=[batch_size, self.visible])
+        self.tf.S0 = tf.placeholder(name="S0", shape=[batch_size, self.visible], dtype=self.tf_type)
         #
         # Weights and bias vectors
         #
         W = tf.get_variable(name="W", 
-                        dtype=tf.float64, 
+                        dtype=self.tf_type, 
                         shape=[self.visible, self.hidden],
-                        initializer = tf.zeros_initializer())
+                        initializer = tf.zeros_initializer(),
+                        trainable=False)
         self.tf.W = W
         b = tf.get_variable(name="b", 
-                        dtype=tf.float64, 
+                        dtype=self.tf_type, 
                         shape=[1, self.visible],
-                        initializer = tf.zeros_initializer())
+                        initializer = tf.zeros_initializer(),
+                        trainable=False)
         self.tf.b = b
         c = tf.get_variable(name="c", 
-                        dtype=tf.float64, 
+                        dtype=self.tf_type, 
                         shape=[1, self.hidden],
-                        initializer = tf.zeros_initializer())
+                        initializer = tf.zeros_initializer(),
+                        trainable=False)
         self.tf.c = c
         #
         # Now we build the model that is responsible for the particles
@@ -167,7 +180,7 @@ class PCDRBM (Base.BaseRBM):
         # Bias and weight updates
         #
         with tf.name_scope("delta") as scope:
-            step = tf.cast(initial_step_size * (1.0 - (1.0*globalStep)/(1.0*total_steps)), dtype=tf.float64, name="step")
+            step = tf.multiply(self.np_type(initial_step_size), tf.cast(1.0 - (1.0*globalStep)/(1.0*total_steps), dtype=self.tf_type), name="step")
             dc = tf.multiply(self.beta * step, tf.reduce_sum(E - Eb, 0) / float(batch_size), name="dc")
             db = tf.multiply(self.beta * step, tf.reduce_sum(S - Nb, 0) / float(batch_size), name="db")
             dW = tf.multiply(step, (self.beta*(pos -neg) - weight_decay*W)  / float(batch_size), name="dW")
@@ -298,17 +311,20 @@ class PCDRBM (Base.BaseRBM):
         with tf.name_scope("sampling") as scope:
             self.tf = collections.namedtuple("tf", [])
             W = tf.get_variable(name="W", 
-                            dtype=tf.float64, 
+                            dtype=self.tf_type, 
                             shape=[self.visible, self.hidden],
-                            initializer = tf.zeros_initializer())
+                            initializer = tf.zeros_initializer(),
+                            trainable=False)
             b = tf.get_variable(name="b", 
-                            dtype=tf.float64, 
+                            dtype=self.tf_type, 
                             shape=[1, self.visible],
-                            initializer = tf.zeros_initializer())
+                            initializer = tf.zeros_initializer(),
+                            trainable=False)
             c = tf.get_variable(name="c", 
-                            dtype=tf.float64, 
+                            dtype=self.tf_type, 
                             shape=[1, self.hidden],
-                            initializer = tf.zeros_initializer())
+                            initializer = tf.zeros_initializer(),
+                            trainable=False)
             self.tf.W = W
             self.tf.b = b
             self.tf.c = c
@@ -316,9 +332,10 @@ class PCDRBM (Base.BaseRBM):
             # The state of the visible units
             #
             self.tf.V = tf.get_variable(name="V", 
-                                    dtype=tf.float64, 
+                                    dtype=self.tf_type, 
                                     shape=[sample_size, self.visible],
-                                    initializer = tf.zeros_initializer())        
+                                    initializer = tf.zeros_initializer(),
+                                    trainable=False)        
             #
             # Now we can build the actual model for the Gibbs sampling steps
             #
