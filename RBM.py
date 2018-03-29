@@ -51,13 +51,6 @@ import datetime
 from sklearn.datasets import fetch_mldata
 
 
-#
-# Only import tensorflow if really needed
-#
-get_args()
-if args.algorithm == "PCDTF":
-    import RBM.PCDTF
-
 
 #
 # Utility class to generate a pattern from the bars-and-stripes
@@ -251,6 +244,14 @@ def show_pattern(ax, v):
 # Main
 #
 ####################################################
+
+#
+# Only import tensorflow if really needed
+#
+args=get_args()
+if args.algorithm == "PCDTF":
+    import RBM.PCDTF
+
 
 print("Parameter: ", args)
 #
