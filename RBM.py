@@ -34,9 +34,11 @@
 
 from __future__ import print_function  
 
+
+
 import RBM.CD
 import RBM.PCD
-import RBM.PCDTF
+
 
 import pickle
 import socket
@@ -48,6 +50,13 @@ import time
 import datetime
 from sklearn.datasets import fetch_mldata
 
+
+#
+# Only import tensorflow if really needed
+#
+get_args()
+if args.algorithm == "PCDTF":
+    import RBM.PCDTF
 
 
 #
@@ -243,7 +252,6 @@ def show_pattern(ax, v):
 #
 ####################################################
 
-args = get_args()
 print("Parameter: ", args)
 #
 # Create sample set

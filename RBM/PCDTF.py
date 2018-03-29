@@ -221,7 +221,6 @@ class PCDRBM (Base.BaseRBM):
             #
             # Build model
             #
-            print("Building model")
             self.build_training_model(batch_size=batch_size, weight_decay = weight_decay, total_steps = total_steps, initial_step_size = initial_step_size)
             #
             # Create a session
