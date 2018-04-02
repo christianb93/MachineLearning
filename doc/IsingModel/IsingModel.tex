@@ -203,7 +203,7 @@ P(x_i | \{ x_j \}_{j \neq i})
 $$
 Then we update $x_i$ to $x_i'$ and continue with the next randomly chosen coordinate. 
 
-We have seen that a Gibbs sampler is a special case of a Metropolis-Hastings algorithm, and most of the theoretical considerations available for the Metropolis-Hastings algorithm apply for this special case as well. We will not go further into detail, but refer the reader to e.g. \cite{RobertCasella1999} section 7.1 for convergence conditions. 
+it is known that a Gibbs sampler is a special case of a Metropolis-Hastings algorithm, and most of the theoretical considerations available for the Metropolis-Hastings algorithm apply for this special case as well. We will not go further into detail, but refer the reader to e.g. \cite{RobertCasella1999} section 7.1 for convergence conditions. 
 
 This method is particularly useful if the conditional distribution is easy to calculate and easy to sample. To apply this to our Ising model, we therefore need to calculate this distribution.
 
@@ -257,7 +257,7 @@ P(s_i = 1 | \{ s_j\}_{j \neq i}) & = \frac{P(s_i^+)}{P(\{ s_j\}_{j \neq i})} \\
 &= \frac{P(s_i^+)}{P(s_i^+) + P(s_i^-)} = \frac{p}{1 + p} \\
 &= \frac{1}{1 + e^{\beta \Delta E}} = \sigma(-\beta \Delta E)
 \end{align*}
-where again $\sigma$ is the sigmoid function that we have already studied in the context of the logistic regression model. We thus find that
+where again $\sigma$ is the {\em sigmoid function} that readers familiar with neuronal networks have probably seen before and that appears very naturally in this context. We thus find that
 \begin{align}\label{eq:gibbsconditionalprobability}
 P(s_i = 1 | \{ s_j\}_{j \neq i}) = \sigma(2 \beta ( \langle J_i, s \rangle + h_i))
 \end{align}
