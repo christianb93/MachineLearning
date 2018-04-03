@@ -1,6 +1,6 @@
 # MachineLearning
 
-This repository contains code samples and supporting documentation for the series on machine learning and AI on my blog [leftasexercise](www.leftasexercise.com). Specifically, you will find the following ressources here.
+This repository contains code samples and supporting documentation for the series on machine learning and AI on my blog www.leftasexercise.com. Specifically, you will find the following ressources here.
 
 * An implementation of a **restricted Boltzmann machine (RBM)** in the RBM subdirectory, supporing different algorithms (ordinary contrastive divergence and persistent contrastive divergence (PCD)) as well as pure Python executing on a CPU and TensorFlow executing on a GPU (PCD only at the moment)
 * A Python implementation of an **Ising model simulation**
