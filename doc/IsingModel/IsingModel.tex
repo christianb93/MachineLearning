@@ -203,7 +203,7 @@ P(x_i | \{ x_j \}_{j \neq i})
 $$
 Then we update $x_i$ to $x_i'$ and continue with the next randomly chosen coordinate. 
 
-it is known that a Gibbs sampler is a special case of a Metropolis-Hastings algorithm, and most of the theoretical considerations available for the Metropolis-Hastings algorithm apply for this special case as well. We will not go further into detail, but refer the reader to e.g. \cite{RobertCasella1999} section 7.1 for convergence conditions. 
+It is known that a Gibbs sampler is a special case of a Metropolis-Hastings algorithm, and most of the theoretical considerations available for the Metropolis-Hastings algorithm apply for this special case as well. We will not go further into detail, but refer the reader to e.g. \cite{RobertCasella1999} section 7.1 for convergence conditions. 
 
 This method is particularly useful if the conditional distribution is easy to calculate and easy to sample. To apply this to our Ising model, we therefore need to calculate this distribution.
 
