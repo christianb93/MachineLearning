@@ -141,7 +141,7 @@ R_{ij} =
 0 & \text{otherwise}
 \end{cases}
 $$
-Conversely, given a matrix $R$ which we hold fixed, it is likewise easy to minimize $\mu_j$. As there are no further constraints on $\mu_j$, we can find the mimimum by differentiating the loss function. We find that the derivative is zero if and only if
+Conversely, given a matrix $R$ which we hold fixed, it is likewise easy to minimize $\mu_j$. As there are no further constraints on $\mu_j$, we can find the minimum by differentiating the loss function. We find that the derivative is zero if and only if
 $$
 0 = \sum_i R_{ij}(x_i - \mu_j)
 $$
@@ -164,7 +164,7 @@ From our discussion above, it is clear that each full iteration of this procedur
 \label{fig:KMeans}
 \end{figure}
 
-Diagram \ref{fig:KMeans} shows the result of applying this algorithm to a set of points that is organized in two clusters. To generate the data, 100 samples were drawn from 2-dimensional Gaussian distributions. On the left hand side, approximately half of the the samples were centered at the point $(5,1)$, the samples at $(1,4)$, and both had standard deviation $0.6$. On the left hand side, the same centres were used, but only a small number of samples were drawn from the second distribution which had standard deviation $0.5$, whereas most samples came from the first distribution with standard deviation $0.8$. Then 10 iterations of the k-means algorithm were applied to the resulting sample set. The points in the sample were then plotted with a color indicating the assignment to clusters resulting from the matrix $R$. The actual cluster from which the sample was drawn is indicated by the shape - a point is cluster one, a diamond is cluster two.
+Diagram \ref{fig:KMeans} shows the result of applying this algorithm to a set of points that is organized in two clusters. To generate the data, 100 samples were drawn from 2-dimensional Gaussian distributions. On the left hand side, approximately half of the the samples were centered at the point $(5,1)$, the other samples at $(1,4)$, and both had standard deviation $0.6$. On the right hand side, the same centers were used, but only a small number of samples were drawn from the second distribution which had standard deviation $0.5$, whereas most samples came from the first distribution with standard deviation $0.8$. Then 10 iterations of the k-means algorithm were applied to the resulting sample set. The points in the sample were then plotted with a color indicating the assignment to clusters resulting from the matrix $R$. The actual cluster from which the sample was drawn is indicated by the shape - a point is cluster one, a diamond is cluster two.
 
 We see that in the example on the left hand side, the algorithm has correctly assigned all points to their original cluster. For the example on the right hand side, the situation is different - the algorithm did actually assign significantly more points to the blue cluster, i.e. there are many wrong assignments (blue points). This does not change substantially if we increase the number of iterations, even with 100 iterations, we still see many wrong assigments for this example.
 

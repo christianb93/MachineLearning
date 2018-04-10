@@ -78,6 +78,10 @@ def get_sample(M, p, stddev, size=10):
     X = []
     T = []
     for i in range(size):
+        #
+        # First determine the cluster by drawing
+        # from the distribution given by p
+        #
         k = draw(p) - 1
         T.append(k)
         #
@@ -200,3 +204,4 @@ plot_clusters(S,R, T, ax_bad)
 
 #fig.savefig("KMeans.png")
 
+plt.show()
