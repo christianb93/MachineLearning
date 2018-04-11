@@ -39,7 +39,6 @@ from __future__ import print_function
 import RBM.CD
 import RBM.PCD
 
-
 import pickle
 import socket
 import numpy as np
@@ -116,7 +115,7 @@ class TrainingData:
                 raise ValueError("Please use N = 28 for the MNIST data set")
             try:
                 mnist = fetch_mldata('MNIST original')
-            except urllib2.HTTPError as ex:
+            except:
                 print("Could not download MNIST data from mldata.org, trying alternative...")
 
                 # Alternative method to load MNIST, if mldata.org is down 
