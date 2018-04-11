@@ -50,9 +50,7 @@ import time
 import datetime
 from sklearn.datasets import fetch_mldata
 
-
-from shutil import copyfileobj
-from six.moves import urllib
+import urllib.request
 from sklearn.datasets.base import get_data_home
 import os
 
@@ -119,20 +117,19 @@ class TrainingData:
             if (N != 28):
                 raise ValueError("Please use N = 28 for the MNIST data set")
             try:
-                mnist = fetch_mldata('MNIST original')
+                mnist = fetch_mldata('MNIST originalss')
             except:
                 print("Could not download MNIST data from mldata.org, trying alternative...")
-
                 mnist_alternative_url = "https://github.com/amplab/datascience-sp14/raw/master/lab7/mldata/mnist-original.mat"
-                data_home = get_data_home(data_home=data_home)
+                data_home = get_data_home(data_home=None)
                 data_home = os.path.join(data_home, 'mldata')
                 if not os.path.exists(data_home):
                     os.makedirs(data_home)
                 mnist_save_path = os.path.join(data_home, "mnist-original.mat")
                 if not os.path.exists(mnist_save_path):
-                    mnist_url = urllib.request.urlopen(mnist_alternative_url)
-                with open(mnist_save_path, "wb") as matlab_file:
-                    copyfileobj(mnist_url, matlab_file)
+                    print("Downloading from ", mnist_alternative_url)
+                    urllib.request.urlretrieve(mnist_alternative_url, mnist_save_path)
+                print("Now calling fetch_mldata once more")
                 mnist = fetch_mldata('MNIST original')
             label = mnist['target']
             mnist = mnist.data
