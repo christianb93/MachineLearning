@@ -39,6 +39,7 @@ from __future__ import print_function
 import RBM.CD
 import RBM.PCD
 
+import urllib
 import pickle
 import socket
 import numpy as np
