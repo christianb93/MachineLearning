@@ -303,14 +303,14 @@ $$
 $$
 This step is called the {\em maximization step}. We then repeat this procedure with $\Theta^{(t+1)}$ in place of $\Theta^{(t)}$ and so forth. The corollary above will then guarantee that the log likelihood is non-decreasing with every step of the algorithm. Of course, this does not imply that the sequence $\Theta^{(t)}$ converges nor does it imply that we reach a global maximum. Some additional conditions are needed for this, and we refer the reader to \cite{Dempster77} and \cite{RobertCasella1999} for some examples for conditions that guarantee convergence. In practice, the algorithm is usually applied until the change of the likelihood drops below a certain threshold or until a certain number of iterations has been completed.
 
-As an example where the EM algorithm turns out to be useful, let us return to the problem of a mixture of Gaussians and let us try to derive an expression for $Q$. Here the parameter $\Theta$ is given by 
-$$
-\Theta = (\mu, \pi, \Sigma)
-$$
-We consider a random variable $X$ which has $N$ components, each of which being a vector $X_n$ in a $d$-dimensional space. Similarly, $Z$ consists of $N$ components $z_n$ which again are subject to the restriction that only one of the $z_{nk}$ be different from zero. We assume that the joint representation of our model is given by
-$$
-P(x , z) = \prod_n \prod_k \pi_k^{z_{nk}}{\mathcal N} (x_n, \mu_k , \Sigma_k)^{z_{nk}}
-$$
+	As an example where the EM algorithm turns out to be useful, let us return to the problem of a mixture of Gaussians and let us try to derive an expression for $Q$. Here the parameter $\Theta$ is given by 
+	$$
+	\Theta = (\mu, \pi, \Sigma)
+	$$
+	We consider a random variable $X$ which has $N$ components, each of which being a vector $X_n$ in a $d$-dimensional space. Similarly, $Z$ consists of $N$ components $z_n$ which again are subject to the restriction that only one of the $z_{nk}$ be different from zero. We assume that the joint representation of our model is given by
+	$$
+	P(x , z) = \prod_n \prod_k \pi_k^{z_{nk}}{\mathcal N} (x_n, \mu_k , \Sigma_k)^{z_{nk}}
+	$$
 from which we immediately obtain by integrating over all $x_n$ and applying Fubinis theorem that
 $$
 P(z) = \prod_n \prod_k \pi_k^{z_{nk}} = \prod_n P(z_n)
@@ -361,7 +361,7 @@ so that we obtain
 \begin{align}\label{eq:maxlikelihoodmixturecentres}
 \mu'_k = \frac{\sum_n r_{nk} x_n}{\sum_n r_{nk}}
 \end{align}
-This starts to look familiar - this is the same expression that we did obtain for the cluster centres for the k-means algorithm! In fact, if we arrrange the $r_{nk}$ as a matrix, the denominator is the sum across column $k$ and the numerators is the weighted sum over all data points. However, there is one important difference - it is no longer true that given $n$, only one of the $r_{nk}$ will be different from one. Instead, the $r_{nk}$ are {\em soft assignments} that model the probability that the data point $x_n$ belongs to cluster $k$. 
+This starts to look familiar - this is the same expression that we did obtain for the cluster centers for the k-means algorithm! In fact, if we arrange the $r_{nk}$ as a matrix, the denominator is the sum across column $k$ and the numerators is the weighted sum over all data points. However, there is one important difference - it is no longer true that given $n$, only one of the $r_{nk}$ will be different from one. Instead, the $r_{nk}$ are {\em soft assignments} that model the probability that the data point $x_n$ belongs to cluster $k$. 
 
 No let us consider the derivatives with respect to $\Sigma_k$. This is a bit more complicated, and to organize the calculations, we need the following 
 
@@ -496,7 +496,7 @@ so that our solution will be
 \begin{align}\label{eq:maxlikelihoodmixturepi}
 \pi'_k = \frac{N_k}{N}
 \end{align}
-Again, this is intuitively very appealing -the probability to be in cluster $k$ is updated to be the number of points with a soft assignment to $k$ divided by the total number of assignments.
+Again, this is intuitively very appealing - the probability to be in cluster $k$ is updated to be the number of points with a soft assignment to $k$ divided by the total number of assignments.
 
 Having completed these rather lengthy calculations, we are now able to combine corollary \ref{cor:emalgorithm} and the equations \eqref{eq:maxlikelihoodmixturecentres}, \eqref{eq:maxlikelihoodmixturepi} and \eqref{eq:maxlikelihoodmixturesigma} into the {\em EM algorithm for Gaussian mixtures} (see algorithm \ref{lst:emgaussianmixture})
 
