@@ -116,7 +116,7 @@ class TrainingData:
                 raise ValueError("Please use N = 28 for the MNIST data set")
             try:
                 mnist = fetch_mldata('MNIST original')
-            except urllib.error.HTTPError as ex:
+            except urllib2.HTTPError as ex:
                 print("Could not download MNIST data from mldata.org, trying alternative...")
 
                 # Alternative method to load MNIST, if mldata.org is down 
