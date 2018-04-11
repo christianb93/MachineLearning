@@ -39,7 +39,7 @@ from __future__ import print_function
 import RBM.CD
 import RBM.PCD
 
-import urllib
+
 import pickle
 import socket
 import numpy as np
@@ -51,6 +51,10 @@ import datetime
 from sklearn.datasets import fetch_mldata
 
 
+from shutil import copyfileobj
+from six.moves import urllib
+from sklearn.datasets.base import get_data_home
+import os
 
 #
 # Utility class to generate a pattern from the bars-and-stripes
@@ -119,22 +123,17 @@ class TrainingData:
             except:
                 print("Could not download MNIST data from mldata.org, trying alternative...")
 
-                # Alternative method to load MNIST, if mldata.org is down 
-                from scipy.io import loadmat
                 mnist_alternative_url = "https://github.com/amplab/datascience-sp14/raw/master/lab7/mldata/mnist-original.mat"
-                mnist_path = "./mnist-original.mat"
-                response = urllib.request.urlopen(mnist_alternative_url)
-                with open(mnist_path, "wb") as f:
-                    content = response.read()
-                    f.write(content)
-                mnist_raw = loadmat(mnist_path)
-                mnist = {
-                    "data": mnist_raw["data"].T,
-                    "target": mnist_raw["label"][0],
-                    "COL_NAMES": ["label", "data"],
-                "DESCR": "mldata.org dataset: mnist-original",
-                }
-                print("Success!")
+                data_home = get_data_home(data_home=data_home)
+                data_home = os.path.join(data_home, 'mldata')
+                if not os.path.exists(data_home):
+                    os.makedirs(data_home)
+                mnist_save_path = os.path.join(data_home, "mnist-original.mat")
+                if not os.path.exists(mnist_save_path):
+                    mnist_url = urllib.request.urlopen(mnist_alternative_url)
+                with open(mnist_save_path, "wb") as matlab_file:
+                    copyfileobj(mnist_url, matlab_file)
+                mnist = fetch_mldata('MNIST original')
             label = mnist['target']
             mnist = mnist.data
             mnist = ((mnist / 255.0) + 0.5).astype(int)
