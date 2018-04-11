@@ -225,6 +225,10 @@ def get_args():
                     type=str,
                     default="5,5",
                     help="X,Y: X- and Y-dimension of sampled set of images")
+    parser.add_argument("--tmpdir", 
+                    type=str,
+                    default="/tmp",
+                    help="Directory to use for storing results")
     args=parser.parse_args()
     return args
 
@@ -310,7 +314,7 @@ run_time = end_time - start_time
 # Get file name and save model
 #
 if args.save == 1:
-    tmp = tempfile.mktemp(dir="/tmp")
+    tmp = tempfile.mktemp(dir=args.tmpdir)
     params = RBM.getParameters()
     params['args'] = args
     outfile = tmp + "_RBM.param"
