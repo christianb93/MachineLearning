@@ -192,11 +192,11 @@ P(x , k) = {\mathcal N}(x ; \mu_k, \Sigma_k) \pi_k
 $$
 We interpret $\pi(k)$ as the probability to be in cluster $k$ and ${\mathcal N}(x ; \mu_k, \Sigma_k)$ as the probability distribution given the assignment to cluster $k$. In particular, we can sample from this distribution by first drawing a cluster $k$ with probability $\pi_k$ and then drawing $x$ from the distribution ${\mathcal N}(x ; \mu_k, \Sigma_k)$ (this approach to sampling by using conditional distributions is sometimes called {\em ancestral sampling}).
 
-Let us now see how this equation looks like if we use a 1-of-K encoding or {\em one-hot} encoding. We introduce a random variable $Z$ that takes values in $\{ 0, 1\}^K$ with the additional constraint that only of of the $Z_k$ is allowed to be different from zero. We interpret $\pi_k$ as the probability 
+Let us now see how this equation looks like if we use a 1-of-K encoding or {\em one-hot} encoding. We introduce a random variable $Z$ that takes values in $\{ 0, 1\}^K$ with the additional constraint that only one of the $Z_k$ is allowed to be different from zero. We interpret $\pi_k$ as the probability 
 $$
 \pi_k = P(Z_k = 1)
 $$
-and assume that the $Z_k$ are independent. Then
+Then
 $$
 P(Z = z) = \prod_k \pi_k ^{z_k}
 $$
