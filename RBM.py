@@ -48,7 +48,7 @@ import tempfile
 import argparse
 import time
 import datetime
-from sklearn.datasets import fetch_mldata
+from sklearn.datasets import fetch_openml
 
 import urllib.request
 from sklearn.datasets.base import get_data_home
@@ -69,13 +69,9 @@ class BAS:
         # Create a 4x4 matrix out of the bars-and-stripes
         # collection
         #
-        values = np.zeros((self.N,1))
-        for i in range(self.N):
-            values[i] = (number >> i) % 2
-        if (orientation == 0):
-            return np.matmul(values, np.ones((1,self.N)))
-        else:
-            return np.transpose(np.matmul(values, np.ones((1,self.N))))
+        values = np.asarray([(number >> i) % 2 for i in range(self.N)]).reshape(self.N, 1)
+        tmp = np.matmul(values, np.ones((1,self.N)))
+        return tmp if orientation == 0 else np.transpose(tmp)
         
     def createVector(self, orientation = 0, number = 0):
         M = self.createMatrix(orientation = orientation, number = number)
@@ -117,7 +113,7 @@ class TrainingData:
             if (N != 28):
                 raise ValueError("Please use N = 28 for the MNIST data set")
             try:
-                mnist = fetch_mldata('MNIST originalss')
+                mnist = fetch_openml('mnist_784')
             except:
                 print("Could not download MNIST data from mldata.org, trying alternative...")
                 mnist_alternative_url = "https://github.com/amplab/datascience-sp14/raw/master/lab7/mldata/mnist-original.mat"
@@ -129,9 +125,10 @@ class TrainingData:
                 if not os.path.exists(mnist_save_path):
                     print("Downloading from ", mnist_alternative_url)
                     urllib.request.urlretrieve(mnist_alternative_url, mnist_save_path)
-                print("Now calling fetch_mldata once more")
-                mnist = fetch_mldata('MNIST original')
-            label = mnist['target']
+                print("Now calling fetch_openml once more")
+                mnist = fetch_openml('mnist_784')
+            print("MNIST data downloaded")
+            label = np.asarray(list(map(int, mnist['target'])))
             mnist = mnist.data
             mnist = ((mnist / 255.0) + 0.5).astype(int)
             images = []
