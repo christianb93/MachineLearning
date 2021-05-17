@@ -121,7 +121,7 @@
 \tableofcontents
 
 
-\section{Microstates and macrocoscopic quantities}
+\section{Microstates and macroscopic quantities}
 
 Suppose that we want to develop a physical model of a gas. Let us assume that this gas consists of a large number of distinguishable particles (molecules) with an identical behavior, that are confined to some volume $V$ which is large compared to the size of an individual particle, but finite (and might in fact change over time), for instance because the gas is contained in a vessel. Then, one approach to describing the state of this physical system could be to record, at any point in time, the exact position and momentum of each of the particles.
 
@@ -129,7 +129,7 @@ If we know how the particles interact with each other and with the vessel, then 
 
 However, it is obvious that, given the large number of particles in a gas, this approach is in reality useless - we will never be able to actually calculate all the interactions, and even if we had a very powerful computer that could do this, we would not be able to measure the position and momentum of all particles at one specific point in time precisely enough. 
 
-Fortunately, it turns out that in practice, there are some quantities like the temperature,  the volume of the gas and its energy, that we can measure and that follow some empirically derived laws. Thus we could describe the gas at some point in time by specifying these quantities only and see how they develop over time. Such a state is called a {\em macrostate}.
+Fortunately, it turns out that in practice, there are some quantities like the temperature,  the volume of the gas and its energy, that we can measure and that follow some empirically derived laws. Thus we could describe the gas at some point in time by specifying these quantities only and see how they develop over time. Such a state is called a {\em macrostate}. Formally, we could describe a macrostate as the values of a set of functions defined on the space of microstates, one function for each relevant quantity like the energy or the temperature.
 
 Now, in reality, these laws, like the conservation of energy, do not apply in any situation. Instead, they only apply when the system has reached some {\em equilibrium state}. Some of these quantities, like the number of particles or the volume, are {\em extensive quantities}: when we split our system into subsystems (which are still assumed to be large compared to the microscopic scale), these quantities add up. 
 
@@ -137,7 +137,7 @@ Let us now assume that we have, once and for all, picked a set of extensive quan
 $$
 X = (U,V,N)
 $$
-that we use the fully specify the macroscopic state of our system. Now consider a situation where we have two systems, say $\Sigma_1$ and $\Sigma_2$, that are in equilibrium and hence, $X$ is constant over time for each of them if seen in isolation. Let us now bring these two systems together and wait until equilibrium is reached again. Then, we know, as we did assume our macroscopic variables to be extensive, that the energy, number of particles and the volume of the new system in total is simply the sum of the individual quantities. But obviously, the value for the individual systems will have changed. If, for instance, we allow two systems, one with a very high temperature and one with a low temperature, to exchange energy, we expect that in the equilibrium state, the first system will have lost some of its energy which has been absorbed by the second system. So how can we find the new values of $X$ for each of the systems? The answer is closely related to the concept of thermodynamical entropy.
+that we use the fully specify the macroscopic state of our system. Now consider a situation where we have two systems, say $\Sigma_1$ and $\Sigma_2$, that are in equilibrium and hence, $X$ is constant over time for each of them if seen in isolation. Let us now bring these two systems together and wait until equilibrium is reached again. Then, we know, as we did assume our macroscopic variables to be extensive, that the energy, number of particles and the volume of the new system in total is simply the sum of the individual quantities. But obviously, the values for the individual systems will have changed. If, for instance, we allow two systems, one with a very high temperature and one with a low temperature, to exchange energy, we expect that in the equilibrium state, the first system will have lost some of its energy which has been absorbed by the second system. So how can we find the new values of $X$ for each of the systems? The answer is closely related to the concept of thermodynamical entropy.
 
 \section{Entropy}
 
@@ -147,25 +147,25 @@ One way to introduce the entropy is by an maximum principle - we want to be able
 {\em There exists a function - the entropy - of the extensive parameters of any composite system with the following property: the values assumed by the extensive parameters in the equilibrium state in the absence of an internal constraint are those that maximize the entropy among all states allowed by the external constraints. Moreover, the entropy is additive with respect to subsystems. It is differentiable and a (strictly) monotonically increasing function of the total energy}.
 	
 
-To see this principle in action and understand entropy further, let us now conduct a thought experiment. Assume that we have two systems that are initially isolated aganst each other and against the environment and that each of the subsystems is in equilibrium. As the two subsystems cannot interact, the composite system will then also be in equilibrium and will be characterized by extensive quantities like pressure, energy and number of particles.
+To see this principle in action and understand entropy further, let us now conduct a thought experiment. Assume that we have two systems that are initially isolated against each other and against the environment and that each of the subsystems is in equilibrium. As the two subsystems cannot interact, the composite system will then also be in equilibrium and will be characterized by extensive quantities like pressure, energy and number of particles.
 
 We now bring together the two systems such that they are connected by a thin, but rigid wall that allows heat to pass, but cannot be crossed by any particles. As soon as this happens, the system is no longer in equilibrium. In fact, energy in the form of heat can now be exchanged between the systems. We have effectively removed a constraint, i.e. the constraint that the individual energies are fixed, but we still have the constraint imposed on us by the conservation of energy, i.e. the sum of the energies remains constant. Thus the energies of the subsystems will change until the composite system has again reached an equilibrium state that we want to determine.
 
-To apply the principle of maximal entropy, we first have to define a system of coordinates for our {\em configuration space}, i.e. a set of extensive parameters of the system such that their combined value characterizes the system completely. The choice of these coordinates system and the associated state space is crucial. In particular, we need to define how we reflect the existing constraints. In our case, a possible would be to use the individual energies $U_i$ along with the individual particle numbers $N_i$ and the volumes $V_i$. However, if we do this, we still have a constraint, namely $U_1 + U_2 = U$, where $U$ is the total energy of the system that we assume to be a constant. This would restrict the possible trajectories of the system in the configuration space to a submanifold. It is easier to adjust coordinates a bit to better reflect this, so we choose $U, U_1, N_1, N_2, V_1$ and $V_2$. Then the entropy is a function on the configuration space, i.e.
+To apply the principle of maximal entropy, we first have to define a system of coordinates for our {\em configuration space}, i.e. a set of extensive parameters of the system such that their combined value characterizes the system completely. The choice of these coordinates system and the associated state space is crucial. In particular, we need to define how we reflect the existing constraints. In our case, a possible choice would be to use the individual energies $U_i$ along with the individual particle numbers $N_i$ and the volumes $V_i$. However, if we do this, we still have a constraint, namely $U_1 + U_2 = U$, where $U$ is the total energy of the system that we assume to be a constant. This would restrict the possible trajectories of the system in the configuration space to a submanifold. It is easier to adjust coordinates a bit to better reflect this, so we choose $U, U_1, N_1, N_2, V_1$ and $V_2$. Then the entropy is a function on the configuration space, i.e.
 $$
-S = S(U, V_i, N_i)
+S = S(U_1, V_i, N_i)
 $$
 More generally, given an arbitrary composite system, one usually choses the total energy $U$ and some extensive parameters of the systems, denoted by $X_i$, as coordinates for the configuration space. If the energies of all but one subsystem is among the $X_i$, then we can reconstruct all energies, and the conservation of total energy is expressed as the simple constraint $U = const$.
 
  
 To extract useful information from the principle of maximum entropy, we now have to relate the total entropy to the entropies of the two subsystems, and this is were the assumption that the entropy is additive comes into play. Specifically, in this example,
-we have an entropy $S^i$ or each of the subsystems, and additivity implies that
+we have an entropy $S^i$ for each of the subsystems, and additivity implies that
 $$
-S(U_1, N_1, V_1) + S(U - U_1, N_2, V_2)
+S = S^1(U_1, N_1, V_1) + S^2(U - U_1, N_2, V_2)
 $$
-Let us now see what happens if we remove the wall. The principle of maximal entropy tells us that those parameters which are no longer restricted will then settle at a value which maximizes the entropy. In our case, the parameter $U$ is still restricted, but $U_2$ is still restricted, and so are the $N_i$ and the $V_i$. Thus, as function of $U_2$, the entropy will be maximized. Thus
+Let us now see what happens if we remove the wall. The principle of maximal entropy tells us that those parameters which are no longer restricted will then settle at a value which maximizes the entropy. In our case, the parameter $U$ is still restricted, but $U_1$ is free to change, and so are the $N_i$ and the $V_i$. Thus, as function of $U_1$, the entropy will be maximized. Thus
 $$
-0 = \frac{\partial S}{\partial U_2}
+0 = \frac{\partial S}{\partial U_1}
 $$
 at the point of equilibrium. This directly translates into 
 $$
@@ -181,7 +181,7 @@ T = \frac{1}{\beta}
 $$
 the {\em temperature} of the system. Note that this is a partial derivative of the entropy and therefore a function of $U, V$ and $N$. Thus we find that stability is reached when the temperatures of both systems reach the same value - a very appealing result. 
 
-What happens to the entropy in the process of reaching equilibrium? Initially, the entropy is the sum $S_1 + S_2$ of the initial entropies of the individual systems. Our postulate states that after equilibrium has been reached, the entropy will be maximal among all possible states that are compatible with the still existing external constraints. As the initial distribution of the energies is clearly compatible with these constraints, we can conclude that the new entropy is at least $S_1 + S_2$, i.e. the entropy can change in the course of this process, but can never decrease. This is known as the {\em second law of thermodynamics}.
+What happens to the entropy in the process of reaching equilibrium? Initially, the entropy is the sum $S^1 + S^2$ of the initial entropies of the individual systems. Our postulate states that after equilibrium has been reached, the entropy will be maximal among all possible states that are compatible with the still existing external constraints. As the initial distribution of the energies is clearly compatible with these constraints, we can conclude that the new entropy is at least $S_1 + S_2$, i.e. the entropy can change in the course of this process, but can never decrease. This is known as the {\em second law of thermodynamics}.
 
 As part of our postulates, we have assumed that the derivative of $S$ with respect to $U$ is positive, and therefore we can express $U$ as a function of $S$ (and the fixed values for $V$ and $N$). Then of course 
 $$
@@ -272,9 +272,9 @@ However, we have also seen that the relation between entropy and energy for give
 $$
 U = U(S,V,N)
 $$
-and we have used the chain rule to relate the partial derivatives of $U$ with those of $S$. Clearly, $U$ as a function of $S$ contains the same information, as we always revert to $S$ as a function of $U$. In many cases, however, it is more convenient to work with the energy as a primary quantity. This is called the {\em energy representation}, and in this representation, the entropy is a coordinate and the energy a function on the configuration space.
+and we have used the chain rule to relate the partial derivatives of $U$ to those of $S$. Clearly, $U$ as a function of $S$ contains the same information, as we can always revert to $S$ as a function of $U$. In many cases, however, it is more convenient to work with the energy as a primary quantity. This is called the {\em energy representation}, and in this representation, the entropy is a coordinate and the energy a function on the configuration space.
 
-Let us now write down the total differential of the energy $U$, as a function of $S, V$ and $N$. Using what we have learned about the partial derivates of $U$ in the previous section, we find that
+Let us now write down the total differential of the energy $U$, as a function of $S, V$ and $N$. Using what we have learned about the partial derivatives of $U$ in the previous section, we find that
 
 \begin{empheq}[box=\widefbox]{align*}
 dU = T dS - P dV + \mu dN
@@ -364,7 +364,7 @@ We have seen that in the entropy representation, the principle of maximum entrop
 
 We also know that the energy representation is fully equivalent to the entropy representation. Thus it appears natural that there is an extremum principle in the energy representation which is equivalent to the principle of maximum entropy. It turns out that this is in fact the case, and that the equilibrium states are those states that minimize the total energy subject to the existing constraints.
 
-To derive this principle, let us again assume that we are given a system with configuration space $U, X_1, \dots, X_n$ in the entropy representation. We do not make any specific assumptions on the $X_i$, thus they could be any parameters of a composite system, including the energies of subsystems, but we assume that they are unconstrained. The entropy is then a function
+To derive this principle, let us again assume that we are given a system by a configuration space with coordinates $U, X_1, \dots, X_n$ in the entropy representation. We do not make any specific assumptions on the $X_i$, thus they could be any parameters of a composite system, including the energies of subsystems, but we assume that they are unconstrained. The entropy is then a function
 $$
 S = S(U, \{ X_i \})
 $$
@@ -451,20 +451,20 @@ $$
 $$
 But the sum over $i$ and $j$ is nothing but
 $$
-<{\mathcal H}_{X_i} \dot{x}, \dot{x}>
+\langle {\mathcal H}_{X_i} \dot{x}, \dot{x} \rangle 
 $$
-i.e. the Hessian with respect to the $X_i$, applied to the derivatives $\dot{x_i}$. By the maximum entropy principle, this Hessian is, at the equilibrium, negative definite, so the sum is negative (unless $\dot{x}$ which can only happen for a constant curve). We therefore immediately obtain
+i.e. the Hessian with respect to the $X_i$, applied to the derivatives $\dot{x_i}$. By the maximum entropy principle, this Hessian is, at the equilibrium, negative definite, so the sum is negative (unless $\dot{x}= 0$ which can only happen for a constant curve). We therefore immediately obtain
 $$
 \ddot{u}(0) > 0
 $$
-which qualifies the extremum as a minimum., and the proof is complete.
+which qualifies the extremum as a minimum, and the proof is complete.
 
 To summarize, we have demonstrated that in the energy representation, the principle of maximal entropy turns into the principle of minimal energy, which is phrased as follows in \cite{Callen}: {\em the equilibrium of any unconstrained internal parameter is such as to minimize the energy for the given entropy}. 
 
 It is instructive to plot a typical entropy and visualize how this works
 \footnote{
-This is in fact a Python generated version of a by new classical and often copied illustration in \cite{Callen}, which has the advantage that in an interactive Python, one can rotate the surface and zoom into it.
-}. In figure \ref{fig:EntropyPlot}, we have displayed the entropy of the composite system considered in example \ref{ex:idealgascomposite}. The entropy $S$ is plotted along the z-axis, and the grey surface displays the value of the entropy depending on the total energy $U$ and the energy $X$ of the first subsystem. The blue solid lines represent values of the entropy for four different, but fixed values of the entropy. The red dotted line shows those points in the state space that are equilibrium points. Thus we see that given a fixed value of $U$, the point of the blue curve that corresponds to the equilibrium is actually the point with the largest value of $S$ along the curve, which corresponds to the principle of maximum entropy.
+This is in fact a Python generated version of a by now classical and often copied illustration in \cite{Callen}, which has the advantage that in an interactive Python, one can rotate the surface and zoom into it.
+}. In figure \ref{fig:EntropyPlot}, we have displayed the entropy of the composite system considered in example \ref{ex:idealgascomposite}. The entropy $S$ is plotted along the z-axis, and the grey surface displays the value of the entropy depending on the total energy $U$ and the energy $X$ of the first subsystem. The blue solid lines represent values of the entropy for four different, but fixed values of the energy. The red dotted line shows those points in the state space that are equilibrium points. Thus we see that given a fixed value of $U$, the point of the blue curve that corresponds to the equilibrium is actually the point with the largest value of $S$ along the curve, which corresponds to the principle of maximum entropy.
 
 Similary, the dotted blue line represents a curve with a fixed value of $S$, i.e. the intersection of the surface given by the entropy with a plane perpendicular to the $S$-axis. We see that, among the points on this curve, the equilibrium point is the one with the lowest value of the total energy $U$. illustrating the principle of minimum entropy. Thus it is the special shape of the entropy surface that forces these two extremum principles to determine the same point in the configuration space.
 
@@ -483,7 +483,7 @@ Finally, we note that of course, as the energy representation and the entropy re
 
 \section{The maximal work theorem}
 
-To further illustrate the formalism developed so far and to introduce some terminology that we will need in the sequel let us now consider special types of thermodynamical subsystem. 
+To further illustrate the formalism developed so far and to introduce some terminology that we will need in the sequel let us now consider special types of thermodynamical subsystems. 
 
 A {\em reservible work source} is a subsystem which can change its energy only via changes in its geometry. In other words, it is a system surrounded by impermeable (so that the particle number is constant) and adiabatic (so that no heat transfer is possible) walls. Thus the change of energy for this system is
 $$
@@ -527,7 +527,7 @@ where $S$ is the entropy of the primary system and $S_{RHS}$ is the entropy of t
 $$
 dQ_{RHS} \geq - T_{RHS} dS
 $$
-Now we can use the conversation of energy and the fact that the change in energy for the heat source and work source is entirely due to heat and work by definition to obtain
+Now we can use the conservation of energy and the fact that the change in energy for the heat source and work source is entirely due to heat and work by definition to obtain
 $$
 0 = dU_{tot} = dU + dQ_{RHS} + dW_{RWS}
 $$
@@ -638,7 +638,7 @@ $$
 f^*(p) = \sup_{x} \{ px - f(x)\}
 $$
 
-The notation $f^*$ that we have used so far is simple, but not quite adequate for functions of several variables as it does not capture the information to which of the variables we have applied the transform. To rectify this, we use follow \cite{Callen}, and, given a function
+The notation $f^*$ that we have used so far is simple, but not quite adequate for functions of several variables as it does not capture the information to which of the variables we have applied the transform. To rectify this, we follow \cite{Callen}, and, given a function
 $$
 f = f(x_1, \dots, x_n)
 $$
@@ -660,18 +660,18 @@ Consider, for instance, a system for which we have some information on the tempe
 \begin{align}\label{eq:helmholtzenergy}
 F(S,V,N) = -U[S] = U - TS
 \end{align}
-which is called the {\em Helmholtz free energy}. Note that this is not a pure reorganisation of known quantities, but comes with a change of parameters. If we are given a tuple $(T,V,aN)$, we first need to find the entropy $S$ such that 
+which is exactly the {\em Helmholtz free energy} considered before, but now interpreted as a function of $T$, $V$ and $N$. Thus this is not a pure reorganisation of known quantities, but comes with a change of parameters. If we are given a tuple $(T,V,N)$, we first need to find the entropy $S$ such that 
 $$
 \frac{\partial U}{\partial S} | (S,V,N) = T
 $$
-and then use this value to calculate $U$ and $F(S,V,N)$. By the general theory developed above, we can also immediately write down an expression for the total 
+and then use this value to calculate $U$ and $F$. By the general theory developed above, we can also immediately write down an expression for the total 
 differential of $F$:
 $$
 dF = - S dT - PdV + \mu dN
 $$
-We have already seen above that the Helmholtz energy has as interesting physical interpretation: the maximal work that can be delivered by a system connected to a thermal reservoir is the decrease of the Helmholtz energy. In that sense, the Helmholtz energy is the potential of a system to deliver work at fixed temperature, which explains why this quantity is often called the {\em Helmholtz potential}.
+We have already seen above that the Helmholtz energy has an interesting physical interpretation: the maximal work that can be delivered by a system connected to a thermal reservoir is the decrease of the Helmholtz energy. In that sense, the Helmholtz energy is the potential of a system to deliver work at fixed temperature, which explains why this quantity is often called the {\em Helmholtz potential}.
 
-The Helmholtz potential has another important property, which we will now derive. Suppose again that we are considering a system which is in contact with a thermal reservoir of temperature $T$. Consider some process which is quasi-static and in particular keeps the temperature of our system constant and equal to the temperature of the reservoir. Differentiating equation \ref{eq:helmholtzenergy}, interpreted as defining a function of $(U,V,N)$, and restricting to tangent vector along the hypersurfaces of constant temperature so that $dT = 0$, we obtain
+The Helmholtz potential has another important property, which we will now derive. Suppose again that we are considering a system which is in contact with a thermal reservoir of temperature $T$. Consider some process which is quasi-static and in particular keeps the temperature of our system constant and equal to the temperature of the reservoir. Differentiating equation \ref{eq:helmholtzenergy}, interpreted as defining a function of $(U,V,N)$, and restricting to tangent vectors along the hypersurfaces of constant temperature so that $dT = 0$, we obtain
 $$
 dF = - P dV + \mu dN
 $$
@@ -693,7 +693,7 @@ $$
 Let us now suppose that we let the composite system somehow interact with the environment. If this interaction is reversible, so that the total entropy of the system $S_{tot}$ is constant, the left hand side of this equation is zero. This implies that a state minimizes the total energy if and only it is minimizes the Helmholtz potential of the primary subsystem. Thus the results from section \ref{sec:minimalinternalenergy} immediately yield a minimum principle for the Helmholtz energy: {\em the equilibrium state of a system which is in diathermal contact with a thermal reservoir minimizes the Helmholtz potential.}
 
 
-Obviously we apply Legendre transforms to the other extensive variables as well and to combinations of them. Functions obtained in this way are called {\em thermodynamic potentials}. We will not got into further details in this short introduction, but only mention the enthalpy, which is the Legendre transform with respect to the volume, and the Gibbs free energy, which is the Legendre transform with respect to volume and entropy at the same time and given by
+Obviously we can apply Legendre transforms to the other extensive variables as well and to combinations of them. Functions obtained in this way are called {\em thermodynamic potentials}. We will not got into further details in this short introduction, but only mention the enthalpy, which is the Legendre transform with respect to the volume, and the Gibbs free energy, which is the Legendre transform with respect to volume and entropy at the same time and given by
 $$
 G = U - TS + PV
 $$
@@ -739,7 +739,7 @@ That can easily be computed. We have
 $$
 (\frac{\partial P}{\partial V})_{T,N} = - \frac{N k_B T}{(V - bN)^2} + \frac{2aN^2}{V^3}
 $$
-For $a = 0$, corresponding to the case of an ideal gas, this is clearly every negative. This corresponds to a positive value of the compressibility and is what we would expect - when we increase the pressure, the volume will decrease. However, for positive $a$, this derivative can have zeros. This can be an isolated zero, or a multiple zero. The point $(T_c, V_c)$ where a multiple zero occurs, i.e. for which
+For $a = 0$, corresponding to the case of an ideal gas, this is clearly every negative. This corresponds to a positive value of the compressibility and is what we would expect - when we increase the pressure, the volume will decrease. However, for positive $a$, this derivative can have zeros. This can be a simple zero, or a zero of higher order. The point $(T_c, V_c)$ where a multiple zero occurs, i.e. for which
 $$
 (\frac{\partial P}{\partial V})_{T,N}  = 0
 $$
@@ -792,7 +792,7 @@ In figure \ref{fig:VanDerWaals}, we have displayed some of the relations between
 
 The diagram on the left displays the dependency of $P$ on $V$ for four different values of $T$ between 2.9 (lowest line) and 3.3 (highest line). The second line from the top has $T = T_c$. We clearly see that the nature of the lines changes as expected and we introduce zeros of the derivative, i.e. extremal points. 
 
-An example for such a curve (for $T=2.9 = 0.93 T_c$) is displayed in detail in the picture at the right, this time with the axis reverted. We see that, as we expect, the relation between $V$ and $P$ can no longer be reverted, i.e. for one value of $P$, there is more than one matching value of $V$. The zeros of the derivative are marked with red diamonds. The same markers have been added in the diagram at the bottom, which displays the partial derivative
+An example for such a curve (for $T=2.9 = 0.93 T_c$) is displayed in detail in the picture at the right, this time with the axis reverted. We see that, as we expect, the relation between $V$ and $P$ can no longer be inverted, i.e. for one value of $P$, there is more than one matching value of $V$. The zeros of the derivative are marked with red diamonds. The same markers have been added in the diagram at the bottom, which displays the partial derivative
 $$
 \frac{\partial{P}}{\partial V}
 $$
@@ -800,7 +800,7 @@ for $T=2.9$ and $N=1$. In the area between these points (that correspond to an i
 
 Let us take a closer look at the role that the Gibbs energy plays in a phase transition. For that purpose, let us assume that a portion of the gas described by the van der Waals equations is contained in a vessel and let us consider a system that consists of a comparatively small, but fixed number of particles within the vessel, but can change its volume and its internal energy - this could just be a small bubble within the system that can absorb or emit heat and shrink or grow. 
 
-We can than model the part of the vessel outside this small subsystem as a heat reservoir that keeps the temperature $T$ stable and, at the same time, as a pressure reservoir, so that the pressure $P$ is constant as well. The subsystem itself could again we a composite system and therefore be described by its total energy, volume and other, internal parameters. If we use the index R to indicate that a quantity refers to the reservoir and quantity without subscript to refer to our small subsystem, we then have
+We can then model the part of the vessel outside this small subsystem as a heat reservoir that keeps the temperature $T$ stable and, at the same time, as a pressure reservoir, so that the pressure $P$ is constant as well. The subsystem itself could again we a composite system and therefore be described by its total energy, volume and other, internal parameters. If we use the index R to indicate that a quantity refers to the reservoir and quantity without subscript to refer to our small subsystem, we then have
 \begin{align*}
 dU_{tot} &= dU + dU_R  \\
 &= dU - P dV_R + T dS_R \\
@@ -859,14 +859,14 @@ Put differently, the points G and A mark two states in two different phases with
 
 Up to now, we have taken the existence of the entropy for granted respectively formulated it as a postulate, and focused our attention on macroscopic states and their development over time. We will now explore microstates and find that the entropy can in fact be defined as a statistical quantity. 
 
-To describe microstates, let us consider a system with a finite state space (we consider discrete state spaces for simplicities, but for most of what follows, the generalization to a continuous state space is obvious). Thus we have a set
+To describe microstates, let us consider a system with a finite state space (we consider discrete state spaces for the sake of simplicity, but for most of what follows, the generalization to a continuous state space is obvious). Thus we have a set
 ${\mathcal S}$ of states and assume that each of the states describes the system completely from a microscopical point of view. We also assume that each microstate has a well defined total energy $E$, i.e. that we have an energy function 
 $$
 E \colon {\mathcal S} \rightarrow \R
 $$
 Note that other macroscopic quantities like the temperature and the pressure are only defined in equilibrium, so we should not expect them to be given by a function on the state space - we will get back to this point later.
 
-The state space can be very general, and it is useful to introduce some examples that we will use to illustrate the concepts.
+The state space can be very general, and it is useful to introduce some examples that illustrate the concepts that we will discuss.
 
 \begin{example}[The two state system]
 Let us assume that we have a substance which is composed of particles that only have two possible discrete states. One of these states has energy 0, the other state has energy $\epsilon$. If we consider a system of $N$ such particles, then we can describe the microstate of the system by specifying, for each particle, whether it is in the ground state or in the excited state. Thus we can represent each state as a vector in $\{0,1\}^N$ and therefore the state space has $2^N$ elements. The energy function is given by
@@ -978,7 +978,7 @@ It is instructive to use the theory of Markov chains to see why that is a reason
 
 First, let us assume that the probability to move into a state $j$ while being at $i$ is independent of the time and the previous states. In the example of a two-state system above, a transition could mean that an excited particle spontaneously emits a photon and falls back into its ground state, and the photon is absorbed by some other particle that moves into its excited state. It appears reasonable that the probability that this happens for a given target state depends on the current state, but not on previous states and not on the time. Thus the collection of the $X_n$ forms a discrete time Markov chain. 
 
-Next, let us also assume that every state can be reached from any other state with positive probability in a finite time, and that there is a non-zero probability to stay in a given state. This corresponds to the assumptions that the Markov chain is irreducible and aperiod. Both assumptions are not really required, as we know that we could split the state space of a reducible chain into smaller pieces and similarly, if the chain were not aperiodic, we could consider the subchain at times $d, 2d, \dots$. So a more general system should be reducible to a system for which these two assumptions holds.
+Next, let us also assume that every state can be reached from any other state with positive probability in a finite time, and that there is a non-zero probability to stay in a given state. This corresponds to the assumptions that the Markov chain is irreducible and aperiodic. Both assumptions are not really required, as we know that we could split the state space of a reducible chain into smaller pieces and similarly, if the chain were not aperiodic, we could consider the subchain at times $d, 2d, \dots$. So a more general system should be reducible to a system for which these two assumptions holds.
 
 The third, and central, assumption is that the transitions between the microstates are reversible, i.e. the probability to move from state $i$ to state $j$ is the same as the probability to move from state $j$ to state $i$. If this happens, then the transition matrix is symmetric, and it follows immediately that the chain has the uniform distribution as an invariant distribution. Thus the chain is finite, positive recurrent and therefore Harris recurrent, irreducible and aperiodic. Thus it will converge to the uniform distribution, and the law of large numbers holds. In particular, for any random variable $f$, i.e. any observable quantity on the state space, we have 
 $$
@@ -987,7 +987,7 @@ $$
 $$
 Put differently, for large times, the time average of any observable quantity is equal to the average across the state space (which in turn, by our defintion of the probability as being the fraction across the ensemble, is the average across the ensemble).
 
-Taking as $f$ the characteristic function of any subset $A$ of the state space, we find in particular that the average time that the system spends in that part of the state space is equal to $¸pi(A)$ which is in turn - as we are assuming a uniform distribution - proportional to the multiplicity $\Omega(A)$, i.e. the number of states in $A$. Thus, if we have an area for which the multiplicity is very small compared to the total number of states, the system will rarely enter that region, and we will need a very large number of observations to catch the system in one of these states.
+Taking as $f$ the characteristic function of any subset $A$ of the state space, we find in particular that the average time that the system spends in that part of the state space is equal to $p(A)$ which is in turn - as we are assuming a uniform distribution - proportional to the multiplicity $\Omega(A)$, i.e. the number of states in $A$. Thus, if we have an area for which the multiplicity is very small compared to the total number of states, the system will rarely enter that region, and we will need a very large number of observations to catch the system in one of these states.
 
 \begin{example}[Einstein solid]
 Let us now try to calculate the entropy for the Einstein solid. We consider an Einstein solid that has $N/3$ particles and hence $N$ oscillators. If the total energy of the system is $U = q\hbar \omega$ for some integer $q$, then exactly those microstates are compatible where the sum of all occupation numbers is $q$. It is not difficult to show that the number of states is given by
@@ -1091,23 +1091,23 @@ If we sum this over all possible states $s$, we find that
 \end{align*}
 Thus we recognize the exponential of minus the Helmholtz potential as a normalization factor which is conventionally denoted by $Z$ and called the {\em partition function}:
 $$
-Z = e^{-\beta E(s)} = e^{-\beta F}
+Z = \sum_s e^{-\beta E(s)} = e^{-\beta F}
 $$
 Using this, we can express our result in the form
-$$
+\begin{empheq}[box=\widefbox]{align*}
 p(s) = \frac{1}{Z} e^{-\beta E(s)}
-$$
+\end{empheq}
 This probability distribution is called the {\em Boltzmann distribution} or 
 {\em canonical distribution}.
 Note that the partition function depends - as the Helmholtz energy - on $T$, $V$, $N$ and potentially on other macroscopic variables.
 
 Let us now calculate the average energy of the system - or more precisely its expectation value. Of course we expect that this is equal to $U$. The expectation is given by
 $$
-<E> = \sum_s E(s) p(s)
+ \langle E \rangle = \sum_s E(s) p(s)
 $$
 Using our expression for $p(s)$ we find that
 \begin{align*}
-<E> &= \sum_s E(s) p(s) \\&= \frac{1}{Z} \sum_s E(s) e^{-\beta E(s)} \\
+\langle E \rangle &= \sum_s E(s) p(s) \\&= \frac{1}{Z} \sum_s E(s) e^{-\beta E(s)} \\
 &= - \frac{1}{Z} \sum_s \frac{\partial}{\partial \beta} e^{-\beta E(s)} \\
 &= - \frac{1}{Z} \frac{\partial}{\partial \beta} \sum_s e^{-\beta E(s)} 
 = - \frac{1}{Z}\frac{\partial Z}{\partial \beta} = - \frac{\partial }{\partial \beta} \ln Z
@@ -1124,15 +1124,14 @@ But having our explicit expression of $\ln Z$ in terms of the Helmholtz energy, 
 \end{align*}
 so that we eventually obtain
 $$
-<E> = - \frac{\partial }{\partial \beta} \ln Z  = U
+\langle E \rangle = - \frac{\partial }{\partial \beta} \ln Z  = U
 $$
 as expected. We can also calculate the probability to find the system in a specific energy $E$. In fact,
 \begin{align*}
 P(E) &= \sum_{s | U(s) = E} p(s) \\
 &=   \frac{1}{Z} \sum_{s | U(s) = E} e^{-\beta E} \\
 &= \frac{1}{Z}  \Omega(E) e^{-\beta E} \\
-&= \frac{1}{Z}  e^{\frac{1}{k_B} S(E)} e^{-\beta E} \\
-&= \frac{1}{Z}  e^{\beta(TS(E) - E)} \\
+&= \frac{1}{Z}  e^{\frac{1}{k_B} S(E)} e^{-\beta E} = \frac{1}{Z}  e^{\beta(TS(E) - E)} \\
 \end{align*}
 Motivated by the macroscopic minimum principle for the Helmholtz energy derived earlier, it is tempting to interpret the exponent as the Helmholtz energy. However, this is not exactly true because to get the Helmholtz energy for an energy level $E$, we would have to use the temperature that corresponds to this energy, not the temperature $T$ which corresponds to the equilibrium energy $U$. 
 
@@ -1161,14 +1160,14 @@ The equations that we have derived are the fundamental equations describing the 
 
 \begin{empheq}[box=\widefbox]{align*}
 p(s) &= \frac{1}{Z} e^{-\beta E(s)} \\
-Z &= \sum_s e^{-\beta E(s)} \\
+Z &= \sum_s e^{-\beta E(s)}  = e^{-\beta F}\\
 F &= - k_B T \ln Z \\
 S &= k_B \frac{\partial}{\partial T} T \ln Z \\
 \langle E \rangle &= - \frac{\partial }{\partial \beta} \ln Z \\
 var(E) &= - \frac{\partial U}{\partial \beta} = k_B T^2 C_V
 \end{empheq}
 
-We note that given the partition function, we can use the second relation to obtain the Helmholtz potential from which - as we know - we can either obtain all thermodynamical quantities directly or to which we can apply an inverse Legendre transform to obtain the energy. Thus knowledge of the partition function will enable us to derive all classical thermodynamical properties of the system.
+We note that given the partition function, we can use the second or third relation in this list to obtain the Helmholtz potential from which - as we know - we can either obtain all thermodynamical quantities directly or to which we can apply an inverse Legendre transform to obtain the energy. Thus knowledge of the partition function will enable us to derive all classical thermodynamical properties of the system.
 
 \begin{example}[Einstein solid]
 Let us consider a system that consists of two Einstein solids with $N_A$ and $N_B$ oscillators. We consider system $B$ to be the reservoir and system $A$ to be the primary system. Thus we assume that $N_B >> N_A$, but that $N_A$ and $N_B$ are both sufficiently large so that the Stirling approximation holds. Using our formula for the temperature of an Einstein solid that we have derived earlier, we find that in the equilibrium state
@@ -1263,7 +1262,7 @@ Z_1 = \frac{V} {\lambda(T)^3}
 $$
 This is a very appealing result - the partition function is supposed to reflect the number of states available to the system, and we find that this given by the number of ways how we can split the volume of the box into smaller volumes related to the wavelength of a particle.
 
-Having the transition function for a single particle, we can now write down the partition function for the entire gas, as the partition function in the canonical formalism is multiplicative if we assume that the individual constituents are independent. However, there is one subtlety that we need to consider: quantum mechanical particles are indistinguishable. Thus we simply multiply the partition functions of the individual particles, we overcount. A simple fix is to divide by the number of permutations $N!$, but this is not quite correct because it might be that some particles are in the same state, even though this will be rather unlikely if the number of available states is large. However, let us ignore this problem - which would lead into the realm of quantum statistics - for the moment and simply divide by $N!$. Thus we find that
+Having the partition function for a single particle, we can now write down the partition function for the entire gas, as the partition function in the canonical formalism is multiplicative if we assume that the individual constituents are independent. However, there is one subtlety that we need to consider: quantum mechanical particles are indistinguishable. Thus when simply multiply the partition functions of the individual particles, we overcount. A simple fix is to divide by the number of permutations $N!$, but this is not quite correct because it might be that some particles are in the same state, even though this will be rather unlikely if the number of available states is large. However, let us ignore this problem - which would lead into the realm of quantum statistics - for the moment and simply divide by $N!$. Thus we find that
 $$
 Z(T,V,N) = \frac{1}{N!} \frac{V^N}{\lambda(T)^{3N}}
 $$
