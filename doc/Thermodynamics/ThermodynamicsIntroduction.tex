@@ -131,7 +131,7 @@ However, it is obvious that, given the large number of particles in a gas, this 
 
 Fortunately, it turns out that in practice, there are some quantities like the temperature, the volume of the gas and its energy, that we can measure and that follow some empirically derived laws. Thus we could describe the gas at some point in time by specifying these quantities only and see how they develop over time. Such a state is called a {\em macrostate}. Formally, we could describe a macrostate as the values of a set of functions defined on the space of microstates, one function for each relevant quantity like the energy or the temperature. 
 
-We know from experience that the quantities that make up such a state can fluctuate over time. If, for instance, we allow two vessels containing hot liquids to exchange heat, then the temperatures within these vessels will change over time. At some point, however, the system will reach a state called a {\em thermal equilibrium state} and these quantities will settle to certain values and remain constant until we make a modification to the system. 
+We know from experience that the quantities that make up such a state can fluctuate over time. If, for instance, we allow two vessels containing hot liquids to exchange heat, then the temperatures within these vessels will change over time. At some point, however, the system will reach a state called a {\em thermal equilibrium state} and these quantities will settle to certain values and remain constant until we make a modification to the system.
 
 Some of these quantities, like the number of particles or the volume, are {\em extensive quantities}: when we split our system into subsystems (which are still assumed to be large compared to the microscopic scale), these quantities add up. Other macroscopic quantities like the temperature and the pressure do not have this property. However, from what follows, we will see that these are in a certain way derived quantities and that it is useful to start our description of these systems with extensive quantities.
 
@@ -146,14 +146,23 @@ that we use the fully specify the macroscopic state of our system. Now consider 
 One way to introduce the entropy is using a maximum principle - we want to be able to characterize those states that are actually realized after reaching equilibrium as the macrostates that maximize a certain function. Following 
 \cite{Callen}, section 1.10, we phrase the assumption that such a function exists as follows (this is in fact a combination of postulate II and postulate III in \cite{Callen})
 
-{\em There exists a function - the entropy - of the extensive parameters of any composite system with the following property: the values assumed by the extensive parameters in the equilibrium state in the absence of an internal constraint are those that maximize the entropy among all states allowed by the external constraints. Moreover, the entropy is additive with respect to subsystems. It is differentiable and a (strictly) monotonically increasing function of the total energy}.
+{\em There exists a function - the entropy - of the extensive parameters of any composite system defined for all equilibrium states with the following property: the values assumed by the extensive parameters in the equilibrium state of an isolated system in the absence of an internal constraint are those that maximize the entropy among all states allowed by the external constraints. Moreover, the entropy is additive with respect to subsystems. It is differentiable and a (strictly) monotonically increasing function of the total energy}.
 	
+In \cite{Callen}, it is not explicitly mentioned that the maximum principle that is expressed by this statement is only valid for isolated systems, though this becomes apparent from the context. However, we will see later that this restriction is in fact necessary (cf. for instance chapter 9 of \cite{Sweden}). A system can, for instance, reduce its entropy by transferring heat to a system with lower temperature, but this process will inevitably increase the entropy of the composite system. In many practical applications, the composite system is made up by the system under interest and some concieved system acting as the environment that essentially represents the total surroundings of the system under investigation, or - if you want - the entire universe outside of our primary system.
 
-To see this principle in action and understand entropy further, let us now conduct a thought experiment. Assume that we have two systems that are initially isolated against each other and against the environment and that each of the subsystems is in equilibrium. As the two subsystems cannot interact, the composite system will then also be in equilibrium and will be characterized by extensive quantities like volume, energy and number of particles.
+To understand how this principle relates to the famous {\em second law of thermodynamics}, let us consider a hypothetical system consisting of a barrel with a movable wall separating the barrel into two compartments, and assume that the two chambers contain gases with different pressures. Initially, the movable wall is somehow fixed, so that the system has an additional constraint fixing the volumes of the two chambers. Some time after this system has been initially established, the gases inside the two chambers and with them the composite system will have reached equilibrium and the entropy has settled to a certain value. 
+
+When we now allow the wall to move freely, we have effectively removed a constraint. The current state of the system is then obviously still allowed by the remaining constraints, but additional states (i.e. values of the extensive parameters) become accessible. In addition, the system is now no longer in equilibrium. Instead, the wall will start to move until the pressures on both sides are equal and the system settles in a new equilibrium. Our maximum principle assures that the new entropy is maximized in this state. As the initial state was also permissible by the constraints, the new value of the entropy can thus not be smaller than the initial value. In other words, the entropy has increased or remained equal, which is exactly what the second law of thermodynamics states. 
+
+Also note that strictly speaking, the formalism that we are about to develop only assumes the existence of the entropy for equilibrium states. While the wall in the above example is moving, the system is not in equilibrium, so strictly speaking the entropy of the composite system is not even defined during this time. If you think of the states of the system as points in the {\em configuration space} spanned by the extensive parameters, then intuively speaking, the system will disappear from the configuration space if it moved out of equilibrium, for instance due to some interaction with another system or due to some constraints being altered, and only reappear once it has settled into its new equilibrium. We know that the entropy of this new state is equal to or higher than the entropy of the starting point, but we have lost track of the states of the system while the change took place.
+
+To rectify this, it is common to consider only quasi-static processes, i.e. processes that proceed so slowly that at every point in time, the system is actually in equilibrium. Then the process can be described as a path in configuration space, and we can apply calculus or the idea of infinitesimal changes which we will do heavily in what follows. Note, however, that this is an idealization which however turns out to provide a good approximation to many real processes (see also the discussion in section 4.2 of \cite{Callen}).
+
+To see the postulates in action and understand entropy further, let us now conduct a thought experiment. Assume that we have two systems that are initially isolated against each other and against the environment and that each of the subsystems is in equilibrium. As the two subsystems cannot interact, the composite system will then also be in equilibrium and will be characterized by extensive quantities like volume, energy and number of particles.
 
 We now bring together the two systems such that they are connected by a thin, but rigid wall that allows heat to pass, but cannot be crossed by any particles. As soon as this happens, the system is no longer in equilibrium. In fact, energy in the form of heat can now be exchanged between the systems. We have effectively removed a constraint, i.e. the constraint that the individual energies are fixed, but we still have the constraint imposed on us by the conservation of energy, i.e. the sum of the energies remains constant. Thus the energies of the subsystems will change until the composite system has again reached an equilibrium state that we want to determine.
 
-To apply the principle of maximal entropy, we first have to define a system of coordinates for our {\em configuration space}, i.e. a set of extensive parameters of the system such that their combined value characterizes the system completely. The choice of these coordinates system and the associated state space is crucial. In particular, we need to define how we reflect the existing constraints. In our case, a possible choice would be to use the individual energies $U_i$ along with the individual particle numbers $N_i$ and the volumes $V_i$. However, if we do this, we still have a constraint, namely $U_1 + U_2 = U$, where $U$ is the total energy of the system that we assume to be a constant. This would restrict the possible trajectories of the system in the configuration space to a submanifold. It is easier to adjust coordinates a bit to better reflect this, so we choose $U, U_1, N_1, N_2, V_1$ and $V_2$. Then the entropy is a function on the configuration space, i.e.
+To apply the principle of maximal entropy, we first have to define a system of coordinates for our configuration space, i.e. a set of extensive parameters of the system such that their combined value characterizes the system completely. The choice of these coordinates system and the associated state space is crucial. In particular, we need to define how we reflect the existing constraints. In our case, a possible choice would be to use the individual energies $U_i$ along with the individual particle numbers $N_i$ and the volumes $V_i$. However, if we do this, we still have a constraint, namely $U_1 + U_2 = U$, where $U$ is the total energy of the system that we assume to be a constant. This would restrict the possible trajectories of the system in the configuration space to a submanifold. It is easier to adjust coordinates a bit to better reflect this, so we choose $U, U_1, N_1, N_2, V_1$ and $V_2$. Then the entropy is a function on the configuration space, i.e.
 $$
 S = S(U_1, V_i, N_i)
 $$
@@ -305,9 +314,40 @@ the {\em heat}. When we consider a thermodynamical process, i.e. a path in the s
 $$
 dU = dQ + dW
 $$
-In other words, the change of energy, assuming a constant number of particles, is the sum of the heat added to the system and the work done on the system. This is the famous {\em first law of thermodynamics}. 
+In other words, the change of energy, assuming a constant number of particles, is the sum of the heat added to the system and the work done on the system. This is the famous {\em first law of thermodynamics}. We note that - as discussed before - our formalism applies only to quasi-static processes, which is why some sources call $T dS$ the quasi-static heat and $- P d V$ the quasi-static work. 
 
-Note that the entropy does of course depend on the functional relations between $U$, $V$ and $N$. These relations can either be derived from statistical considerations, which we will do in a later chapter, or can be assumed to be given, based on empirical considerations. To illustrate this, let us consider an example.
+The identification of the transferred heat $dQ $ with $TdS$ can be inverted to arrive at the relation 
+$$
+dS = \frac{dQ}{T}
+$$
+To illustrate the power of this seemingly simple relation, let us consider a {\em heat engine} which is a device that can exchange heat with a reservoir at temperate $T_h$ and a second reservoir at a lower temperature $T_l$ in order to produce some mechanical work $W$. This engine is supposed to operate in cycles, so that after one cycle, the state of the engine is restored to its original state. 
+
+Let us assume that during one cycle, the engine consumes a certain amount $Q_h$ out of the reservoir with the higher temperature and transfers some heat $Q_l$ into the reservoir with the lower temperature. As the internal energy of the engine does not change during a cycle, we can conclude that
+$$
+W = Q_h - Q_l
+$$
+or 
+$$
+\frac{W}{Q_h} = 1 - \frac{Q_l}{Q_h}
+$$
+This quantity is often called the {\em efficiency} of the engine and denoted by $e$. On the other hand, using the form of the first law stated above, we can conclude that the entropy of the first reservoir is decreased by $\frac{Q_h}{T_h}$ while that of the reservoir with the lower temperature is increased by $\frac{Q_l}{T_l}$.
+Thus the total change of entropy of the entire system (the engine plus the reservoirs) is
+$$
+\Delta S = \frac{Q_l}{T_l} - \frac{Q_h}{T_h}
+$$
+As this is non-negative, we can conclude that
+$$
+\frac{Q_l}{T_l} \geq \frac{Q_h}{T_h}
+$$
+or
+$$
+\frac{Q_l}{Q_h} \geq \frac{T_l}{T_h}
+$$
+Combining this with our expression for the efficiency, we find that
+$$
+e = 1 - \frac{Q_l}{Q_h} \leq 1 - \frac{T_l}{T_h}
+$$
+Thus we have derived a universal upper boundary for the efficiency of a heat engine, without even making any assumptions about the exact nature of the engine or having a closed expression for the entropy. In many cases, however, the entropy can be expressed as an expression of the extensive parameters, either derived from statistical considerations, which we will do in a later chapter, or based on empirical considerations. To illustrate this, let us consider an example.
 
 \begin{example}\label{ex:idealgas}
 An {\em ideal gas}  is a thermodynamical system which is given by the following fundamental relations:
@@ -699,7 +739,7 @@ or
 $$
 T dS_{tot} = - dF + dU_{tot}
 $$
-Let us now suppose that we let the composite system somehow interact with the environment. If this interaction is reversible, so that the total entropy of the system $S_{tot}$ is constant, the left hand side of this equation is zero. This implies that a state minimizes the total energy if and only it is minimizes the Helmholtz potential of the primary subsystem. Thus the results from section \ref{sec:minimalinternalenergy} immediately yield a minimum principle for the Helmholtz energy: {\em the equilibrium state of a system which is in diathermal contact with a thermal reservoir minimizes the Helmholtz potential.}
+Let us now suppose that we let the composite system somehow interact with the environment. If this interaction is reversible, so that the total entropy of the system $S_{tot}$ is constant, the left hand side of this equation is zero. This implies that a state minimizes the total energy if and only it is minimizes the Helmholtz potential of the primary subsystem. Thus the results from section \ref{sec:minimalinternalenergy} immediately yield a minimum principle for the Helmholtz energy: {\em the equilibrium state of a system which is in diathermal contact with a thermal reservoir minimizes the Helmholtz potential}. Note that the same conclusion holds if the energy of the overall system is conversed. Then $dF = - T dS_{tot}$ so that the Helmholtz free energy is minized if and only if the total entropy is maximized.
 
 
 Obviously we can apply Legendre transforms to the other extensive variables as well and to combinations of them. Functions obtained in this way are called {\em thermodynamic potentials}. We will not got into further details in this short introduction, but only mention the enthalpy, which is the Legendre transform with respect to the volume, and the Gibbs free energy, which is the Legendre transform with respect to volume and entropy at the same time and given by
@@ -818,11 +858,11 @@ dU_{tot} &= dU + dU_R  \\
 \end{align*}
 where we have used that the number of particles within the subsystem and therefore within the reservoir is constant to get from the first line to the second line, the fact that the total volume is constant to get from there to the third line and the fact that temperature and pressure are constant in the last line.
 
-When we now assume in addition that the vessel is isolated so that no heat can enter or leave and therefore $S_{tot}$ is constant, we find that 
+When we now assume in addition that the total energy is preserved and therefore $dU_{tot} = 0$ (this even holds if the total energy is not preserved by merely minimized), we find that 
 $$
-dG = dU_{tot}
+dG = - T dS_{tot}
 $$
-But according to the principle of minimal energy, the total energy is minimized in the equilibrium, and therefore we can conclude (for instance by integrating this identity of differentials along a small curve representing a variation) that the Gibbs energy has a minimum in the equilibrium state. More general, for systems that are in touch with a heat and a pressure reservoir, the Gibbs energy is minimized by the equilibrium state subject to the condition of constant total entropy - this is the equivalent of the respective condition for the Helmholtz energy if merely the temperature is kept stable by a heat reservoir.
+As the total entropy has a maximum in the equilibrium state, we can conclude that the Gibbs energy has a minimum in the equilibrium state. More general, for systems that are in touch with a heat and a pressure reservoir, the Gibbs energy is minimized by the equilibrium state subject to the condition of constant total entropy - this is the equivalent of the respective condition for the Helmholtz energy if merely the temperature is kept stable by a heat reservoir.
 
 Armed with this information, let us now get back to the van der Waals equation and study in more detail the phase transition along an isotherm. Using the dimensionless variables introduced earlier, we can express the normalized Gibbs energy as
 $$
@@ -1459,6 +1499,157 @@ $$
 $$
 This is in perfect agreement with our expectation - a classical oscillator has two kinds of energy, kinetic energy and potential energy, and it is a general rule (known as the equipartition theorem) that each type of energy and each degree of freedom contribute $k_B T$ to the average energy of a classical system. Unfortunately, an average energy that does not depend on $\omega$ is a disaster because the energy density is then proportional to $\omega^2$ and therefore the integral over $\omega$ and thus the total energy diverges. Thus the prediction of a classical treatment would be that the radiation in a cavity at thermal equilibrium has infinite energy, which is of course absurd. This issue was known as the {\em ultraviolet catastrophe}. Historically, this lead M. Planck in 1900 to the postulate that the energy of a mode of the radiation field is quantized according to equation \eqref{eq:quantizationpostulate} which can be considered the birth of quantum mechanics. 
 
+\section{Applications in chemistry}
+
+In this section, we take a closer look at some applications of thermodynamical concepts to chemistry. Our first application will be the derivation of the {\em law of mass actions} that describes the equilibrium state of chemical reactions. As a starting point, let us take a closer look at the Gibbs energy that we have introduced earlier. Recall that the Gibbs energy is given by
+$$
+G(T, P, N) = U - TS + PV
+$$
+which is derived internal $U$ energy by applying two Legendre transformations, once with respect to the entropy and once with respect to the volume. Again, our general theory gives us an expression for the total differential of the Gibbs energy:
+$$
+dG = - S dT + V dP + \mu dN
+$$
+We could also derive this identity directly from the definition:
+\begin{align*}
+dG &= d(U - TS + PV) \\
+&= dU - d(TS) + d(PV) \\
+&= (T dS - P dV  + \mu dN) - d(TS) + d(PV) \\
+&= TdS - P dV + \mu dN - T dS - S dT + V dP + P dV \\
+&=  - S dT + V dP + \mu dN  
+\end{align*}
+We have also already seen (see the discussion and derivation in the section on phase transitions) that the Gibbs free energy is minimized for systems that are in contact with a reservoir that keeps the system at constant pressure and constant temperature. 
+
+The Gibbs free energy is tailored to describe processes that take place at constant pressure and temperature, which is often the case for chemical reactions. As an application, we will now derive the so-called law of mass actions that governs the conditions under which a chemical reaction achieves equilibrium.
+
+To get started, consider a simple chemical reactions involving three substances $A, B, C$ of the form
+$$
+A + B \longrightarrow C
+$$
+With the obvious notation, the differential of the Gibbs free energy is then
+$$
+dG = - S dT + V dP + \mu_a dN_A + \mu_B dN_B + \mu_C dN_C
+$$
+In equilibrium, this needs to be zero. If the process takes place under the condition of constant pressure and temperature, this implies that for an infinitesimal change in particle numbers
+$$
+0 =  \mu_A \Delta N_A + \mu_B \Delta N_B + \mu_C \Delta N_B
+$$
+Now an infinitesimal change in this sense is one step of the reaction which creates one molecule of type $C$ while destroying one molecule of type $A$ and one of type $B$ so that
+\begin{align*}
+\Delta N_A &= \Delta N_B = -1 \\
+\Delta N_C &= 1
+\end{align*}
+With that, our condition becomes
+$$
+0 = - \mu_A - \mu_B + \mu_C
+$$
+or
+$$
+\mu_C = \mu_A + \mu_B
+$$
+In general, for a reaction of the form
+$$
+\nu_1 A_1 + \nu_2 A_2 +  \dots \longrightarrow \dots
+$$
+the resulting equation would be 
+$$
+\sum_{educts} \nu_i \mu_i = \sum_{products} \nu_i \mu_i
+$$
+i.e. the sum of the chemical potentials counted with the respective stoichiometric multiplicities is the same for the educts as well as for the products. Now the point of this equation is that the chemical potentials $\mu_i$ are (in general) functions of temperature, pressure and concentration (or partial pressure for gases). If we know these expressions, we can hope to obtain an equilibrium conditions that involves the concentrations so that we can determine the concentrations at equilibrium.
+
+Before we do this, it is worth pointing out another consequence of our discussion. Suppose we start with a system that is not in equilibrium. If one infinitesimal step of our reaction takes place (for instance, the hypothetical step of converting one molecule of one of the educts), the Gibbs energy of the system will change by some amount $\Delta G$ which - as we have seen above - can be calculated from the chemical potentials and the stoichiometric coefficients (and are tabulated for many chemical reactions). Now we know that the system strives to decrease the Gibbs energy on its way to equilibrium. Thus a negative value of $\Delta G$ is a necessary condition for a reaction to take place spontaneously. 
+
+Let us now try to derive (or at least guess) such a relation. This is not an exact derivation but somehow heuristic and motivated by statistical mechanics. We start by deriving an expression for the Gibbs energy of a system containing only one type of substance. We know that the Gibbs free energy is extensive with respect to the particle number $N$, i.e. 
+$$
+G(T, P, \lambda N) = \lambda G(T, P, N)
+$$
+In particular
+$$
+G(T, P, N) = G(T, P, N \cdot 1) = N G(T, P, 1)
+$$
+If we use the notation
+$$
+\mu^0 (T, P) = G(T, P, 1)
+$$
+we obtain
+$$
+G(T, P, N) = G(T, P, N \cdot 1) = N \mu^0 (T, P)
+$$
+and also see that 
+$$
+\frac{\partial G}{ \partial N} = \mu^0 (T, P)
+$$
+so that we recognize $\mu^0$ as the chemical potential at temperature $T$ and $P$. Let us now assume that are considering a {\em dilute solution} of constant pressure and temperature, i.e. a substance $B$ (the solute) dissolved in some substance $A$ (the solvent). We assume that the concentration of $B$ is so small that every $B$-molecule only interacts with the $A$-molecules that are direct neighbors, but never with another $B$-molecule. 
+
+Let us now suppose that we are given a pure solvent. By the discussion above, the Gibbs energy is then
+$$
+G = N_A \mu^0 (T, P)
+$$
+If we now add a molecule of type $B$, then the Gibbs energy changes by an amount given by 
+$$
+dG = d(U - TS + PV) ) = dU - T dS + P dV
+$$
+In general, both the volume and the internal energy will increase by a certain amount. However, under the assumption that the newly added molecule does only interact with its immediate neighbors, these increases will not depend on the overall number $N_A$ (which we assume to be so large that the actual number of immediate neighbors of the newly added molecule does not depend on it). So these components will be functions of temperature and pressure. The increase of entropy, however, has a part that does depend on $N_A$, as we have a choice where to put the $B$ molecule. Using the $N_A$ molecules of type $A$ as a coordinate system, we can decide to put the $B$ molecule near any of those, so that we increase the number of possible microstates by a factor $N_A$. By our general formula for the Boltzmann entropy, we therefore have a contribution of the form $k_B \ln N_A$ in addition to any possible contributions depending only on temperature and pressure, so that we obtain
+$$
+dG = f(T, P) - T k_B \ln N_A
+$$
+If we add two molecules, we can apply the same pattern of reasoning, with the additional observation that - as the molecules are indistinguishable - we increase the number of microstates by a factor $N_A^2 / 2$ and not $N_A^2$, so that
+$$
+dG = 2 f(T, P) - 2 T k_B \ln N_A + T k_B \ln 2
+$$
+In general, our expression will be
+$$
+dG = N_B f(T, P) - N_B T k_B \ln N_A + T k_B \ln N_B!
+$$
+which (using Stirlings formula) we can approximate to be
+$$
+dG = N_B f(T, P) - N_B T k_B \ln N_A + T k_B N_B (\ln N_B - 1)
+$$
+Thus we obtain the following expression for the Gibbs free energy:
+$$
+G = N_A \mu^0 (T, P) + N_B f(T, P) - N_B T k_B \ln N_A + T k_B N_B \ln N_B - T k_B N_B
+$$
+Taking the partial derivative with respect to $N_B$, we thus find that
+$$
+\mu_B(T, P, N_B) = f(T, P) - T k_B \ln N_A + T k_B \ln N_B - T k_B 
+$$
+or
+$$
+\mu_B(T, P, N_B) = g(T, P) + T k_B \ln \frac{N_B}{N_A}  
+$$
+with a new function $g$ depending only on $T$ and $P$. As $N_B << N_A$, the quotient is a constant times the {\em concentration} $c(B)$ of $B$ in the solution. We therefore find that the chemical potential in a dilute solution is a term depending only temperature and presure plus a term depending on the concentration. Denoting the first term by $\mu_{0, B}(T, P)$ so that we arrive at
+$$
+\mu_B(T, P, N_B) = \mu_{0, B}(T, P) + k_B T \ln c(B)
+$$
+
+Let us now plug this equation for the chemical potential of a solute into our previous condition for chemical equilibrium to arrive at a condition for the equilibrium of a reaction taking place in a dilute solution. We find
+$$
+\sum_{educt} \nu_i \mu_{0, i}(T, P) + T k_B \sum_{educt} \nu_i \ln c_i = \sum_{product} \nu_i \mu_{0, i}(T, P) + T k_B \sum_{product} \nu_i \ln c_i
+$$
+Collecting terms, we can rewrite this as
+$$
+T k_B \ln \frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} = \sum_{educt} \nu_i \mu_{0, i}(T, P) - \sum_{product} \nu_i \mu_{0, i}(T, P)
+$$
+By what we have discussed so far, we can identify the right hand side as minus the change of Gibbs energy in an infinitesimal reaction at temperate $T$ and pressure $B$ at a concentration $c_i = 1$, i.e. a quantity that depends only on the reaction and temperature and pressure. Thus we can write this as
+$$
+T k_B \ln \frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} =  - \Delta G^0
+$$
+or
+$$
+\frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} = \exp (- \frac{\Delta G^0}{k_B T})
+$$
+This gives us the usual formulation of the {\em law of mass actions}: in equilibrium, the product of the concentrations of products divided by the product of the concentrations of the educts is a constant
+$$
+\frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} = K
+$$
+and this constant is related to the change in Gibbs free energy in a standard reaction by
+$$
+K = \exp (- \frac{\Delta G^0}{k_B T})
+$$
+We also see that if the Gibbs free energy of the reaction is negative, this constant tends to be large so that the reaction will run almost to completion, while if the Gibbs free energy is positive, the equilibrium will be on the side of the educts. Note that in chemistry, the standard reaction is typically the reaction that converts one mole of one of the educts. Thus  $\Delta G^0$ in a chemistry textbook is our $\Delta G^0$ multiplied by Avogadro's constant. As the product of Avoagrado's constant and $k_B$ is the universal gas constant $R$, our result would appear in a textbook on chemistry as
+$$
+K = \exp (- \frac{\Delta G^0}{R T})
+$$
+in aligment with section chapter 5 of \cite{Schroeder}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Bibliography
@@ -1494,6 +1685,10 @@ Wiley, New York 1985
 D.V.~Schroeder,
 {\em An introduction to thermal physics},
 Addison-Wesley, San Francisco 2000
+
+\bibitem{Sweden}
+Robert H.~Sweden,
+{\em An Introduction to Statistical Mechanics and Thermodynamics}, Oxford University Press 2012
 
 
 \end{thebibliography}
