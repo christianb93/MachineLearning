@@ -11,6 +11,9 @@
 \usepackage{empheq}
 \usepackage{caption}
 
+\usepackage{hyperref}
+
+
 \renewcommand\lstlistingname{Algorithm}
 \captionsetup[lstlisting]{singlelinecheck=false, margin=0pt, font={sf},labelsep=space,labelfont=bf}
 
@@ -1499,9 +1502,12 @@ $$
 $$
 This is in perfect agreement with our expectation - a classical oscillator has two kinds of energy, kinetic energy and potential energy, and it is a general rule (known as the equipartition theorem) that each type of energy and each degree of freedom contribute $k_B T$ to the average energy of a classical system. Unfortunately, an average energy that does not depend on $\omega$ is a disaster because the energy density is then proportional to $\omega^2$ and therefore the integral over $\omega$ and thus the total energy diverges. Thus the prediction of a classical treatment would be that the radiation in a cavity at thermal equilibrium has infinite energy, which is of course absurd. This issue was known as the {\em ultraviolet catastrophe}. Historically, this lead M. Planck in 1900 to the postulate that the energy of a mode of the radiation field is quantized according to equation \eqref{eq:quantizationpostulate} which can be considered the birth of quantum mechanics. 
 
-\section{Applications in chemistry}
+\section{Applications in chemistry - the law of mass action}
 
-In this section, we take a closer look at some applications of thermodynamical concepts to chemistry. Our first application will be the derivation of the {\em law of mass actions} that describes the equilibrium state of chemical reactions. As a starting point, let us take a closer look at the Gibbs energy that we have introduced earlier. Recall that the Gibbs energy is given by
+In this and the next section, we take a closer look at some applications of thermodynamical concepts to chemistry. In a typical chemical reaction, all thermodynamical properties that we have discussed so far tend to change. The number of particles of a given species changes (this is the very nature of a reaction) as educts are converted into products of the reaction, and chemical energy is converted into other forms of energy. Many reactions involve a change in volume, for instance because a gas is produced or the densities of the involved reactants differ, and this change in volume in turn results in work being done on the environment. Often, excess energy is transferred to the environment in the form of heat. And finally, the entropy changes as well - if for instance two molecules which were initially separated are combined into a new molecule, the number of degrees of freedom and thus the entropy are reduced. We will see that a strategy to deal with this complexity is to fix certain thermodynamic variables like temperature or pressure and to use Legendre transforms to effectively focus on some of the changing quantities in isolation.
+
+
+Our first application will be the derivation of the {\em law of mass actions} that describes the equilibrium state of chemical reactions. As a starting point, let us take a closer look at the Gibbs energy that we have introduced earlier. Recall that the Gibbs energy is given by
 $$
 G(T, P, N) = U - TS + PV
 $$
@@ -1616,7 +1622,7 @@ or
 $$
 \mu_B(T, P, N_B) = g(T, P) + T k_B \ln \frac{N_B}{N_A}  
 $$
-with a new function $g$ depending only on $T$ and $P$. As $N_B << N_A$, the quotient is a constant times the {\em concentration} $c(B)$ of $B$ in the solution. We therefore find that the chemical potential in a dilute solution is a term depending only temperature and presure plus a term depending on the concentration. Denoting the first term by $\mu_{0, B}(T, P)$ so that we arrive at
+with a new function $g$ depending only on $T$ and $P$. As $N_B << N_A$, the quotient is a constant times the {\em concentration} $c(B)$ of $B$ in the solution. We therefore find that the chemical potential in a dilute solution is a term depending only on temperature and pressure plus a term depending on the concentration. Denoting the first term by $\mu_{0, B}(T, P)$ we arrive at
 $$
 \mu_B(T, P, N_B) = \mu_{0, B}(T, P) + k_B T \ln c(B)
 $$
@@ -1629,7 +1635,7 @@ Collecting terms, we can rewrite this as
 $$
 T k_B \ln \frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} = \sum_{educt} \nu_i \mu_{0, i}(T, P) - \sum_{product} \nu_i \mu_{0, i}(T, P)
 $$
-By what we have discussed so far, we can identify the right hand side as minus the change of Gibbs energy in an infinitesimal reaction at temperate $T$ and pressure $B$ at a concentration $c_i = 1$, i.e. a quantity that depends only on the reaction and temperature and pressure. Thus we can write this as
+By what we have discussed so far, we can identify the right hand side as minus the change of Gibbs energy in an infinitesimal reaction at temperature $T$ and pressure $B$ at a concentration $c_i = 1$, i.e. a quantity that depends only on the reaction and temperature and pressure. Thus we can write this as
 $$
 T k_B \ln \frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} =  - \Delta G^0
 $$
@@ -1649,7 +1655,199 @@ We also see that if the Gibbs free energy of the reaction is negative, this cons
 $$
 K = \exp (- \frac{\Delta G^0}{R T})
 $$
-in aligment with section chapter 5 of \cite{Schroeder}.
+in aligment with section chapter 5 of \cite{Schroeder}. 
+
+Note, however, that we still used a little approximation in this derivation. We have calculated the chemical potential of a solute in a dilute solution and found that it depends on the environment, i.e. on the amount of solvent present. We have then, however, applied this individually to each educt and product of the reaction, ignoring that the chemical potential of one substance could be influenced by the presence of another substance. Thus we have ignored the interactions between the different solutes. This appears to be justified as these cross-terms can probably be neglected compared to the terms involving the solvent. If we wanted to be exact, we would have to use the {\em activities} $a_i$ instead of the concentrations, which are defined by (note that the constant $R$ appears here instead of $k_B$ as in chemistry textbooks, the $N_i$ are usually taken to be numbers of moles, not number of particles or molecules)
+$$
+\mu_i = \mu_{i,0} + RT \ln a_i
+$$
+For an {\em ideal solution}, the activity can then be taken to be the concentration, but for a general solution, this might no longer be true and the {\em activity coefficient} which relates the activity to the concentration might be different from one.
+
+Let us close this section with a numerical example. We consider the autoprotolysis of water, i.e. the reaction
+$$
+2 H_2 O \longrightarrow OH^- + H_3 O^+
+$$
+The change in Gibbs energy for this reaction can be looked up and is $\Delta G^0 = 79.9 kJ$ at room temperature (i.e. $25 C^0$). Thus the value of the constant $K$ is
+\begin{align*}
+K &= \exp(\frac{-\Delta G^0}{RT} ) \\
+&= \exp(-\frac{79.9 \times 10^3 J}{8.3 \frac{J}{K} \times 298 K} ) = \exp(-32.26) \approx 1 \times 10^{-14} 
+\end{align*}	
+Assuming that the concentration of water is essentially constant and equal to one, we find that
+$$
+c(H_3O^+) c(OH^-) = 1 \times 10^{-14}
+$$
+Assuming that this reaction is the only source of these ions, we also know that these two concentrations must be equal, so that
+$$
+c(H_3O^+)  = 1 \times 10^{-7}
+$$
+Minus the logarithm of the concentration of oxonium $H_3 O^+$ iones is by definition the pH-value, and we recover the well-known fact that the pH-value of pure water is 7.
+	
+\section{Applications in chemistry - the reaction enthalpy}
+
+In previous sections, we have used the Helmholtz free energy and the Gibbs free energy, both of which happen to be Legendre transforms of the internal energy $U$. There is yet another Legendre transform, this time with respect to pressure alone, that is widely applied in chemistry which is the {\em enthalpy} defined by
+$$
+H(p, V, N) = U + PV
+$$
+To interpret this quantity, imagine a system that has some internal energy $U$ and takes some volume $V$ inside a reservoir of constant pressure $P$. Imagine that you were somehow able to create this system from scratch. You would then have to make room inside the environment, i.e. you would have to create an empty space of volume $V$, which requires the work $PV$ being done on the environment, and you would then have to create the system with its internal energy $U$. Thus the enthalpy represents the energy that you would have to invest (at least) to create a system from scratch in an environment of constant pressure. Conversely, suppose that the system would vanish. The energy you would then obtain is the internal energy of the system plus the work that now the environment does to fill up the volume left behind (this is nicely illustrated in section 1.6 of \cite{Schroeder}).
+
+To get a better intuition for what a {\em change} in enthalpy actually describes let us consider a physical system in which a reaction takes place (think of a vessel filled with a dilute solution or with gas). Let us suppose that one wall of this system contains a movable piston that the system can adjust to transfer energy in the form of mechanical work into a pressure reservoir PR, which is otherwise closed and isolated from the environment. Suppose further that there is also a heat sink HS to which our system is connected and to which it can transfer heat, but which is again isolated towards the environment. We do not assume that this is a heat reservoir in the classical sense with unlimited heat capacity, but simply that it is connected to the primary system by the diathermic wall (thus we do only require constant pressure, not constant temperature).
+
+To make this more tangible, let us envision a {\em coffee cup calorimeter} as described in chapter 7 of \cite{Petrucci}. This calorimeter is simply a well insulated coffee cup, maybe out of styrofoam, and a cover with two holes in it. The cup contains water as a solvent, and one hole is used to insert a temperature sensor, while the other hole is used to insert a stirrer. Small amounts of the educts of the reaction in question are dissolved in the water in the cup. Then the system is given some time to achieve equilibrium (implying that the temperature of the solvent and that of the solute will be the same). Next the stirrer is used to initiate the reaction. When the reaction takes place, the volume of the system typically changes, but as the cup is not fully airtight, this results in the change of volume of the water at constant pressure. Thus the water in the cup serves as both the pressure reservoir (in combination with the surrounding atmosphere) and heat sink, while the system under consideration is composed of educts and products of the reaction that we want to study. The heat transferred into the surrounding water can be measured using the temperature sensor. Picture \ref{fig:coffeecupcalorimeter}, (taken from \cite{openstax} ) displays a sketch of such a device.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.2\linewidth]{CoffeeCupCalorimeter}
+	\caption[Coffee Cup Calorimeter]{Coffee Cup Calorimeter}
+	\label{fig:coffeecupcalorimeter}
+\end{figure}
+
+Let us now calculate the changes in the inner energies of the various subsystems. Our primary system - the system in which the reaction takes place - undergoes a change in energy given by
+$$
+dU = d(H - PV) =  dH - d(PV) = dH - P dV
+$$
+where we have used the definition of the enthalpy and the fact that the process takes place at constant pressure, so that $dP = 0$. Let now $Q$ denote the amount of energy transferred as heat from our system into the heat sink. Then the inner energy of the heat sink increases by $Q$, i.e.
+$$
+dU_{HS} = Q
+$$
+as the heat sink is otherwise isolated so that no mechanical or chemical work is done on it. Similarly, the energy of the pressure reservoir increases by $P dV$
+$$
+dU_{PR} = P dV
+$$
+Thus the overall energy changes by
+\begin{align*}
+dU_{tot} &= dU + dU_{HS} + dU_{PR} \\
+&= (dH - P dV) + Q + P dV = dH + Q
+\end{align*}
+However, as we assume that the overall system is isolated towards the environment, the total change of energy is zero. Thus
+$$
+0 = dH + Q
+$$
+or
+$$
+Q = - dH
+$$ 
+This shows that the {\em change in enthalpy is (minus) the heat released by a process at constant pressure}. If the change of enthalpy is negative, the amount of heat released is positive, so we have an {\em exothermic reaction}. If the change of enthalpy is positive, the reaction consumes heat and is {\em endothermic}.
+
+One of the reasons why the enthalpy is so useful is that it is - by construction - a function on the configuration space. Thus the change in enthalpy depends only on the final and the initial state of the system (which is in general not true for heat as the heat transfer is given by the one-form $T dS$ which is not exact and therefore depends on the process, i.e. on the path in configuration space representing the process). To see why this is useful in practice, let us consider an example. Say we wanted to calculate the change in enthalpy of the reaction 
+$$
+A \longrightarrow B
+$$ 
+and suppose further that we already knew the enthalpy changes for the reactions
+$$
+A \longrightarrow C 
+$$
+and 
+$$
+C \longrightarrow B
+$$
+Now each of the reaction educts and products that we have abbreviated with $A, B, C$ are states of our system - a certain amount of molecules of the respective type dissolved in water (as long as we stick to some standard conditions, which are conventially chosen to be a pressure of 1 bar and a temperature of 298 K). Thus each of them has a certain value of the enthalpy, and the change in enthalpy is simply the difference of the enthalpy after and before the reaction took place. This implies, however, that we can simply calculate enthalpy changes of new reactions by adding up enthalpy changes of existing reactions in the obvious way, specifically
+\begin{align*}
+\Delta H_{A \longrightarrow B } &= H_B - H_A \\
+\Delta H_{A \longrightarrow C } &= H_C - H_A \\
+\Delta H_{C \longrightarrow B } &= H_B - H_C \\
+\end{align*}
+and therefore
+$$
+\Delta H_{A \longrightarrow B } = \Delta H_{A \longrightarrow C } + \Delta H_{C \longrightarrow B }
+$$
+This fact is known as Hess`s law of enthalpies and allows us to calculate the changes of enthalpies for complex reactions by piercing together the enthalpy changes for simpler reactions that we might already have measured and tabulated.
+
+Finally, let us relate the enthalpy with the Gibbs free energy that we have discussed in the previous section. By definition
+$$
+G = U + pV - TS = H - TS
+$$
+so that
+$$
+dG = dH - d(TS) = dH - T dS
+$$
+at constant temperature. Thus if the enthalpy change of a reaction is negative, i.e. the reaction is exothermic, and the entropy change of the reaction is positive, the reaction will take place spontaneously (reducing the enthalpy and increasing the entropy at the same time). If a reaction is endothermic and the entropy change is negative, the Gibbs energy is positive, so that the reaction will not take place. If, however, the enthalpy change is negative but the entropy change is negative as well, it depends on the temperature whether the reaction takes place spontaneously (note, however, that both enthalpy change and Gibbs energy depend on the temperature as well, so the condition for a negative Gibbs energy change	 is not as simple as our notation might indicate).
+
+\section{Appendix - homogenous functions and the Gibbs-Duhen equation}
+
+One of the postulates of thermodynamics is that the entropy is an extensive quantity: when we double the size of a system (i.e. its volume, its number of particles and its internal energy) the entropy will double. Technically, this comes down to the requirements that
+$$
+S(\lambda U, \lambda N, \lambda V ) = \lambda S(U, N, V)
+$$
+for all scaling factors $\lambda$. Functions with this property are called homogenous and it turns out that these functions have a very special form.
+
+\begin{defn}
+A function $f \colon \R^n \rightarrow \R$ is called {\em homogenous} when the relation
+$$
+f(\lambda x ) = \lambda f(x)
+$$
+holds for all $\lambda \geq 0$ and all $x \in \R^n$.
+\end{defn}
+
+
+\begin{thm}[Eulers theorem on homogenous functions]
+	If $f \colon \R^n \rightarrow \R$ is smooth and homogenous, then for every point $x$, the relation
+	$$
+	f(x) = \sum_{i=1}^n (\partial_i f)(x) x_i
+	$$
+	holds
+\end{thm}
+
+
+\begin{proof}
+Suppose we are given an arbitrary but fixed point $x$. Consider the function $g$ defined on $\R$ by
+$$
+g(\lambda) = f(\lambda x) - \lambda f(x)
+$$
+As $f$ is homogenous, this function is zero on $[0, \infty)$, so its derivative on $(0, \infty)$ is as well. On the other hand, we can use the chain rule to see that
+$$
+0 = g'(\lambda) = \sum_i  (\partial_i f)(\lambda x) x_i - f(x)
+$$
+Setting $\lambda = 1$ yields our desired result.
+\end{proof}
+
+Let us now apply this to the case of the entropy. We obtain
+$$
+S(U, V, N) = \frac{\partial S}{\partial U} U + \frac{\partial S}{\partial V} V + \frac{\partial S}{\partial N} N
+$$
+Using the identifications of the various partial derivatives with temperature, pressure and chemical potential, this turns into
+$$
+S(U, V, N) = \frac{1}{T} U + \frac{1}{T} P V - \frac{1}{T} \mu N 
+$$
+Multiplying this by the temperature and rearranging yields
+$$
+U(S, V, N) = TS - PV + \mu N
+$$
+With more than one type of particles involved, this equation becomes
+$$
+U(S, V, N) = TS - PV + \sum_i \mu_i N_i
+$$
+Using this, we can now easily find an expression for the Gibbs free energy. As 
+$$
+G = U + PV - TS
+$$
+we see that
+$$
+G(T, P, N_i) = \sum_i \mu_i N_i
+$$
+which is an amazingly simple expression (which, however, has some hidden complexities as the $\mu_i$ will in general depend on parameters, i.e. $\mu_i$ might even depend on $N_j$ as the example of the formula for the chemical potential in a dilute solution nicely illustrates). 
+
+To see yet another implication of the homogenous function theorem, let us take the derivative of our expression for $U$. We obtain
+\begin{align*}
+dU &= d(TS - PV) + \sum_i d(\mu_i N_i) \\
+&= S dT + T dS - P dV - V dP + \sum_i \mu_i dN_i + \sum_i N_i d\mu_i 
+\end{align*}
+On the other hand, we know by the fundamental relation of thermodynamics that
+$$
+dU = T dS - P dV  + \sum_i \mu_i dN_i 
+$$
+Collecting the remaining terms yields
+$$
+0 = S dT  - V dP + \sum_i N_i d\mu_i 
+$$
+or, rearranged
+$$
+- S dT  + V dP = \sum_i N_i d\mu_i 
+$$
+This is the famous {\em Gibbs-Duhem equation} that states that the intrinsic thermodynamical variables are not fully independent. It implies in particular that for a quasi-static process at constant pressure and temperature, the derivatives of the chemical potentials are related by
+$$
+0 = \sum_i N_i d\mu_i 
+$$
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Bibliography
@@ -1689,6 +1887,13 @@ Addison-Wesley, San Francisco 2000
 \bibitem{Sweden}
 Robert H.~Sweden,
 {\em An Introduction to Statistical Mechanics and Thermodynamics}, Oxford University Press 2012
+
+\bibitem{Petrucci}
+R.H.~Petrucci et al., 
+{\em General chemistry - principles and modern applications}, 11th edition, Pearson, Toronto 2017
+
+\bibitem{openstax}
+OpenStax, {\em Chemistry 2e}, available at \url{https://openstax.org/details/books/chemistry-2e}
 
 
 \end{thebibliography}
