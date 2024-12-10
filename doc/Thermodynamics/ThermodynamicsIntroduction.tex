@@ -1616,16 +1616,17 @@ G = N_A \mu^0 (T, P) + N_B f(T, P) - N_B T k_B \ln N_A + T k_B N_B \ln N_B - T k
 $$
 Taking the partial derivative with respect to $N_B$, we thus find that
 $$
-\mu_B(T, P, N_B) = f(T, P) - T k_B \ln N_A + T k_B \ln N_B - T k_B 
+\mu_B(T, P, N_A, N_B) = f(T, P) - T k_B \ln N_A + T k_B \ln N_B - T k_B 
 $$
 or
 $$
-\mu_B(T, P, N_B) = g(T, P) + T k_B \ln \frac{N_B}{N_A}  
+\mu_B(T, P, N_A, N_B) = g(T, P) + T k_B \ln \frac{N_B}{N_A}  
 $$
 with a new function $g$ depending only on $T$ and $P$. As $N_B << N_A$, the quotient is a constant times the {\em concentration} $c(B)$ of $B$ in the solution. We therefore find that the chemical potential in a dilute solution is a term depending only on temperature and pressure plus a term depending on the concentration. Denoting the first term by $\mu_{0, B}(T, P)$ we arrive at
 $$
-\mu_B(T, P, N_B) = \mu_{0, B}(T, P) + k_B T \ln c(B)
+\mu_B(T, P, N_A, N_B) = \mu_{0, B}(T, P) + k_B T \ln c(B)
 $$
+Note that this example also nicely demonstrates that the chemical potential $mu_i$ can in general depend all particle numbers, even on $N_i$ itself. Also note that this is not a contradiction to the fact that the Gibbs energy should be homogenous, as the potential depends on the relation of $N_A$ and $N_B$, so that if we multiply both by the same scaling factor $\lambda$, the chemical potential remains unchanged (it is constant on rays or homogenous of degree 0, see also Theorem \ref{thm:euler}).
 
 Let us now plug this equation for the chemical potential of a solute into our previous condition for chemical equilibrium to arrive at a condition for the equilibrium of a reaction taking place in a dilute solution. We find
 $$
@@ -1762,6 +1763,30 @@ dG = dH - d(TS) = dH - T dS
 $$
 at constant temperature. Thus if the enthalpy change of a reaction is negative, i.e. the reaction is exothermic, and the entropy change of the reaction is positive, the reaction will take place spontaneously (reducing the enthalpy and increasing the entropy at the same time). If a reaction is endothermic and the entropy change is negative, the Gibbs energy is positive, so that the reaction will not take place. If, however, the enthalpy change is negative but the entropy change is negative as well, it depends on the temperature whether the reaction takes place spontaneously (note, however, that both enthalpy change and Gibbs energy depend on the temperature as well, so the condition for a negative Gibbs energy change	 is not as simple as our notation might indicate).
 
+We close this section by discussing another relation between the Gibbs free energy and the enthalpy known as the van't Hoff equation. Recall that with the convention typically used in chemistry textbooks, the relation between the equilibrium constant and the Gibbs free energy change for the reaction at constant pressure and temperature of one mole of substance reads
+$$
+K = \exp (- \frac{\Delta G}{R T})
+$$
+or
+$$
+\ln K = - \frac{\Delta G}{R T}
+$$
+As $G = H - TS$, this is the same as
+$$
+\ln K = - \frac{\Delta H}{R T} + \frac{\Delta S}{R}
+$$
+where $\Delta S$ is the entropy change of the reaction and $\Delta H$ is the change of enthalpy. Of course both quantities depend on the temperature at which the reaction takes place. However, let us ignore this dependency for a moment and assume that these quantities are - for small changes in the temperature - independent of the temperature. Then we can take the derivative with respect to $T$ and obtain
+$$
+\frac{d}{dT} \ln K =  \frac{\Delta H}{R T^2} 
+$$
+This equation that approximates how the equilibrium constant depends on the temperature is known as van't Hoff equation. Alternatively, we could write this as
+$$
+\ln \frac{K(T_2)}{K(T_1)} =  \frac{\Delta H}{R} (\frac{1}{T_1} - \frac{1}{T_2})
+$$
+Note that for an endothermic reaction, this predicts that when we increase the temperature, the equilibrium is moved to the right, and for an exothermic reaction the equilibrium is moved to the left. 
+
+The van't Hoff equation has an interesting graphical interpretation. Suppose that we could measure the equilibrium constant for different temperatures (close enough to the standard temperature that our approximation does not break down) and plot the natural logarithm of $K$ versus the inverse temperature $T^{-1}$. Then the van't Hoff equation tells us that the result will be a line. The slope of this line multiplied by $R$ is minus the enthalpy change of the reaction, while the point value at which it intersects the y-axis multiplied by $R$ gives the entropy change of the reaction. This plot is known as {\em van't Hoff plot}, and can be used to determine enthalpy change and entropy change without using a calorimeter.
+
 \section{Appendix - homogenous functions and the Gibbs-Duhen equation}
 
 One of the postulates of thermodynamics is that the entropy is an extensive quantity: when we double the size of a system (i.e. its volume, its number of particles and its internal energy) the entropy will double. Technically, this comes down to the requirements that
@@ -1779,12 +1804,12 @@ holds for all $\lambda \geq 0$ and all $x \in \R^n$.
 \end{defn}
 
 
-\begin{thm}[Eulers theorem on homogenous functions]
+\begin{thm}[Eulers theorem on homogenous functions]\label{thm:euler}
 	If $f \colon \R^n \rightarrow \R$ is smooth and homogenous, then for every point $x$, the relation
 	$$
 	f(x) = \sum_{i=1}^n (\partial_i f)(x) x_i
 	$$
-	holds
+	holds. Moreover, the partial derivatives $\partial_i f$ have the property that $(\partial_i f)(\lambda x) = (\partial_i f)(x)$, i.e. they are constant along rays.
 \end{thm}
 
 
@@ -1797,10 +1822,22 @@ As $f$ is homogenous, this function is zero on $[0, \infty)$, so its derivative 
 $$
 0 = g'(\lambda) = \sum_i  (\partial_i f)(\lambda x) x_i - f(x)
 $$
-Setting $\lambda = 1$ yields our desired result.
+Setting $\lambda = 1$ yields our desired result. To prove our second statement, note that, by definition,
+$$
+(\partial_i f)(\lambda x) = \frac{d}{dt}|_{t=0} f(\lambda x + t e_i)
+$$
+which we can write as
+$$
+\frac{d}{dt}|_{t=0} f(\lambda (x + u e_i)) = \lambda \frac{d}{dt}|_{t=0} f(x + u e_i)
+$$
+with the substitution $u = \lambda^{-1} t$. As $dt = \lambda du$, the $\lambda$ term cancels and we find that 
+$$
+(\partial_i f)(\lambda x) = \frac{d}{du}|_{t=0} f(x + u e_i) = (\partial_i f)( x)
+$$
+as claimed.
 \end{proof}
 
-Let us now apply this to the case of the entropy. We obtain
+Let us now apply this theorem to the entropy, which is an extensive quantity (under the assumption that our system is homogenous). We obtain
 $$
 S(U, V, N) = \frac{\partial S}{\partial U} U + \frac{\partial S}{\partial V} V + \frac{\partial S}{\partial N} N
 $$
