@@ -412,14 +412,22 @@ e = 1 - \frac{Q_l}{Q_h} \leq 1 - \frac{T_l}{T_h}
 $$
 Thus we have derived a universal upper boundary for the efficiency of a heat engine, without even making any assumptions about the exact nature of the engine or having a closed expression for the entropy. In many cases, however, the entropy can be expressed as an expression of the extensive parameters, either derived from statistical considerations, which we will do in a later chapter, or based on empirical considerations. To illustrate this, let us consider an example.
 
-\section{The ideal gas}
+\section{The model of an ideal gas}
 
 An {\em ideal gas}  is a thermodynamical system which is given by the following fundamental relations:
 \begin{align*}
 PV &= NRT \\
 U &= cNRT
 \end{align*}
-Here $R$ is a constant called the {\em gas constant} and $c$ is another constant called the {\em heat capacity} of the gas. Let us now see whether we can derive the entropy of the ideal gas from these two fundamental relations. We know that the entropy is homogeneous. Thus we can define an entropy density $s$ by
+Here $R$ is the {\em gas constant} which is related to Avogadros number $N_A$ and the Boltzmann constant $k_B$ by $R = N_A k_B$ and $c$ is typically equal to $3/2$. As the {\em heat capacity at constant volume} is given by
+$$
+c_V = \frac{\partial U}{\partial T}|_V = c N R
+$$ 
+we see that up to the constant $R$, the number $c$ is the heat capacity of the gas per mole of substance. Also note that the {\em equipartition theorem} relates $c$ to the number $f$ of degrees of freedom by
+$$
+f = 2c
+$$
+Let us now see whether we can derive the entropy of the ideal gas from these two fundamental relations. We know that the entropy is homogeneous. Thus we can define an entropy density $s$ by
 $$
 s(U,V) = S(U,V,N=1)
 $$
@@ -504,6 +512,7 @@ $$
 U = TS - PV + \mu N
 $$
 as an expression for the internal energy in terms of entropy, volume and particle number plus the intensive variables temperature, pressure and particle number - which, of course, is exactly the expression predicted by our discussion of homogeneous functions in the appendix.
+
 
 \section{The principal of minimal internal energy}\label{sec:minimalinternalenergy}
 
