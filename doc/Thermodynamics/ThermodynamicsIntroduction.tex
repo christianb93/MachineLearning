@@ -595,7 +595,7 @@ and its entropy would therefore be
 $$
  N_i  s_{0, i} +  c_i N_i R \ln   \frac{T}{T_0}  +   N_i R \ln \frac{V}{N_i V_0} 
 $$
-Therefore we find that {\em the entropy of a mixture of ideal gases} is the sum of the entropies that each constituent would have at particle number $N_i$, temperature $T$ and pressure $P_i$ (or equivalently volume $V$). Put differently, if we think of our system as a composite system where each subsystem has volume $V$, temperature $T$ and consists of all atoms of one type, we could appeal to the additivity of entropy to calculate the entropy of the overall system and would arrive at exactly the same expression. This alternative approach to deriving the entropy also shows that our earlier assumption that the chemical potentials are independent of each other is not only justified but in fact a direct consequence of the additivity of the entropy. 
+Therefore we find that {\em the entropy of a mixture of ideal gases} is the sum of the entropies that each constituent would have at particle number $N_i$, temperature $T$ and pressure $P_i$ (or equivalently volume $V$). Put differently, if we think of our system as a composite system where each subsystem has volume $V$, temperature $T$ and consists of all atoms of one type, we could appeal to the additivity of entropy to calculate the entropy of the overall system and would arrive at exactly the same expression. This alternative approach to deriving the entropy also shows that our earlier assumption that the chemical potentials are independent of each other is not only justified but in fact a direct consequence of the additivity of the entropy. Note, however, that for this to work, we need to make sure that the two gases are distinguishable, i.e. that for each molecule we can tell to which gas it belongs, as otherwise our subsystems would not be well defined (see also section 2.6 of \cite{Schroeder} for a discussion of the subtleties related to this).
 
 
 It is interesting to analyze that expression a bit further. For that purpose, let us imagine that we have a collection of separated gases, each with a particle number $N_i$ and each at the same pressure $P$ and temperature $T$. Let $N$ again denote the total particle number. The volume of each gas is then given by
@@ -1826,7 +1826,7 @@ and also see that
 $$
 \frac{\partial G}{ \partial N} = \mu^0 (T, P)
 $$
-so that we recognize $\mu^0$ as the chemical potential at temperature $T$ and $P$. Let us now assume that are considering a {\em dilute solution} of constant pressure and temperature, i.e. a substance $B$ (the solute) dissolved in some substance $A$ (the solvent). We assume that the concentration of $B$ is so small that every $B$-molecule only interacts with the $A$-molecules that are direct neighbors, but never with another $B$-molecule. 
+so that we recognize $\mu^0$ as the chemical potential at temperature $T$ and $P$. Let us now assume that we are considering a {\em dilute solution} of constant pressure and temperature, i.e. a substance $B$ (the solute) dissolved in some substance $A$ (the solvent). We assume that the concentration of $B$ is so small that every $B$-molecule only interacts with the $A$-molecules that are direct neighbors, but never with another $B$-molecule. 
 
 Let us now suppose that we are given a pure solvent. By the discussion above, the Gibbs energy is then
 $$
@@ -1856,51 +1856,74 @@ Thus we obtain the following expression for the Gibbs free energy:
 $$
 G = N_A \mu^0 (T, P) + N_B f(T, P) - N_B T k_B \ln N_A + T k_B N_B \ln N_B - T k_B N_B
 $$
-Taking the partial derivative with respect to $N_B$, we thus find that
+In textbooks on chemistry, it is common to express the Gibbs energy not in terms of absolute particle numbers, but in terms of molarities. The molarities of $A$ is related to the particle number by
 $$
-\mu_B(T, P, N_A, N_B) = f(T, P) - T k_B \ln N_A + T k_B \ln N_B - T k_B 
+m_A = \frac{N_A}{\mathcal{N}_A}
 $$
-or
+where $\mathcal{N}_A$ is Avogrado's constant, and similarly
 $$
-\mu_B(T, P, N_A, N_B) = g(T, P) + T k_B \ln \frac{N_B}{N_A}  
+m_B = \frac{N_B}{\mathcal{N}_A}
 $$
-with a new function $g$ depending only on $T$ and $P$. As $N_B << N_A$, the quotient is a constant times the {\em concentration} $c(B)$ of $B$ in the solution. We therefore find that the chemical potential in a dilute solution is a term depending only on temperature and pressure plus a term depending on the concentration. Denoting the first term by $\mu_{0, B}(T, P)$ we arrive at
+Using this, observing that $\mathcal{N}_A k_B = R$, absorbing the additional factor $\mathcal{N}_A$ into the definition of $f$ and collecting terms not depending on $m_B$, we find that 
 $$
-\mu_B(T, P, N_A, N_B) = \mu_{0, B}(T, P) + k_B T \ln c(B)
+G = g(T, P, m_A ) +  m_B f(T, P) +  m_B RT \ln \frac{m_B}{m_A} - m_B T R 
 $$
-Note that this example also nicely demonstrates that the chemical potential $mu_i$ can in general depend all particle numbers, even on $N_i$ itself. Also note that this is not a contradiction to the fact that the Gibbs energy should be homogenous, as the potential depends on the relation of $N_A$ and $N_B$, so that if we multiply both by the same scaling factor $\lambda$, the chemical potential remains unchanged (it is constant on rays or homogenous of degree 0, see also Theorem \ref{thm:euler}).
+Taking the partial derivative with respect to $m_B$, we therefore obtain
+$$
+\mu_B(T, P, m_A, m_B) = f(T, P) + RT \ln \frac{m_B}{m_A} 
+$$
+with a new function $g$ depending only on $T$ and $P$. As $m_B << m_A$, the quotient is a constant times the {\em concentration} $c(B)$ of $B$ in the solution. We therefore find that the chemical potential in a dilute solution is a term depending only on temperature and pressure plus a term depending on the concentration. Denoting the first term by $\mu_{0, B}(T, P)$ we arrive at
+$$
+\mu_B(T, P, m_A, m_B) = \mu_{0, B}(T, P) + R T \ln c(B)
+$$
+Note that this example also nicely demonstrates that the chemical potential $\mu_i$ can in general depend all particle numbers, even on $N_i$ itself. Also note that this is not a contradiction to the fact that the Gibbs energy should be homogenous, as the potential depends on the relation of $N_A$ and $N_B$, so that if we multiply both by the same scaling factor $\lambda$, the chemical potential remains unchanged (it is constant on rays or homogenous of degree 0, see also Theorem \ref{thm:euler}).
 
 Let us now plug this equation for the chemical potential of a solute into our previous condition for chemical equilibrium to arrive at a condition for the equilibrium of a reaction taking place in a dilute solution. We find
 $$
-\sum_{educt} \nu_i \mu_{0, i}(T, P) + T k_B \sum_{educt} \nu_i \ln c_i = \sum_{product} \nu_i \mu_{0, i}(T, P) + T k_B \sum_{product} \nu_i \ln c_i
+\sum_{reactants} \nu_i \mu_{0, i}(T, P) + RT \sum_{reactants} \nu_i \ln c_i = \sum_{products} \nu_i \mu_{0, i}(T, P) + RT \sum_{products} \nu_i \ln c_i
 $$
 Collecting terms, we can rewrite this as
 $$
-T k_B \ln \frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} = \sum_{educt} \nu_i \mu_{0, i}(T, P) - \sum_{product} \nu_i \mu_{0, i}(T, P)
+RT \ln \frac{\prod_{products} c_i^{\nu_i}}{\prod_{reactants} c_i^{\nu_i}} = \sum_{reactants} \nu_i \mu_{0, i}(T, P) - \sum_{products} \nu_i \mu_{0, i}(T, P)
 $$
-By what we have discussed so far, we can identify the right hand side as minus the change of Gibbs energy in an infinitesimal reaction at temperature $T$ and pressure $B$ at a concentration $c_i = 1$, i.e. a quantity that depends only on the reaction and temperature and pressure. Thus we can write this as
+Note that the right hand side of this equation is a number that only depends on temperature and pressure and of course on the involved substances, but not on the concentrations. 
+Dividing both sides by $RT$ and exponentiating gives us the usual formulation of the {\em law of mass actions}: in equilibrium, the product of the concentrations of products divided by the product of the concentrations of the reactants is a constant
 $$
-T k_B \ln \frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} =  - \Delta G^0
+\frac{\prod_{products} c_i^{\nu_i}}{\prod_{reactants} c_i^{\nu_i}} = K
+$$
+that depends only on temperature and pressure and on the reaction itself. To relate this constant $K$ to Gibbs energies, let us introduce the notation
+$$
+\Delta_R G =   \sum_{products} \nu_i \mu_{0, i}(T, P) - \sum_{reactants} \nu_i \mu_{0, i}(T, P)
+$$
+Then we find that
+$$
+RT \ln \frac{\prod_{products} c_i^{\nu_i}}{\prod_{reactants} c_i^{\nu_i}} =  - \Delta_r G
 $$
 or
 $$
-\frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} = \exp (- \frac{\Delta G^0}{k_B T})
+K = \exp (- \frac{\Delta_r G}{R T})
 $$
-This gives us the usual formulation of the {\em law of mass actions}: in equilibrium, the product of the concentrations of products divided by the product of the concentrations of the reactants is a constant
+in aligment with section chapter 5 of \cite{Schroeder}.
+But what exactly is $\Delta_r G$? To see this, let us again consider a simple example - a reaction of the form 
 $$
-\frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} = K
+A + B \longrightarrow C
 $$
-and this constant is related to the change in Gibbs free energy in a standard reaction by
+The constant $\Delta_r G$ is then, by definition, given by
 $$
-K = \exp (- \frac{\Delta G^0}{k_B T})
+\Delta_r G = \mu_C - (\mu_A + \mu_B)
 $$
-We also see that if the Gibbs free energy of the reaction is negative, this constant tends to be large so that the reaction will run almost to completion, while if the Gibbs free energy is positive, the equilibrium will be on the side of the reactants. Note that in chemistry, the standard reaction is typically the reaction that converts one mole of one of the reactants. Then an additional factor $N_A$ sneaks into our equations. As the product of Avoagrado's constant and $k_B$ is the universal gas constant $R$, our result would appear in a textbook on chemistry as
-$$
-K = \exp (- \frac{\Delta G^0}{R T})
-$$
-in aligment with section chapter 5 of \cite{Schroeder}. 
+Now $\mu_A + \mu_B$ is the Gibbs free energy of a solution containing one mole of $A$ and one mole of $B$, and $\mu_C$ is the Gibbs free energy of one mole of $C$. Thus the difference is the change in the Gibbs free energy if during the reaction one mole of $A$ and one mole of $B$ is converted into one mole of $C$, assuming that during the entire process, the chemical potentials remain constant (i.e we ignore the change in concentration). We therefore find that $\Delta_r G$ is the change in the Gibbs energy caused by the reaction at standard conditions (and approximately constant concentration).
+So the equilibrium constant and the of the Gibbs energy during a reaction are related by
 
-Note, however, that we still used  a little approximation in this derivation. We have calculated the chemical potential of a solute in a dilute solution and found that it depends on the environment, i.e. on the amount of solvent present. We have then, however, applied this individually to each reactant and product of the reaction, ignoring that the chemical potential of one substance could be influenced by the presence of another substance. Thus we have ignored the interactions between the different solutes. This appears to be justified as these cross-terms can probably be neglected compared to the terms involving the solvent. If we wanted to be exact, we would have to use the {\em activities} $a_i$ instead of the concentrations, which are defined by (note that the constant $R$ appears here instead of $k_B$ as in chemistry textbooks, the $N_i$ are usually taken to be numbers of moles, not number of particles or molecules)
+
+Let us pause for a moment and take a look at the dependency of the chemical potential on the concentration. We know by the above relation between the chemical potential and the concentration that at standard conditions ($c = 1$), the derivative of the chemical potential with respect to the concentration is $RT$ which is in the order of $2.5 kJ \cdot \text{mol}^{-1}$. For many reactions, the chemical potentials are in the order of a few hundred $kJ \cdot \text{mol}^{-1}$. Therefore the change of the chemical potential with a changing concentration can be neglected. 
+
+In general, we could still {\em define} $\Delta_r G$ by the difference of the weighted chemical potentials of products and reactants, and this is in fact how this quantity is determined in practice - we look up the individual chemical potentials in some tables, which are usually called molar free Gibbs energy in chemistry textbooks, and add them up, taking stoichiometric coefficients into account. However, the identification with the actual change in Gibbs energy during the reaction is then only valid if the concentrations are close to the standard value (usually $1$) throughout the reaction, which has to be ensured by the setup of the experiment (for instance because we let actually only a small fraction of a mole react and then scale up, which we can do as the Gibbs free energy is an extensive quantity).
+
+We also see that if the Gibbs free energy of the reaction is negative, the quilibrium constant tends to be large so that the reaction will run almost to completion, while if the Gibbs free energy is positive, the equilibrium will be on the side of the reactants. 
+ 
+
+Note, however, that we still used  a little approximation in this derivation. We have calculated the chemical potential of a solute in a dilute solution and found that it depends on the environment, i.e. on the amount of solvent present. We have then, however, applied this individually to each reactant and product of the reaction, ignoring that the chemical potential of one substance could be influenced by the presence of another substance. Thus we have ignored the interactions between the different solutes. This appears to be justified as these cross-terms can probably be neglected compared to the terms involving the solvent. If we wanted to be exact, we would have to use the {\em activities} $a_i$ instead of the concentrations, which are defined by 
 $$
 \mu_i = \mu_{i,0} + RT \ln a_i
 $$
@@ -1924,6 +1947,7 @@ $$
 c(H_3O^+)  = 1 \times 10^{-7}
 $$
 Minus the logarithm of the concentration of oxonium $H_3 O^+$ iones is by definition the pH-value, and we recover the well-known fact that the pH-value of pure water is 7.
+
 	
 \section{Applications in chemistry - the reaction enthalpy}
 
