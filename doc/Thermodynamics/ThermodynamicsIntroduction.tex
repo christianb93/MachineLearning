@@ -495,9 +495,9 @@ Putting all this together yields
 $$
 \frac{\partial S}{\partial N} = \frac{S}{N} - (c+1) R
 $$
-When we combine this expression with the definition of $\mu$ as $-T$ times the partial derivative and multiply the result by $N$, we obtain
+When we combine this expression with the definition of $\mu$ as $-T$ times the partial derivative, we obtain
 $$
-\mu N = - T S + (c+1) NRT
+\mu  = -T s_0 - T R \ln \big[ \big( \frac{U}{U_0} \big)^c \frac{V}{V_0} N^{-c - 1}  \big] + (c+1) RT = - T \frac{S}{N} + (c+1) RT 
 $$
 which we can also write as
 $$
@@ -512,6 +512,7 @@ $$
 U = TS - PV + \mu N
 $$
 as an expression for the internal energy in terms of entropy, volume and particle number plus the intensive variables temperature, pressure and particle number - which, of course, is exactly the expression predicted by our discussion of homogeneous functions in the appendix.
+
 
 
 \section{The principal of minimal internal energy}\label{sec:minimalinternalenergy}
@@ -854,6 +855,26 @@ $$
 G(T, P, N) = U - TS + PV
 $$
 These potentials have properties similar to the Helmholtz energy, for instance we can deduce in a similar way that the Gibbs free energy is minimized in equilibrium if a process is constrained to a fixed temperature and pressure - we will actually demonstrate an application of this in the next section.
+
+
+
+As an example, let us calculate the Gibbs energy of an ideal gas. In a previous section, we have already derived the following expression for the chemical potential.
+$$
+\mu  = -T s_0 - T R \ln \big[ \big( \frac{U}{U_0} \big)^c \frac{V}{V_0} N^{-c - 1}  \big] + (c+1) RT 
+$$
+Let us express the chemical potential in terms of temperature and pressure instead of energy and volume. Using the ideal gas laws, we easily obtain
+$$
+\big( \frac{U}{U_0} \big)^c \frac{V}{V_0} N^{-c - 1} = N_0^{-c - 1} \big( \frac{T}{T_0} \big)^{c+1} \frac{P_0}{P}
+$$
+where $N_0$ is the particle number of our reference state. When we conveniently choose this to be $N_A$, so that our reference state contains one mole of substance, we therefore find that
+$$
+\mu  = -T s_0 - T R \ln \big[ N_A^{-c - 1} \big( \frac{T}{T_0} \big)^{c+1} \frac{P_0}{P}  \big] + (c+1) RT
+$$
+showing that {\em the chemical potential of an ideal gas in isolation does not depend on the particle number}. Based on the results in the appendix on homogenous functions, this is what we expect, as the chemical potential is homogenous of degree $0$ in $N$ and therefore constant (along rays, but as there is only one particle involved this implies that is does not depend on $N$). This only becomes apparent if we express the chemical potential really in terms of $T$, $P$ and $N$ alone and unravel all hidden dependencies on $N$, for instance in $S$.  As the Gibbs energy is homogenous in $N$,  the Gibbs energy of a system with $N$ particles is simply $\mu N$. Spelling this out explicitly and collecting terms, we find that
+$$
+G(T, P, N) = \frac{N}{N_A} \frac{T}{T_0} G_0 - N T R  \ln \big[ \big( \frac{T}{T_0} \big)^{c+1} \frac{P_0}{P}  \big]
+$$
+where $G_0$ is the Gibbs energy of one mole of our gas at standard conditions.
 
 \section{The van der Waals model}
 
@@ -1608,14 +1629,14 @@ This is in perfect agreement with our expectation - a classical oscillator has t
 
 \section{Applications in chemistry - the law of mass action}
 
-In this and the next section, we take a closer look at some applications of thermodynamical concepts to chemistry. In a typical chemical reaction, all thermodynamical properties that we have discussed so far tend to change. The number of particles of a given species changes (this is the very nature of a reaction) as educts are converted into products of the reaction, and chemical energy is converted into other forms of energy. Many reactions involve a change in volume, for instance because a gas is produced or the densities of the involved reactants differ, and this change in volume in turn results in work being done on the environment. Often, excess energy is transferred to the environment in the form of heat. And finally, the entropy changes as well - if for instance two molecules which were initially separated are combined into a new molecule, the number of degrees of freedom and thus the entropy are reduced. We will see that a strategy to deal with this complexity is to fix certain thermodynamic variables like temperature or pressure and to use Legendre transforms to effectively focus on some of the changing quantities in isolation.
+In this and the next section, we take a closer look at some applications of thermodynamical concepts to chemistry. In a typical chemical reaction, all thermodynamical properties that we have discussed so far tend to change. The number of particles of a given species changes (this is the very nature of a reaction) as reactants are converted into products of the reaction, and chemical energy is converted into other forms of energy. Many reactions involve a change in volume, for instance because a gas is produced or the densities of the involved reactants differ, and this change in volume in turn results in work being done on the environment. Often, excess energy is transferred to the environment in the form of heat. And finally, the entropy changes as well - if for instance two molecules which were initially separated are combined into a new molecule, the number of degrees of freedom and thus the entropy are reduced. We will see that a strategy to deal with this complexity is to fix certain thermodynamic variables like temperature or pressure and to use Legendre transforms to effectively focus on some of the changing quantities in isolation.
 
 
 Our first application will be the derivation of the {\em law of mass actions} that describes the equilibrium state of chemical reactions. As a starting point, let us take a closer look at the Gibbs energy that we have introduced earlier. Recall that the Gibbs energy is given by
 $$
 G(T, P, N) = U - TS + PV
 $$
-which is derived internal $U$ energy by applying two Legendre transformations, once with respect to the entropy and once with respect to the volume. Again, our general theory gives us an expression for the total differential of the Gibbs energy:
+which is obtained from the internal $U$ energy by applying two Legendre transformations, once with respect to the entropy and once with respect to the volume. Again, our general theory gives us an expression for the total differential of the Gibbs energy:
 $$
 dG = - S dT + V dP + \mu dN
 $$
@@ -1662,11 +1683,11 @@ $$
 $$
 the resulting equation would be 
 $$
-\sum_{educts} \nu_i \mu_i = \sum_{products} \nu_i \mu_i
+\sum_{reactants} \nu_i \mu_i = \sum_{products} \nu_i \mu_i
 $$
-i.e. the sum of the chemical potentials counted with the respective stoichiometric multiplicities is the same for the educts as well as for the products. Now the point of this equation is that the chemical potentials $\mu_i$ are (in general) functions of temperature, pressure and concentration (or partial pressure for gases). If we know these expressions, we can hope to obtain an equilibrium conditions that involves the concentrations so that we can determine the concentrations at equilibrium.
+i.e. the sum of the chemical potentials counted with the respective stoichiometric multiplicities is the same for the reactants as well as for the products. Now the point of this equation is that the chemical potentials $\mu_i$ are (in general) functions of temperature, pressure and concentration (or partial pressure for gases). If we know these expressions, we can hope to obtain an equilibrium conditions that involves the concentrations so that we can determine the concentrations at equilibrium.
 
-Before we do this, it is worth pointing out another consequence of our discussion. Suppose we start with a system that is not in equilibrium. If one infinitesimal step of our reaction takes place (for instance, the hypothetical step of converting one molecule of one of the educts), the Gibbs energy of the system will change by some amount $\Delta G$ which - as we have seen above - can be calculated from the chemical potentials and the stoichiometric coefficients (and are tabulated for many chemical reactions). Now we know that the system strives to decrease the Gibbs energy on its way to equilibrium. Thus a negative value of $\Delta G$ is a necessary condition for a reaction to take place spontaneously. 
+Before we do this, it is worth pointing out another consequence of our discussion. Suppose we start with a system that is not in equilibrium. If one infinitesimal step of our reaction takes place (for instance, the hypothetical step of converting one molecule of one of the reactants), the Gibbs energy of the system will change by some amount $\Delta G$ which - as we have seen above - can be calculated from the chemical potentials and the stoichiometric coefficients (and are tabulated for many chemical reactions). Now we know that the system strives to decrease the Gibbs energy on its way to equilibrium. Thus a negative value of $\Delta G$ is a necessary condition for a reaction to take place spontaneously. 
 
 Let us now try to derive (or at least guess) such a relation. This is not an exact derivation but somehow heuristic and motivated by statistical mechanics. We start by deriving an expression for the Gibbs energy of a system containing only one type of substance. We know that the Gibbs free energy is extensive with respect to the particle number $N$, i.e. 
 $$
@@ -1748,7 +1769,7 @@ or
 $$
 \frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} = \exp (- \frac{\Delta G^0}{k_B T})
 $$
-This gives us the usual formulation of the {\em law of mass actions}: in equilibrium, the product of the concentrations of products divided by the product of the concentrations of the educts is a constant
+This gives us the usual formulation of the {\em law of mass actions}: in equilibrium, the product of the concentrations of products divided by the product of the concentrations of the reactants is a constant
 $$
 \frac{\prod_{product} c_i^{\nu_i}}{\prod_{educt} c_i^{\nu_i}} = K
 $$
@@ -1756,13 +1777,13 @@ and this constant is related to the change in Gibbs free energy in a standard re
 $$
 K = \exp (- \frac{\Delta G^0}{k_B T})
 $$
-We also see that if the Gibbs free energy of the reaction is negative, this constant tends to be large so that the reaction will run almost to completion, while if the Gibbs free energy is positive, the equilibrium will be on the side of the educts. Note that in chemistry, the standard reaction is typically the reaction that converts one mole of one of the educts. Thus  $\Delta G^0$ in a chemistry textbook is our $\Delta G^0$ multiplied by Avogadro's constant. As the product of Avoagrado's constant and $k_B$ is the universal gas constant $R$, our result would appear in a textbook on chemistry as
+We also see that if the Gibbs free energy of the reaction is negative, this constant tends to be large so that the reaction will run almost to completion, while if the Gibbs free energy is positive, the equilibrium will be on the side of the reactants. Note that in chemistry, the standard reaction is typically the reaction that converts one mole of one of the reactants. Then an additional factor $N_A$ sneaks into our equations. As the product of Avoagrado's constant and $k_B$ is the universal gas constant $R$, our result would appear in a textbook on chemistry as
 $$
 K = \exp (- \frac{\Delta G^0}{R T})
 $$
 in aligment with section chapter 5 of \cite{Schroeder}. 
 
-Note, however, that we still used a little approximation in this derivation. We have calculated the chemical potential of a solute in a dilute solution and found that it depends on the environment, i.e. on the amount of solvent present. We have then, however, applied this individually to each educt and product of the reaction, ignoring that the chemical potential of one substance could be influenced by the presence of another substance. Thus we have ignored the interactions between the different solutes. This appears to be justified as these cross-terms can probably be neglected compared to the terms involving the solvent. If we wanted to be exact, we would have to use the {\em activities} $a_i$ instead of the concentrations, which are defined by (note that the constant $R$ appears here instead of $k_B$ as in chemistry textbooks, the $N_i$ are usually taken to be numbers of moles, not number of particles or molecules)
+Note, however, that we still used  a little approximation in this derivation. We have calculated the chemical potential of a solute in a dilute solution and found that it depends on the environment, i.e. on the amount of solvent present. We have then, however, applied this individually to each reactant and product of the reaction, ignoring that the chemical potential of one substance could be influenced by the presence of another substance. Thus we have ignored the interactions between the different solutes. This appears to be justified as these cross-terms can probably be neglected compared to the terms involving the solvent. If we wanted to be exact, we would have to use the {\em activities} $a_i$ instead of the concentrations, which are defined by (note that the constant $R$ appears here instead of $k_B$ as in chemistry textbooks, the $N_i$ are usually taken to be numbers of moles, not number of particles or molecules)
 $$
 \mu_i = \mu_{i,0} + RT \ln a_i
 $$
@@ -1797,7 +1818,7 @@ To interpret this quantity, imagine a system that has some internal energy $U$ a
 
 To get a better intuition for what a {\em change} in enthalpy actually describes let us consider a physical system in which a reaction takes place (think of a vessel filled with a dilute solution or with gas). Let us suppose that one wall of this system contains a movable piston that the system can adjust to transfer energy in the form of mechanical work into a pressure reservoir PR, which is otherwise closed and isolated from the environment. Suppose further that there is also a heat sink HS to which our system is connected and to which it can transfer heat, but which is again isolated towards the environment. We do not assume that this is a heat reservoir in the classical sense with unlimited heat capacity, but simply that it is connected to the primary system by the diathermic wall (thus we do only require constant pressure, not constant temperature).
 
-To make this more tangible, let us envision a {\em coffee cup calorimeter} as described in chapter 7 of \cite{Petrucci}. This calorimeter is simply a well insulated coffee cup, maybe out of styrofoam, and a cover with two holes in it. The cup contains water as a solvent, and one hole is used to insert a temperature sensor, while the other hole is used to insert a stirrer. Small amounts of the educts of the reaction in question are dissolved in the water in the cup. Then the system is given some time to achieve equilibrium (implying that the temperature of the solvent and that of the solute will be the same). Next the stirrer is used to initiate the reaction. When the reaction takes place, the volume of the system typically changes, but as the cup is not fully airtight, this results in the change of volume of the water at constant pressure. Thus the water in the cup serves as both the pressure reservoir (in combination with the surrounding atmosphere) and heat sink, while the system under consideration is composed of educts and products of the reaction that we want to study. The heat transferred into the surrounding water can be measured using the temperature sensor. Picture \ref{fig:coffeecupcalorimeter}, (taken from \cite{openstax} ) displays a sketch of such a device.
+To make this more tangible, let us envision a {\em coffee cup calorimeter} as described in chapter 7 of \cite{Petrucci}. This calorimeter is simply a well insulated coffee cup, maybe out of styrofoam, and a cover with two holes in it. The cup contains water as a solvent, and one hole is used to insert a temperature sensor, while the other hole is used to insert a stirrer. Small amounts of the reactants of the reaction in question are dissolved in the water in the cup. Then the system is given some time to achieve equilibrium (implying that the temperature of the solvent and that of the solute will be the same). Next the stirrer is used to initiate the reaction. When the reaction takes place, the volume of the system typically changes, but as the cup is not fully airtight, this results in the change of volume of the water at constant pressure. Thus the water in the cup serves as both the pressure reservoir (in combination with the surrounding atmosphere) and heat sink, while the system under consideration is composed of reactants and products of the reaction that we want to study. The heat transferred into the surrounding water can be measured using the temperature sensor. Picture \ref{fig:coffeecupcalorimeter}, (taken from \cite{openstax} ) displays a sketch of such a device.
 
 \begin{figure}
 	\centering
@@ -1845,7 +1866,7 @@ and
 $$
 C \longrightarrow B
 $$
-Now each of the reaction educts and products that we have abbreviated with $A, B, C$ are states of our system - a certain amount of molecules of the respective type dissolved in water (as long as we stick to some standard conditions, which are conventially chosen to be a pressure of 1 bar and a temperature of 298 K). Thus each of them has a certain value of the enthalpy, and the change in enthalpy is simply the difference of the enthalpy after and before the reaction took place. This implies, however, that we can simply calculate enthalpy changes of new reactions by adding up enthalpy changes of existing reactions in the obvious way, specifically
+Now each of the reaction reactants and products that we have abbreviated with $A, B, C$ are states of our system - a certain amount of molecules of the respective type dissolved in water (as long as we stick to some standard conditions, which are conventially chosen to be a pressure of 1 bar and a temperature of 298 K). Thus each of them has a certain value of the enthalpy, and the change in enthalpy is simply the difference of the enthalpy after and before the reaction took place. This implies, however, that we can simply calculate enthalpy changes of new reactions by adding up enthalpy changes of existing reactions in the obvious way, specifically
 \begin{align*}
 \Delta H_{A \longrightarrow B } &= H_B - H_A \\
 \Delta H_{A \longrightarrow C } &= H_C - H_A \\
