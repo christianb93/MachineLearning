@@ -479,6 +479,15 @@ PV = -TV \frac{\partial S}{\partial V} = TV \frac{RN}{V} = NRT
 $$
 Thus we can recover the laws of an ideal gas from the entropy. 
 
+For later reference, let us also express the entropy in terms of temperature, volume and particle number. We can use the ideal gas relations to write
+$$
+\big( \frac{U}{U_0} \big)^c \frac{V}{V_0} N^{-c - 1} = N_0^{-c}  \big(  \frac{T}{T_0} \big)^{c} \frac{V}{V_0}
+$$
+so that, absorbing $-c R \ln  N_0$ into the constant $s_0$ and splitting the logarithm, we find that
+$$
+S = N s_0 + c N R \ln \frac{T}{T_0}  + N R \ln \frac{V}{V_0}  
+$$
+
 Let us now use the formula that we have found for the entropy to derive a similar expression for the energy $U$.
 First, let us calculate the chemical potential $\mu$. The partial derivative of $S$ with respect to $N$ is given by
 \begin{align*}
@@ -513,7 +522,115 @@ U = TS - PV + \mu N
 $$
 as an expression for the internal energy in terms of entropy, volume and particle number plus the intensive variables temperature, pressure and particle number - which, of course, is exactly the expression predicted by our discussion of homogeneous functions in the appendix.
 
+The ideal gas that we have discussed so far was assumed to only contain one type of substance, so you would call this a {\em monatomic ideal gas}. Let us now see what happens if we consider a mixture of several ideal gases. As the gases do not interact, they will all occupy the same volume $V$, and we also assume equilibrium, so that the gases all have the same temperature $T$. However, each of them will exert a certain pressure $P_i$ on the walls of the vessel in which the gas is contained, called the {\em partial pressure}, and the total pressure is given by
+$$
+P = \sum_i P_i
+$$
+a fact which is sometimes called Dalton's law. As we assume that the gases do not interact, the ideal gas laws hold for each of them separately, so that
+\begin{align*}
+P_i V &= N_i R T \\
+U_i &= c_i N_i R T
+\end{align*}
+Note that the first relation implies that
+$$
+P_i = N_i \frac{RT}{V} 
+$$
+and
+$$
+P = N \frac{RT}{V} 
+$$
+so that
+$$
+P_i = \frac{N_i}{N} P
+$$
+Let us now again derive an equation for the entropy of the mixture. To do this, we start with the relation
+$$
+TS = U + PV - \sum_i \mu_i N_i
+$$
+We know that the total energy is the sum of the $U_i$ and the total pressure is the sum of the $P_i$. Thus 
+$$
+TS = \sum_i U_i + \sum_i P_i V - \sum_i \mu_i N_i
+$$
+Let us now assume that the chemical potentials of the components are the same as it would be in isolation (which seems reasonable as we think of the components as non-interacting, we will later verify this by showing that the expression for $S$ that we obtain in this way gives the correct gas laws - however we will also justify this more formally a bit later). Thus we assume that
+$$
+\mu_i = -T s_{0, i} - T R \ln \big[ \big( \frac{U_i}{U_0} \big)^c \frac{V}{V_0} N_i^{-c - 1}  \big] + (c_i+1) RT
+$$
+Now the ideal gas laws in the form written above imply that
+$$
+\frac{U}{U_0} = \frac{N_i}{N_0} \frac{T}{T_0}
+$$
+so that
+$$
+\big( \frac{U_i}{U_0} \big)^c_i  N_i^{-c_i - 1} = N_0^{-c_i}  \big(  \frac{T}{T_0} \big)^{c_i} \frac{1}{N_i}
+$$
+By redefining the constant $s_{0,i}$ we can therefore write the chemical potential as
+$$
+\mu_i = -T s_{0, i} - T R \ln \big[ \big(  \frac{T}{T_0} \big)^{c} \frac{V}{N_i V_0} \big] + (c_i+1) RT
+$$
+Therefore
+$$
+N_i \mu_i = - N_i T s_{0, i} - N_i T R \ln \big[ \big(  \frac{T}{T_0} \big)^{c} \frac{V}{N_i V_0} \big] + N_i (c_i+1) RT
+$$
+Now the last term is
+$$
+N_i (c_i+1) RT = N_i c_i R T + N_i R T = U_i + P_i V
+$$
+so that
+$$
+N_i \mu_i = - N_i T s_{0, i} - N_i T R \ln \big[ \big(  \frac{T}{T_0} \big)^{c} \frac{V}{N_i V_0} \big] + U_i + P_i V
+$$
+Plugging this into our equation for $TS$ above, the last two terms cancel with $\sum_i U_i$ and $\sum_i P_i V$, and we obtain
+$$
+TS =  \sum_i N_i T s_{0, i} + \sum_i  N_i T R \ln \big[ \big(  \frac{T}{T_0} \big)^{c} \frac{V}{N_i V_0} \big]
+$$
+so that the entropy is
+$$
+S = \sum_i N_i  s_{0, i} + \sum_i  c_i N_i R \ln   \frac{T}{T_0}  +  \sum_i  N_i R \ln \frac{V}{N_i V_0} 
+$$
+in accordance with the expression in \cite{Callen}, section 3.4. Note that a gas consisting of $N_i$ particles (or moles) of constituent $i$ at temperature $T$ and pressure $P_i$ would occupy the volume
+$$
+\frac{N_i RT}{P_i} = \frac{N_i RT}{P \frac{N_i}{N}} = \frac{RT}{P} = V
+$$
+and its entropy would therefore be
+$$
+ N_i  s_{0, i} +  c_i N_i R \ln   \frac{T}{T_0}  +   N_i R \ln \frac{V}{N_i V_0} 
+$$
+Therefore we find that {\em the entropy of a mixture of ideal gases} is the sum of the entropies that each constituent would have at particle number $N_i$, temperature $T$ and pressure $P_i$ (or equivalently volume $V$). Put differently, if we think of our system as a composite system where each subsystem has volume $V$, temperature $T$ and consists of all atoms of one type, we could appeal to the additivity of entropy to calculate the entropy of the overall system and would arrive at exactly the same expression. This alternative approach to deriving the entropy also shows that our earlier assumption that the chemical potentials are independent of each other is not only justified but in fact a direct consequence of the additivity of the entropy. 
 
+
+It is interesting to analyze that expression a bit further. For that purpose, let us imagine that we have a collection of separated gases, each with a particle number $N_i$ and each at the same pressure $P$ and temperature $T$. Let $N$ again denote the total particle number. The volume of each gas is then given by
+$$
+V_i = \frac{N_i R T}{P} 
+$$
+and the total volume is 
+$$
+V = \sum_i \frac{N_i R T}{P}  = \frac{N R T}{P}
+$$
+The total entropy of the system given by this initially separated collection of gases is then
+$$
+S_{initial} = \sum_i N_i  s_{0, i} + \sum_i  c_i N_i R \ln   \frac{T}{T_0}  +  \sum_i  N_i R \ln \frac{V_i}{N_i V_0} 
+$$
+As
+$$
+\frac{V_i}{N_i} = \frac{V}{N}
+$$
+this is the same as
+$$
+S_{initial} = \sum_i N_i  s_{0, i} + \sum_i  c_i N_i R \ln   \frac{T}{T_0}  +  \sum_i  N_i R \ln \frac{V}{N V_0} 
+$$
+When we now allow the gases to mix, no mechanical work is done as the systems already have the same pressure, and no heat is exchanged, as they already have the same temperature. Once equilibrium is reached, we can apply the formula that we have found above to conclude that the final entropy of the system is
+$$
+S_{final} = \sum_i N_i  s_{0, i} + \sum_i  c_i N_i R \ln   \frac{T}{T_0}  +  \sum_i  N_i R \ln \frac{V}{N_i V_0} 
+$$
+The difference between these two terms is given by
+$$
+\Delta S = S_{final} - S_{initial} = \sum_i  N_i R \ln \frac{V}{N_i V_0}  - \sum_i  N_i R \ln \frac{V}{N V_0} 
+$$
+which is the same as
+$$
+\Delta S = \sum_i  N_i R ( \ln \frac{N}{N_i })
+$$
+This is inherently positive, as $N > N_i$, and represents a gain in entropy that is called the {\em entropy of mixing}. We will meet this term again when we calculate the chemical potential of a solute in a later section.
 
 \section{The principal of minimal internal energy}\label{sec:minimalinternalenergy}
 
