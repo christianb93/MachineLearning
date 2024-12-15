@@ -1891,37 +1891,65 @@ Dividing both sides by $RT$ and exponentiating gives us the usual formulation of
 $$
 \frac{\prod_{products} c_i^{\nu_i}}{\prod_{reactants} c_i^{\nu_i}} = K
 $$
-that depends only on temperature and pressure and on the reaction itself. To relate this constant $K$ to Gibbs energies, let us introduce the notation
+that depends only on temperature and pressure and on the reaction itself. To relate this constant $K$ to Gibbs energies, let us define
 $$
-\Delta_R G =   \sum_{products} \nu_i \mu_{0, i}(T, P) - \sum_{reactants} \nu_i \mu_{0, i}(T, P)
+\Delta_R G^0 =   \sum_{products} \nu_i \mu_{0, i}(T, P) - \sum_{reactants} \nu_i \mu_{0, i}(T, P)
 $$
 Then we find that
 $$
-RT \ln \frac{\prod_{products} c_i^{\nu_i}}{\prod_{reactants} c_i^{\nu_i}} =  - \Delta_r G
+RT \ln \frac{\prod_{products} c_i^{\nu_i}}{\prod_{reactants} c_i^{\nu_i}} =  - \Delta_r G^0
 $$
 or
 $$
-K = \exp (- \frac{\Delta_r G}{R T})
+K = \exp (- \frac{\Delta_r G^0}{R T})
 $$
 in aligment with section chapter 5 of \cite{Schroeder}.
-But what exactly is $\Delta_r G$? To see this, let us again consider a simple example - a reaction of the form 
-$$
-A + B \longrightarrow C
-$$
-The constant $\Delta_r G$ is then, by definition, given by
-$$
-\Delta_r G = \mu_C - (\mu_A + \mu_B)
-$$
-Now $\mu_A + \mu_B$ is the Gibbs free energy of a solution containing one mole of $A$ and one mole of $B$, and $\mu_C$ is the Gibbs free energy of one mole of $C$. Thus the difference is the change in the Gibbs free energy if during the reaction one mole of $A$ and one mole of $B$ is converted into one mole of $C$, assuming that during the entire process, the chemical potentials remain constant (i.e we ignore the change in concentration). We therefore find that $\Delta_r G$ is the change in the Gibbs energy caused by the reaction at standard conditions (and approximately constant concentration).
-So the equilibrium constant and the of the Gibbs energy during a reaction are related by
 
+How can we interpret the quantity $\Delta_r G^0$? To see this, let us consider a chemical reaction as above. When a reaction step takes place, all the molarities $m_i$ change, but their changes are related by the stoichiometric coefficients. In fact, it is not difficult to see that if we know how the molarity of one reactant or product changes, we know all the other changes. Thus the state of the system moves on a one-dimensional hypersurface, i.e. a graph, as the reaction proceeds.
 
-Let us pause for a moment and take a look at the dependency of the chemical potential on the concentration. We know by the above relation between the chemical potential and the concentration that at standard conditions ($c = 1$), the derivative of the chemical potential with respect to the concentration is $RT$ which is in the order of $2.5 kJ \cdot \text{mol}^{-1}$. For many reactions, the chemical potentials are in the order of a few hundred $kJ \cdot \text{mol}^{-1}$. Therefore the change of the chemical potential with a changing concentration can be neglected. 
+To parametrize this hypersurface, let us introduce a parameter $\xi$ that is called the {\em extent} of the reaction (see for instance section 4.6 in \cite{Petrucci}) and is related to the changes in molarity by
+$$
+\Delta m_i = \nu_i \xi
+$$
+for products and
+$$
+\Delta m_i = - \nu_i \xi
+$$
+for reactants. Put differently
+$$
+\frac{d}{d \xi} m_i(\xi) = \pm \nu_i
+$$
+Now the Gibbs energy at any point of the reaction depends on $\xi$ as well, and we can use the chain rule to calculate the derivative:
+$$
+\frac{d}{d\xi} G(\xi) = \sum_i \frac{\partial G}{\partial m_i} \frac{d m_i}{d \xi} = \sum_{products} \nu_i \mu_i  - \sum_{reactants}  \nu_i \mu_i
+$$
+In particular, we find that at standard conditions, we have
+$$
+\frac{d}{d\xi} G(\xi) | _{\xi = 0} = \sum_{products} \nu_i \mu_i^0(P, T)  - \sum_{reactants} \nu_i \mu_i^0(P, T) i = \Delta_r G^0
+$$
+Thus the quantity $\Delta_r G^0$ is the rate of change of the Gibbs energy during a reaction at standard conditions. For a finite but small value of $\xi$, we can approximate the change in Gibbs energy by taking the Taylor expansion to the first order, i.e. as
+$$
+\Delta G \approx \xi \cdot \Delta_r G^0 
+$$
+or
+$$
+\Delta_r G^0  \approx \frac{\Delta G}{\xi}
+$$
+As $\xi$ has units of mole, we find that $\Delta_r G^0$ describes the {\em change in Gibbs free energy per mole at standard conditions}. Therefore this quantity is often called molar free Gibbs energy in chemistry books, and in fact the same name is often used for the chemical potentials. As, by definition, the molar free Gibbs energy is the weighted sum of the chemical potentials, it can be determined by looking up these values in a table like those in \cite{Tables}, and adding them up, taking stoichiometric coefficients into account.
 
-In general, we could still {\em define} $\Delta_r G$ by the difference of the weighted chemical potentials of products and reactants, and this is in fact how this quantity is determined in practice - we look up the individual chemical potentials in some tables, which are usually called molar free Gibbs energy in chemistry textbooks, and add them up, taking stoichiometric coefficients into account. However, the identification with the actual change in Gibbs energy during the reaction is then only valid if the concentrations are close to the standard value (usually $1$) throughout the reaction, which has to be ensured by the setup of the experiment (for instance because we let actually only a small fraction of a mole react and then scale up, which we can do as the Gibbs free energy is an extensive quantity).
+For non-infinitesimal extents $\xi$, the above relation between the change in Gibbs free energy and the molar Gibbs energy is not exact. To see why, note that the second derivative of $G(\xi)$ with respect to $\xi$ is given by
+\begin{align*}
+\frac{d^2}{d \xi^2} G(\xi) &= \frac{d}{d \xi} \sum_{products} \nu_i \mu_i - \frac{d}{d \xi} \sum_{reactants} \nu_i \mu_i \\
+&= \sum_{products} \nu_i \frac{d \mu_i}{d \xi} - \sum_{reactants} \nu_i \frac{d \mu_i}{d \xi}
+\end{align*}
+which is in general not zero, as the chemical potentials depend on the concentrations and therefore on $\xi$. 
 
-We also see that if the Gibbs free energy of the reaction is negative, the quilibrium constant tends to be large so that the reaction will run almost to completion, while if the Gibbs free energy is positive, the equilibrium will be on the side of the reactants. 
- 
+Let us try to estimate the error that we make by assuming a simple linear relation between $\Delta G$ and $\xi$. We know by the above relation between the chemical potential and the concentration that at standard conditions ($c = 1$), the derivative of the chemical potential with respect to the concentration is $RT$ which is in the order of $2.5 kJ \cdot \text{mol}^{-1}$. Now the dependency of the concentration on $\xi$ is simple, namely
+$$
+c_i = 1 \pm \nu_i \xi
+$$
+so that the derivatives of the potential with respect to $\xi$ are of the same order of magnitude. For many reactions, however, the chemical potentials are in the order of a few hundred $kJ \cdot \text{mol}^{-1}$. Therefore the change of the chemical potential with a changing concentration can be neglected, and we can roughly determine the change in Gibbs free energy by simply multiplying the molar Gibbs energy $\Delta_r G^0$ with the extent.
+
 
 Note, however, that we still used  a little approximation in this derivation. We have calculated the chemical potential of a solute in a dilute solution and found that it depends on the environment, i.e. on the amount of solvent present. We have then, however, applied this individually to each reactant and product of the reaction, ignoring that the chemical potential of one substance could be influenced by the presence of another substance. Thus we have ignored the interactions between the different solutes. This appears to be justified as these cross-terms can probably be neglected compared to the terms involving the solvent. If we wanted to be exact, we would have to use the {\em activities} $a_i$ instead of the concentrations, which are defined by 
 $$
@@ -1933,21 +1961,93 @@ Let us close this section with a numerical example. We consider the autoprotolys
 $$
 2 H_2 O \longrightarrow OH^- + H_3 O^+
 $$
-The change in Gibbs energy for this reaction can be looked up and is $\Delta G^0 = 79.9 kJ$ at room temperature (i.e. $25 C^0$). Thus the value of the constant $K$ is
+To be able to better look up the chemical potentials, let us write this as
+$$
+H_2 O \longrightarrow OH^- + H^+
+$$
+as the Gibbs energy of the remaining $H_2 O$ appears on both sides. Looking up the values for the individual Gibbs energies $\Delta_r G^0$ (i.e. the chemical potentials) in \cite{Table} gives us
 \begin{align*}
-K &= \exp(\frac{-\Delta G^0}{RT} ) \\
-&= \exp(-\frac{79.9 \times 10^3 J}{8.3 \frac{J}{K} \times 298 K} ) = \exp(-32.26) \approx 1 \times 10^{-14} 
+\Delta_r G^0(H_2 O) &= - 237.129 \text{kJ} / \text{mol}^{-1} \\
+\Delta_r G^0(OH^-) &= - 157.244\text{kJ} / \text{mol}^{-1} \\
+\Delta_r G^0(H^+) &= 0 \text{kJ} / \text{mol}^{-1}
+\end{align*}
+Therefore
+\begin{align*}
+\Delta_r G^0 &= \Delta_r G^0(H^+) + \Delta_r G^0(OH^-) - \Delta_r G^0(H_2 O) \\
+&= (- 157.244 + 237.129) \text{kJ} / \text{mol}^{-1} = 79.885 \text{kJ} / \text{mol}^{-1}
+\end{align*}
+Thus the value of the constant $K$ is
+\begin{align*}
+K &= \exp(\frac{-\Delta_r G^0}{RT} ) \\
+&= \exp(-\frac{79.885 \text{kJ} / \text{mol}^{-1}}{8.314 \frac{J}{K} \times 298.15 K} ) = \exp(-32.227) \approx 1 \times 10^{-14} 
 \end{align*}	
 Assuming that the concentration of water is essentially constant and equal to one, we find that
 $$
 c(H_3O^+) c(OH^-) = 1 \times 10^{-14}
 $$
-Assuming that this reaction is the only source of these ions, we also know that these two concentrations must be equal, so that
+If this reaction is the only source of these ions, we also know that these two concentrations must be equal, so that
 $$
 c(H_3O^+)  = 1 \times 10^{-7}
 $$
 Minus the logarithm of the concentration of oxonium $H_3 O^+$ iones is by definition the pH-value, and we recover the well-known fact that the pH-value of pure water is 7.
 
+\section{Applications in chemistry - the reaction quotient}
+
+Let us now see how the Gibbs free energy comes into play if we consider reactions away from equilibrium. For that purpose, let us consider a reaction that takes place at standard temperature and pressure, but at non-standard concentrations $c_i$. As in the previous section, we can then describe the extent to which the reaction takes place by a parameter $\xi$, and, using the same arguments as above, we find that
+$$
+\frac{dG}{d\xi} = \sum_{products} \nu_i \mu_i(T, P, c_i) - \sum_{reactants} \nu_i \mu_i(T, P, c_i)
+$$
+Let us call this quantity $\Delta_r G$:
+$$
+\Delta_r G = \sum_{products} \nu_i \mu_i(T, P, c_i) - \sum_{reactants} \nu_i \mu_i(T, P, c_i)
+$$
+If the concentrations are the standard concentrations, i.e. $c_i = 1$, then this is the standard molar Gibbs free energy $\Delta_r G^0$. By the same reasoning as above, we also find that
+$$
+\Delta G \approx \xi \Delta_r G
+$$
+for small values of $\xi$, so this number again approximates the change in Gibbs free energy during a reaction per mole, but now at non-standard concentrations.
+
+Let us now try to determine the value $\Delta_r G$ for general values of the concentrations. Again, we make use of the relation
+$$
+\mu_i = \mu_i^0 + RT \ln c_i
+$$
+Plugging this into our definition of $\Delta_r G$ and collecting terms, we find that
+$$
+\Delta_r G = \Delta_r G^0 + \ln \frac{\prod_{products} c_i^{\nu_i}}{\prod_{reactants} c_i^{\nu_i}}
+$$
+The fraction on the right hand side is called the {\em reaction quotient} and is usually denoted by $Q$. Thus we have shown that
+$$
+\Delta_r G = \Delta_r G^0 + RT \ln Q
+$$
+Again, the first term can be looked up or calculated easily from tabulated values. Thus this formula can be used to calculate the (approximate) change in the Gibbs energy during a reaction which does not take place at standard concenctrations.
+
+It is interesting to relate this quantity (which is not a constant, but changes as the reaction proceeds) to the equilibrium constant $K$. The condition for equilibrium is
+$$
+0 = \frac{dG}{d\xi} = \Delta_r G 
+$$
+or
+$$
+RT \ln Q = - \Delta_r G^0 
+$$
+Dividing by $RT$ and exponentiating on both sides yields
+$$
+Q = \exp(\frac{- \Delta_r G^0}{Rt}) = K
+$$
+Thus (not surprisingly) the reaction is in equilibrium if and only if the reaction quotient (a number which changes during the reaction) is equal to the equilibrium constant $K$ (a constant that only depends on the conditions and the reaction in question and can be computed from the molar Gibbs free energy).	
+
+As the Gibbs energy tends to a minimum, we also see that the reaction runs in the forward direction if and only if
+$$
+\frac{dG}{d\xi} < 0
+$$
+i.e. if and only if
+$$
+RT \ln Q < - \Delta_r G^0 
+$$
+or
+$$
+Q < K
+$$ 
+and conversely, the reaction runs backwards if $Q > K$. Thus the reaction moves towards equilibrium by increasing or decreasing $Q$ as needed. 
 	
 \section{Applications in chemistry - the reaction enthalpy}
 
@@ -2198,6 +2298,8 @@ R.H.~Petrucci et al.,
 \bibitem{openstax}
 OpenStax, {\em Chemistry 2e}, available at \url{https://openstax.org/details/books/chemistry-2e}
 
+\bibitem{Tables}
+National Bureau of Standards, {\em The NBS table of chemical thermodynamical properties}, Journal of Physical and Chemical Reference Data, Volume 11 (1982), Supplement No. 2
 
 \end{thebibliography}
 \end{document}
