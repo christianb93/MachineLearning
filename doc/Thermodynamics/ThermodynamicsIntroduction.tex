@@ -10,7 +10,7 @@
 \usepackage{bbm}
 \usepackage{empheq}
 \usepackage{caption}
-
+\usepackage{tikz}
 \usepackage{hyperref}
 
 
@@ -342,7 +342,7 @@ and combining these two equations shows that
 $$
 T_{tot} dS_{tot} = (T_{HB} - T) dS
 $$
-So this term represents the excees entropy that is generated due to the heat transfer between two system with different temperatures. We have seen that, unless $T_{HB} = T$, $dS_{tot} > 0$, so this process is irreversible and entropy is created out of nothing.
+So this term represents the excess entropy that is generated due to the heat transfer between two system with different temperatures. We have seen that, unless $T_{HB} = T$, $dS_{tot} > 0$, so this process is irreversible and entropy is created out of nothing.
 
 
 \section{The energy representation}
@@ -687,7 +687,7 @@ $$
 gives 
 \begin{align}
 \label{eq:chainruleapplied}
-0 = \dot{s}(t) = <dS, (\dot{u}(t), \{ \dot{x_i}(t)\})>
+0 = \dot{s}(t) =  \langle dS, (\dot{u}(t), \{ \dot{x_i}(t)\})  \rangle
 \end{align}
 for all $t$. Applied at $t = 0$, this yields in turn
 $$
@@ -992,6 +992,117 @@ $$
 G(T, P, N) = \frac{N}{N_A} \frac{T}{T_0} G_0 - N T R  \ln \big[ \big( \frac{T}{T_0} \big)^{c+1} \frac{P_0}{P}  \big]
 $$
 where $G_0$ is the Gibbs energy of one mole of our gas at standard conditions.
+
+\section{The Carnot cycle and heat engines}
+
+We have already briefly discussed heat engines and demonstrated that the second law of thermodynamics (in combination with the first law) implies that there is an upper bound on the efficiency of a heat engine. In fact, we have seen that for a heat engine in contact with a heat bath of temperature $T_h$ and a second heat bath of temperature $T_l < T_h$, the efficiency with which the engine can turn heat drawn out of the hotter heat bath into work is at most
+$$
+1 - \frac{T_l}{T_h}
+$$
+We note that the pure fact that there is a bound is not too surprising - by the conservation of energy, the efficiency cannot exceed one. The more interesting part is that the bound is lower than one. In fact, the second law tells us that whenever we let heat flow between two bodies with different temperatures, there is a price we have to pay - an increase in entropy - and this limits the efficiency of a heat engine in addition to the limit given by the conservation of energy.
+
+Let us now try to understand how a process that actually achieves this bound could look like. Thus we need to devise a cycle that our system undergoes and which takes it back to its original state while drawing heat out of the hot reservoir with temperature $T_h$, converting it into work and then letting excess heat flow into the cold reservoir with temperature $T_l$. 
+
+The first observation that we can make is that in order to avoid any unnecessary loss of entropy, our process needs to be quasi-static, and for any transfer of heat, the difference in temperature between the involved bodies should be as small as possible. So imagine we start with a state I in which our system has a temperature which is only a tiny bit smaller than $T_h$, i.e. $T \approx T_h$. Then a certain amount of heat $Q_h > 0$ will flow from the hot reservoir into the engine. During this time, the entropy of the engine changes by an amount
+$$
+\Delta S_A = \frac{Q_h}{T_h}
+$$
+Now we want to keep the temperature of our engine constant while the heat flows, which usually means that we have to let the engine do some work by expanding until it reaches a certain state $II$. Next, we let the engine undergo an adiabatic expansion. During this adiabatic expansion, the engine will do some additional work on the environment and its temperature will drop again. However, as no heat flows, the entropy will not change during that part of the cycle. We let the engine expand until its temperature has reached a value slightly above $T_l$. Denote this state by  $III$. 
+
+In the third part of the cycle, we let the machine undergo another isothermal process during which it transfers some heat $Q_l < 0$ into the cold reservoir. Again, this will trigger a change in entropy given by 
+$$
+\Delta S_C = \frac{Q_l}{T_l}
+$$
+Finally, we let the engine decrease its volume further in an adiabatic process during which it consumes some work from the environment. Thus the total change in entropy is 
+$$
+\Delta S_A + \Delta S_C
+$$
+However, the entropy is a state variable and our process is a cycle, so that the total change in entropy is zero. Thus
+$$
+\Delta S_A  = -  \Delta S_C
+$$
+or 
+$$
+\frac{Q_h}{T_h} = - \frac{Q_l}{T_l}
+$$
+so that
+$$
+\frac{T_l}{T_h} = - \frac{Q_l}{Q_h}
+$$
+Similarly, the total change in energy is zero. By the first law, this implies that
+$$
+0 = Q_h + Q_l + W
+$$
+where $W$ is the total work done by the environment. Thus
+\begin{align*}
+W &= - Q_h - Q_l  \\
+&= - Q_h (1 + \frac{Q_l}{Q_h}) \\
+&= - Q_h  (1 - \frac{T_l}{T_h})
+\end{align*}
+We therefore find that
+$$
+\frac{-W}{Q_h} = 1 - \frac{T_l}{T_h}
+$$
+Now $W$ is the work done on the system, so that $-W$ is the work that is done on the environment. The left hand side is therefore exactly the efficiency as we have defined it earlier, and we find that the efficiency of a Carnot engine is in fact equal to the theoretical limit. 
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		% axes
+		\draw[->] 
+		(-.5, 0) -- (-.5, 5) node[left=.1cm] {P};
+		\draw[->] 
+		(-.5, 0) -- (5.5, 0) node[below=.1cm] {V};
+		% arcs
+		\draw[-] (3.12,2.52) arc (259:230:6.3);
+		\draw[-] (3.12,2.52) arc (220:240:5);
+		\draw[-] (4.45,1.38) arc (260:230:6);
+		\draw[-] (1.67,2.68) arc (265:193:1.6);
+		% labels
+		\node[label=I]  at (0.4,3.8) {};
+		\node[label=II]  at (3.2,2.6) {};
+		\node[label=III]  at (4.5,1.4) {};
+		\node[label=IV]  at (1.6,1.9) {};
+		% text
+		\node at (1.8,3.6) {\tiny isothermic at $T_h$};
+		\node at (4.1,2.3) {\tiny adiabatic};
+		\node at (2.5,1.4) {\tiny isothermic at $T_l$};
+		\node at (.6,2.6) {\tiny adiabatic};
+	\end{tikzpicture}
+	\caption{Carnot cycle in V-P space}\label{fig:carnotpv}
+\end{figure}
+
+To visualize the process, it is useful to display the process as a curve in our configuration space. The first diagram (\ref{fig:carnotpv}) displays this process in the state space spanned by pressure $P$ and volume $V$. We start at state $I$ with an isothermic expansion at temperature $T_h$, then switch at some point to an adiabatic expansion, followed by an isothermal compression at temperature $T_l$ and finally use an adiabatic process to return to our starting point. 
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		% axes
+		\draw[->] 
+		(-.5, 0) -- (-.5, 5) node[left=.1cm] {T};
+		\draw[->] 
+		(-.5, 0) -- (5.5, 0) node[below=.1cm] {S};
+		% arcs
+		\draw[-] (1, 4) -- (4, 4);
+		\draw[-] (4, 4) -- (4, 1);
+		\draw[-] (4, 1) -- (1, 1);
+		\draw[-] (1, 1) -- (1, 4);						
+		% labels
+		\node[label=I]  at (0.7,4) {};
+		\node[label=II]  at (4.2, 4) {};
+		\node[label=III]  at (4.2,.2) {};
+		\node[label=IV]  at (.7,.2) {};
+		% text
+		\node at (2.4,4.2) {\tiny isothermic at $T_h$};
+		\node at (4.7,2.5) {\tiny adiabatic};
+		\node at (2.4,.8) {\tiny isothermic at $T_l$};
+		\node at (.3,2.5) {\tiny adiabatic};
+	\end{tikzpicture}
+	\caption{Carnot cycle in S-T space}\label{fig:carnotst}
+\end{figure}
+
+
+If we describe the process in terms of the conjugated variables $S$ and $T$, we obtain diagram \ref{fig:carnotst}. Here we see that during the first and third phase of the process, the temperature remains constant, while the entropy changes, as heat is transferred in an isothermal process. In phase two and four, no heat is transferred, and as we assume the process to be quasi-static, the entropy does not change. Again, the cycle returns to its original state as $S$ and $T$ are state variables.
 
 \section{The van der Waals model}
 
@@ -1355,9 +1466,8 @@ The second derivative is related to the heat capacity of the reservoir at consta
 \begin{align*}
 \frac{\partial^2 S_R}{\partial U_R^2} = \frac{\partial}{\partial U_R} \frac{1}{T} 
 = - \frac{1}{T^2} (\frac{\partial T}{\partial U_R})_{V,N} 
-= - \frac{1}{T^2} \frac{1}{C_v}
 \end{align*}
-Now, the characteristic property of a reservoir is that we can add heat without significantly raisings its temperature. Thus the heat capacity of a reservoir is essentially infinite, and therefore the inverse of the heat capacity is essentially zero. Therefore we should be able to obtain a very good approximation if we ignore the second derivative and all higher derivatives.
+Now, the characteristic property of a reservoir is that we can add heat without significantly raisings its temperature. Thus raising its temperature does not increase its energy (with other words, the heat capacity of the reservoir is infinite), meaning that the derivative of the temperature with respect to the energy is zero. Therefore the Taylor expansion contains only a linear term.
 As we assume that the volume and particle number are constant, we therefore obtain the expansion
 $$
 S_R(U_{tot} - E(s)) = S_R(U_{tot} - U) + \frac{1}{T} (U - E(s))
@@ -1375,7 +1485,7 @@ $$
 p(s) = \exp (\beta(U - E(s))) \exp (- \beta TS(U)) = \exp (\beta(U-TS)) 
 \exp (-\beta E(s))
 $$
-Now formally this works for every choice of $U$, but we have chosen $U$ to be the average, i.e. the macroscopically observed energy of our primary system. Therefore the quantity $U - TS$ is nothing but the Helmholtz potential of the primary system, and we obtain the fundamental equation
+Now recall that $U$ to be the average, i.e. the macroscopically observed energy of our primary system. Therefore the quantity $U - TS$ is nothing but the Helmholtz potential of the primary system, and we obtain the fundamental equation
 \begin{align*}
 p(s) = e^{\beta F} e^{-\beta E(s)}
 \end{align*}
@@ -1422,8 +1532,8 @@ $$
 $$
 as expected. We can also calculate the probability to find the system in a specific energy $E$. In fact,
 \begin{align*}
-P(E) &= \sum_{s | U(s) = E} p(s) \\
-&=   \frac{1}{Z} \sum_{s | U(s) = E} e^{-\beta E} \\
+P(E) &= \sum_{s | E(s) = E} p(s) \\
+&=   \frac{1}{Z} \sum_{s | E(s) = E} e^{-\beta E} \\
 &= \frac{1}{Z}  \Omega(E) e^{-\beta E} \\
 &= \frac{1}{Z}  e^{\frac{1}{k_B} S(E)} e^{-\beta E} = \frac{1}{Z}  e^{\beta(TS(E) - E)} \\
 \end{align*}
