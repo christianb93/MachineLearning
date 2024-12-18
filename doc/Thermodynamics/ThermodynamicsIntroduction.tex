@@ -1,4 +1,4 @@
-\documentclass[a4paper, draft]{report}
+\documentclass[a4paper, draft]{article}
 \pagestyle{headings}
 
 
@@ -21,8 +21,8 @@
 
 % Numbering
 
-\numberwithin{section}{chapter}
-\numberwithin{equation}{chapter}
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
 
 % Theorem environments
 
@@ -1103,6 +1103,8 @@ To visualize the process, it is useful to display the process as a curve in our 
 
 
 If we describe the process in terms of the conjugated variables $S$ and $T$, we obtain diagram \ref{fig:carnotst}. Here we see that during the first and third phase of the process, the temperature remains constant, while the entropy changes, as heat is transferred in an isothermal process. In phase two and four, no heat is transferred, and as we assume the process to be quasi-static, the entropy does not change. Again, the cycle returns to its original state as $S$ and $T$ are state variables.
+
+Also note that the Carnot cycle demonstrates nicely that the amount of heat emitted or absorbed is actually path-dependent. In diagram \ref{fig:carnotpv}, the system can move from state I to state III by either following the first part of the cycle or the (reversed) second part of the cycle. In the first case, the amount of heat absorbed is $Q_h$, in the second case, this is $Q_l$, and our calculation shows that these are not equal unless $T_h = T_l$.
 
 \section{The van der Waals model}
 
