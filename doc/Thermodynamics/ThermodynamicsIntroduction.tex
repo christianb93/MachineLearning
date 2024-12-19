@@ -1402,18 +1402,18 @@ $$
 \Omega(N,q) = {\binom{q + N -1}{q}} = \frac{(q+N-1)!}{(q!)(N-1)!}
 $$
 (see for example \cite{Schroeder}, section 2.2 for a derivation). We can again apply the Stirling formula  and ignore the difference between $N-1$ and $N$ to approximate the entropy:
+\begin{align*}
+S(N,q) = k_B (q+ N) \ln (q + N) - k_B q \ln q - k_B N \ln N  
+\end{align*}
+Using the rule $\frac{d}{dx} x \ln x = \ln x + 1$ twice, we obtain that derivative of this with respect to $q$ is
+\begin{align*}
+\frac{dS}{dq} &= k_B \ln (q + N) - k_B \ln q  = k_B \ln (1 + \frac{N}{q})
+\end{align*}
+and observing $dU = \hbar \omega dq$, we find that
 $$
-S(N,q) = k_B (q+N) \ln (1 + \frac{q}{N}) - k_B q \ln \frac{q}{N}
+\frac{\hbar \omega}{T} = \hbar \omega \frac{dS}{dU} = \frac{dS}{dq} =  k_B \ln (1 + \frac{N}{q})
 $$
-Taking the derivative with respect to $q$, we find that
-$$
-\frac{\hbar \omega}{T} = \frac{\partial S}{\partial q} = k_B \ln (1 + \frac{q}{N}) - k_B \ln \frac{q}{N} 
-= k_B \ln (1 + \frac{N}{q})
-$$
-so that we can rewrite our expression for $S$ to obtain
-$$
-S = \frac{U}{T} + k_B N \ln (1 + \frac{q}{N})
-$$
+as an expression for the temperature. 
 We see in particular that for large values of $q$, the temperature will be almost proportional to $q$ and therefore the energy, so that the heat capacity tends to a constant value. In the diagram below, we have plotted the values of entropy and temperature for a system with $N = 500$ and $\hbar \omega = 1$. 
 
 \begin{figure}[ht]
@@ -1423,18 +1423,85 @@ We see in particular that for large values of $q$, the temperature will be almos
 \label{fig:EinsteinSolid}
 \end{figure}
 
+Also note that we can rewrite the entropy in terms of the temperature and the energy as follows. First, we summarize the terms in the expression for the entropy with a factor $k_B q$ and write them as
+\begin{align*}
+k_B q \ln (q + N) - k_B q \ln q &= k_B q \ln \frac{q + N}{q} \\
+&= q k_B \ln (1 + \frac{N}{q}) = \frac{q\hbar \omega}{T} = \frac{U}{T}
+\end{align*}
+Similarly
+\begin{align*}
+k_B N \ln (q + N) -  k_B N \ln N  	&= k_B N \ln \frac{q + N}{N} \\
+&= k_B N \ln  \frac{q + N}{q} = k_B N \ln (1 + \frac{q}{N}) 
+\end{align*}
+so that we obtain 
+$$
+S = \frac{U}{T} + k_B N \ln (1 + \frac{q}{N}) 
+$$
+as our final expression for the entropy of an Einstein solid.
 \end{example}
 
 
 
 \section{The canonical ensemble}
-\label{sec:canonicalditribution} 
+\label{sec:canonicaldistribution} 
 
-So far, we have worked with the microcanonical ensemble which describes the entropy of a system with fixed energy. In many cases, however, it is more convenient to consider systems for which the energy can vary, but the temperature is constant. As in our derivation of the Helmholtz potential, we can do this by considering a composite system that consists of the system of interest - that we again call the primary system - and a thermal reservoir.
+So far, we have worked with the microcanonical ensemble which describes the entropy of a system with fixed energy. In many cases, however, it is more convenient to consider systems for which the energy can vary, but the temperature is constant. As in our derivation of the Helmholtz potential, we can do this by considering a composite system that consists of the system of interest - that we again call the primary system - and a thermal reservoir. We want to understand how the probability distribution of the states of our system changes due to the contact with the reservoir.
 
-So we consider a system with energy $U$, volume $V$ and particle number $N$, which is in contact with a thermal reservoir, with energy $U_R$,volume $V_R$ and particle number $N_R$. Let $T$ denote the temperature of the reservoir, which, by the very definition of a reservoir, is a constant. We want to derive an expression for the probability of a microstate with given energy $U$.
+\begin{example}[Einstein solid]
+To get an idea for what is going on, let us start with an example. We consider a system that consists of two Einstein solids with $N_A$ and $N_B$ oscillators. We consider system $B$ to be the reservoir and system $A$ to be the primary system. Thus we assume that $N_B >> N_A$, but that $N_A$ and $N_B$ are both sufficiently large so that the Stirling approximation holds. Using our formula for the temperature of an Einstein solid that we have derived earlier, we find that in the equilibrium state
+$$
+\frac{q_A}{q_B} = \frac{N_A}{N_B}
+$$
+For simplicity, we also set $\hbar \omega = 1$ in what follows. Let $q_t = q_A + q_B$ denote the total number of quanta of the system.
 
-We consider the composite system consisting of the system of interest and the reservoir as an isolated system with fixed total energy $U_{tot}$, fixed total volume $V_{tot}$ and fixed particle number $N_{tot}$. Thus we can apply the microcanonical formalism to the composite system and assume that all microstates of the composite system compatible with $U_{tot}$, $V_{tot}$ and $N_{tot}$ have equal probability. For simplicity, let us assume that the particle number and the volume of our subsystem are fixed as well. 
+
+
+
+Let us now look at a specific state $s$ of the smaller system and try to understand under what conditions we will find the overall system in this state. A state of the overall system is a combination of $s$ with a state of the reservoir. If we denote by $q(s)$ the number of quanta of state $s$, then $q_t - q$ quanta will be left for the reservoir. Thus we have
+$$
+\Omega_B(N_B,q_t - q(s)) 
+$$
+states of system $B$ that we can combine with $s$ to obtain a valid state for the overall system, and this is the number of possible states of the overall system for which system $A$ is in state $s$. To obtain the probability of this to happen, we can again use our assumption that for the states of the overall system, all state is equally likely. So the probability of this event is the number of states for which it occurs divided by the total number of states, i.e.
+$$
+p(s) = \frac{\Omega_B(N_B,q_t - q)}{\Omega(N_A + N_B,q_t)}
+$$
+Taking the logarithm of both sides and using our identification of the entropy with the Boltzmann constant times the logarithm of the multiplicity, we obtain	
+$$\
+\ln p(s) = \frac{1}{k_B} [S_B(q_t - q(s), N_B) - S(q_t, N_A + N_B)]
+$$
+Using the expression for the entropy of an Einstein solid in terms of temperature and energy that we have derived before and keeping in mind that the temperatures of all systems are equal to $T$, we find that
+$$
+\ln p(s) = - \frac{q(s)}{k_B T} + N_B \ln (1 + \frac{q_t - q(s)}{N_B})  - (N_A + N_B) \ln (1 + \frac{q_t}{N_A + N_B}) 
+$$	
+The third term does not depend on $q$ at all, only on the total energy and the total number of particles that we assume to be fixed. The second term does depend on $q$, but as long as $q$ is much smaller than $q_t$, we can safely ignore that dependency. Thus we obtain that
+$$
+\ln p(s) \approx - \frac{q(s)}{k_B T} + const.
+$$ 
+and therefore 
+$$
+p(s) \simeq e^{- \frac{q(s)}{k_B T}}
+$$
+We find that the probability for a state $s$ of the smaller system depends on the exponential of the energy that this state has. This might be a bit surprising, so let us look at an extreme case to understand why this happens. Suppose our small system consists of exactly one oscillator, and we consider a state where all the energy is concentrated in our small system. Then all quanta are placed in this single oscillator, and none of the quanta are in any off the oscillators in system $B$. Thus there is exactly one state for which the small system has energy $q_t$, and the probability to be in this state is extremely low. If we reduce the energy in system $A$, more and more states will be possible for system $B$ and the probability will increase. 
+
+We will soon see that this is no coincidence, but a general phenomena - when we consider a system in thermal equilibrium with a reservoir, the probability distribution of states of the small system will be of a similar form. Thus when we allow the smaller system to exchange heat with the reservoir, the probability distribution changes from an initially uniform distribution to an exponential distribution, and with it change all macroscopic variables that are in fact average values and thus depend on this probability distribution. If you want, you can image the actual configuration space as a space of probability distributions which determines all macroscopically observable variables. The macroscopic energy, for instance, is the average energy of this distribution. The entropy is what is called the {\em Shannon entropy} of the distribution, and you could in fact rephrase the second law by stating that the distribution will tend to an equilibrium distribution which maximizes the Shannon entropy, we will come back to this point a bit later.
+
+
+The approximations that we have made for our example do in fact work reasonably well also for comparatively low numbers of $N_A$ and $N_B$. In diagram \ref{fig:BoltzmannEinsteinSolid}, we have plotted the exact values of the probability distribution (blue bars) for $N_A = 1$, $N_B = 12$ and $q_{tot} = 20$, computed using binomial coefficients, along with the prediction made by the Boltzmann distribution (yellow). We see that the actual distribution is reasonably close to a Boltzmann distribution even in this case. The average energy $U$ is $U \approx 1.54$, and the most likely energy level is $E = 0$, with a probability of $\approx 0.38$ (so there is one energy level below the most likely level and the average, a situation which is untypical and disappears if we increase the number of particles).
+	
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[scale=0.5]{BoltzmannEinsteinSolid.png}
+		\caption{Boltzmann distribution for an Einstein solid}
+		\label{fig:BoltzmannEinsteinSolid}
+	\end{figure}
+	
+	
+\end{example}
+
+
+Let us now try to mimic the chain of arguments that we have used in our example to obtain a similar result in a more general setting. So we consider a system with energy $U$, volume $V$ and particle number $N$, which is in contact with a thermal reservoir, with energy $U_R$, fixed volume $V_R$ and fixed particle number $N_R$. Let $T$ denote the temperature of the reservoir, which, by the very definition of a reservoir, is a constant. We want to derive an expression for the probability of a microstate with given energy.
+
+We consider the composite system consisting of the system of interest and the reservoir as an isolated system with fixed total energy $U_{tot}$, fixed total volume $V_{tot}$ and fixed particle number $N_{tot}$. Thus we can apply the microcanonical formalism to the composite system and assume that all microstates of the composite system compatible with $U_{tot}$, $V_{tot}$ and $N_{tot}$ have equal probability.  
 
 Now let us pick a specific microstate $s$ of the system of interest, and let $E(s)$ denote the energy of that microstate (we continue to denote the macroscopic variable total energy by $U$ and the microscopic energy of a state by $E$). This state can be combined with a state of the reservoir to  a state of the composite system compatible with the constraints if and only if the state of the reservoir has energy $U_{tot} - E(s)$. Thus the number of microstates of the composite system for which the system of interest is in state $s$ and which are compatible with the constraints is equal to the number of reservoir states with energy $U_{tot} - E(s)$, i.e. to
 $$
@@ -1460,17 +1527,22 @@ Let us see how both terms can be related to $U$. For the denominator, we can wri
 $$
 \Omega_{tot} = \exp \frac{1}{k_B} S_{tot}(U_{tot}) = \exp(\frac{1}{k_B} S(U)) \exp(\frac{1}{k_B} S_R(U_{tot} - U))
 $$
-For the numerator, we will do a Taylor expansion of the entropy of the reservoir around the point $U_R$. The first derivative is
+For the numerator, we write
+$$
+U_{tot} - E(s) = (U_{tot} - U) + (U - E(s)) =  U_R + (U - E(s))
+$$
+If we assume that the energy $U_R$ of the reservoir is much higher than the difference $U - E(s)$, we can try to approximate $S_R(U_{tot} - E(s))$ by 
+a Taylor expansion of the entropy of the reservoir around the point $U_R$. As we have assumed that the particle number and volume of the reservoir are fixed, the only relevant first derivative is
 $$
 \frac{\partial S_R}{\partial U_R} = \frac{1}{T_R} = \frac{1}{T}
 $$
-The second derivative is related to the heat capacity of the reservoir at constant volume:
+and the second derivative is
 \begin{align*}
 \frac{\partial^2 S_R}{\partial U_R^2} = \frac{\partial}{\partial U_R} \frac{1}{T} 
 = - \frac{1}{T^2} (\frac{\partial T}{\partial U_R})_{V,N} 
 \end{align*}
-Now, the characteristic property of a reservoir is that we can add heat without significantly raisings its temperature. Thus raising its temperature does not increase its energy (with other words, the heat capacity of the reservoir is infinite), meaning that the derivative of the temperature with respect to the energy is zero. Therefore the Taylor expansion contains only a linear term.
-As we assume that the volume and particle number are constant, we therefore obtain the expansion
+where the last term is the inverse of the heat capacity. Now, the characteristic property of a reservoir is that we can add heat without raising its temperature (with other words, the heat capacity of the reservoir is infinite), meaning that the derivative of the temperature with respect to the energy is zero so that the second and all higher derivatives are zero. We 
+thus obtain the expansion
 $$
 S_R(U_{tot} - E(s)) = S_R(U_{tot} - U) + \frac{1}{T} (U - E(s))
 $$
@@ -1487,7 +1559,7 @@ $$
 p(s) = \exp (\beta(U - E(s))) \exp (- \beta TS(U)) = \exp (\beta(U-TS)) 
 \exp (-\beta E(s))
 $$
-Now recall that $U$ to be the average, i.e. the macroscopically observed energy of our primary system. Therefore the quantity $U - TS$ is nothing but the Helmholtz potential of the primary system, and we obtain the fundamental equation
+Now recall that $U$ is the average, i.e. the macroscopically observed energy of our primary system. Therefore the quantity $U - TS$ is nothing but the Helmholtz potential of the primary system, and we obtain the fundamental equation
 \begin{align*}
 p(s) = e^{\beta F} e^{-\beta E(s)}
 \end{align*}
@@ -1541,7 +1613,11 @@ P(E) &= \sum_{s | E(s) = E} p(s) \\
 \end{align*}
 Motivated by the macroscopic minimum principle for the Helmholtz energy derived earlier, it is tempting to interpret the exponent as the Helmholtz energy. However, this is not exactly true because to get the Helmholtz energy for an energy level $E$, we would have to use the temperature that corresponds to this energy, not the temperature $T$ which corresponds to the equilibrium energy $U$. 
 
-Finally, let us differentiate the relation between energy and partition function once more to find the heat capacity. We have
+One additional remark on that formula is in order. If we use this formula with $U=E$ and recall that $Z$ is $\exp(-\beta F)$, we seem to obtain the result that the system is in a state with energy $U$ with certainty, i.e. with probability one. This is of course not true. The reason for this seemingly paradox situation is that the above derivation is only valid if $E$ is one of the discrete energy levels that the system can attain! If $E$ is none of these values, then $\Omega(E) = 0$ and the entropy is formally minus infinity, so that the derivation breaks down. Now, for a large number of particles, the average energy $U$ will be slightly above the lowest energy, but still extremely close to it. Therefore the average energy $U$ is not one of the allowed energy levels and the probability for the system to have that energy is actually zero (which would also be the result if we tried to fix the problem by passing to a continuous model). Thus the only conclusion that we can draw is that among the allowed, discrete energy levels, the one whose Helmholtz energy (computed with the temperature $T$) is closest to the minimum is the most likely energy level.
+
+
+
+Let us now differentiate the relation between energy and partition function once more to find the heat capacity. We have
 \begin{align*}
 \frac{\partial U}{\partial \beta} &= \frac{\partial }{\partial \beta} \frac{1}{Z} \sum_s E(s) e^{-\beta E(s)} \\
 &= - \frac{1}{Z} \frac{\partial \ln Z}{\partial \beta} \sum_s E(s) e^{-\beta E(s)}
@@ -1552,8 +1628,6 @@ from which we obtain that
 $$
 C_V = \frac{\partial U}{\partial T} = \frac{var(E)}{k_B T^2}
 $$
-
-One additional remark on that formula is in order. If we use this formula with $U=E$, the temperature of the system is in fact equal to $T$ as this is the equilibrium state, and recall that $Z$ is $\exp(-\beta F)$, we seem to obtain the result that the system is in a state with energy $U$ with certainty, i.e. with probability one. This is of course not true. The reason for this seemingly paradox situation is that the above derivation is only valid if $E$ is one of the discrete energy levels that the system can attain! If $E$ is none of these values, then $\Omega(E) = 0$ and the entropy is formally minus infinity, so that the derivation breaks down. Now, for a large number of particles, the average energy $U$ will be slightly above the lowest energy, but still extremely close to it. Therefore the average energy $U$ is not one of the allowed energy levels and the probability for the system to have that energy is actually zero (which would also be the result if we tried to fix the problem by passing to a continuous model). Thus the only conclusion that we can draw is that among the allowed, discrete energy levels, the one whose Helmholtz energy (computed with the temperature $T$) is closest to the minimum is the most likely energy level.
 
 Finally, we can express the entropy in terms of the partition function. We know of course that the entropy is minus the partial derivative of the Helmholtz energy by the temperature. So we find immediately
 $$
@@ -1575,40 +1649,6 @@ var(E) &= - \frac{\partial U}{\partial \beta} = k_B T^2 C_V
 
 We note that given the partition function, we can use the second or third relation in this list to obtain the Helmholtz potential from which - as we know - we can either obtain all thermodynamical quantities directly or to which we can apply an inverse Legendre transform to obtain the energy. Thus knowledge of the partition function will enable us to derive all classical thermodynamical properties of the system.
 
-\begin{example}[Einstein solid]
-Let us consider a system that consists of two Einstein solids with $N_A$ and $N_B$ oscillators. We consider system $B$ to be the reservoir and system $A$ to be the primary system. Thus we assume that $N_B >> N_A$, but that $N_A$ and $N_B$ are both sufficiently large so that the Stirling approximation holds. Using our formula for the temperature of an Einstein solid that we have derived earlier, we find that in the equilibrium state
-$$
-\frac{q_A}{q_B} = \frac{N_A}{N_B}
-$$
-For simplicity, we also set $\hbar \omega = 1$ in what follows. Let us now look at a specific state $s$ of the smaller system with energy $q = q(s)$. Taking the logarithm of equation 
-\eqref{eq:probsubsystem}, we see that
-$$
-\ln p(s) = \frac{1}{k_B} [S_B(q_t - q(s), N_B) - S(q_t, N_A + N_B)]
-$$
-where $q_t$ is the total energy of the system. Using the expression for the entropy of an Einstein solid in terms of temperature and energy that we have derived before, we find that
-$$
-\ln p(s) = - \frac{q}{k_BT} + N_B \ln (1 + \frac{q_t-q}{N_B}) 
-- (N_A + N_B) \ln (1 + \frac{q_t}{N_A + N_B})
-$$
-The third term does not depend on $q$ at all, only on the total energy and the total number of particles that we assume to be fixed. The first term is $- \beta q(s)$. The second term does depend on $q$, but as long as $q$ is much smaller than $q_t$, we can safely ignore that dependency. Thus we obtain that
-$$
-\ln p(s) \approx - \beta T + const.
-$$ 
-and therefore 
-$$
-p(s) \simeq e^{-\beta q(s)}
-$$
-as expected. This approximation does in fact work reasonably well also for comparatively low numbers of $N_A$ and $N_B$. In diagram \ref{fig:BoltzmannEinsteinSolid}, we have plotted the exact values of the probability distribution (blue bars) for $N_A = 1$, $N_B = 12$ and $q_{tot} = 20$, computed using binomial coefficients, along with the prediction made by the Boltzmann distribution (yellow). We see that the actual distribution is reasonably close to a Boltzmann distribution even in this case. The average energy $U$ is $U \approx 1.54$, and the most likely energy level is $E = 0$, with a probability of $\approx 0.38$ (so there is one energy level below the most likely level and the average, a situation which is untypical and disappears if we increase the number of particles).
-
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=0.5]{BoltzmannEinsteinSolid.png}
-\caption{Boltzmann distribution for an Einstein solid}
-\label{fig:BoltzmannEinsteinSolid}
-\end{figure}
-
-
-\end{example}
 
 So far we have treated the particle number as constant. In some situations, however, fluctuations of the particle number can no longer be ignored. In that case, we can replace the Boltzmann distribution by a distribution called the {\em Gibbs distribution}. The derivation is very similar. In addition to assuming that our system is in contact with a heat reservoir, we also have to assume that the reservoir acts as a chemical reservoir, so that in equilibrium, the chemical potential is constant. In equilibrium, the primary system will then settle down at a certain energy $U$ and a certain particle number $N$. In equation \ref{eq:probsubsystem}, we can then expand the logarithm of the numerator again into a Taylor series, where the terms of higher order vanish, but this time we need a contribution of the derivatives with respect to $U$ and $N$. If we then collect terms and the smoke settles, we find that 
 $$
@@ -1623,8 +1663,7 @@ is the {\em grand free energy} or the {\em grand canonical potential}. Obviously
 
 Let me add a few closing remarks. First, it is worth noting that both, the microcanonical and the canonical distribution, can be derived from a more abstract principle - they are the distributions that maximize the Shannon entropy under the constraints specific to the model. In this sense, they are the distributions that forget everything except the information provided by the constraints, a point of view which is for instance discussed in \cite{Callen}, chapter 17.
 
-The second remark is that in the last example, we have applied the canonical formalism to a system that consists of one particle only. This appears to be a contradiction, as that system by itself is not a thermodynamic system that is sufficiently large to have a well defined externally observable macroscopic state. However, there are good justifications why the canonical formalism can nevertheless be applied, based on the idea of an ensemble and the fact that the fundamental quantities are additive - see \cite{Callen}, section 16.5.
-
+Finally, recall that we have obtained the derivation of the Boltzmann distribution using a Taylor expansion of the entropy of the reservoir, which is an approach found in many textbooks, including \cite{Callen}, and (though in a slightly disguised form) \cite{Schroeder}. We remark, however, that there is a different approach to arrive at the Boltzmann distribution, starting with Shannon's definition of entropy and then using Lagrange multipliers to maximize the entropy under the constraints of a fixed energy and a normalization condition, we refer to section 17.2 in \cite{Callen} for details on this approach.
 
 \section{Ideal gas and blackbody radiation}
 
@@ -2265,7 +2304,7 @@ Note that for an endothermic reaction, this predicts that when we increase the t
 
 The van't Hoff equation has an interesting graphical interpretation. Suppose that we could measure the equilibrium constant for different temperatures (close enough to the standard temperature that our approximation does not break down) and plot the natural logarithm of $K$ versus the inverse temperature $T^{-1}$. Then the van't Hoff equation tells us that the result will be a line. The slope of this line multiplied by $R$ is minus the enthalpy change of the reaction, while the point value at which it intersects the y-axis multiplied by $R$ gives the entropy change of the reaction. This plot is known as {\em van't Hoff plot}, and can be used to determine enthalpy change and entropy change without using a calorimeter.
 
-\section{Appendix - homogenous functions and the Gibbs-Duhen equation}
+\section{Appendix - the Gibbs-Duhem equation}
 
 One of the postulates of thermodynamics is that the entropy is an extensive quantity: when we double the size of a system (i.e. its volume, its number of particles and its internal energy) the entropy will double. Technically, this comes down to the requirements that
 $$
