@@ -1125,15 +1125,16 @@ we can therefore find an expression for $U$ as
 $$
 U(T,N,V) = \frac{3}{2} N k_B T - a \frac{N^2}{V}
 $$
-and for the Gibbs free energy
-$$
-G = - N k_B T [ \ln\frac{V-bN}{N} + \frac{3}{2} \ln k_B T] + \frac{N k_B TV}{V-bN} 
--\frac{2aN^2}{V	}
-$$
 We can also calculate the pressure and the chemical potential easily in this representation. For instance, the pressure is given by 
 $$
 P = - \frac{\partial F}{\partial V} =  \frac{N k_B T}{V-bN}  - a \frac{N^2}{V^2}
 $$
+which yields an expression for the Gibbs free energy
+$$
+G = F + PV = - N k_B T [ \ln\frac{V-bN}{N} + \frac{3}{2} \ln k_B T] + \frac{N k_B TV}{V-bN} 
+-\frac{2aN^2}{V	}
+$$
+
 Let us look at some quantities that are typically used to describe the behavior of our system. Then first quantity is called the {\em isothermal compressibility}. It measures to what extent a gas or fluid can be compressed when some pressure is exercised, and is defined as
 $$
 \kappa_T = - \frac{1}{V}  (\frac{\partial V}{\partial P})_{T,N}
@@ -1203,7 +1204,9 @@ An example for such a curve (for $T=2.9 = 0.93 T_c$) is displayed in detail in t
 $$
 \frac{\partial{P}}{\partial V}
 $$
-for $T=2.9$ and $N=1$. In the area between these points (that correspond to an infinitely large value for the isothermal compressibility), the derivative is positive. This means that exercising pressure would in fact cause the material to expand, which is clearly unphysical and would lead to an unstable behavior  (if we place this material in a small container, an expansion would in turn increase the pressure exercised by the air in the container and the process would, once initiated, continue). Thus there is a region of the phase space that does not represent stable systems. Intuitively, when the state moves along the isothermal, it will proceed directly from a point on the right of the instable region to a point on the left of the region, with a discontinuous behavior of the volume. This is an indication of a phase transition.
+for $T=2.9$ and $N=1$. In the area between these points (that correspond to an infinitely large value for the isothermal compressibility), the derivative is positive. This means that exercising pressure would in fact cause the material to expand, which is clearly unphysical and would lead to an unstable behavior  (if we place this material in a small container, an expansion would in turn increase the pressure exercised by the air in the container and the process would, once initiated, continue). Thus there is a {\em region of the phase space that does not represent stable systems}. Intuitively, when the state moves along the isothermal, it will proceed directly from a point on the right of the instable region to a point on the left of the region, with a discontinuous behavior of the volume. This is an indication of a {\em phase transition}.
+
+This might sound a bit strange, but recall that all the quantities that are dealing with are only defined in equilibrium, and we have essentially argued that certain regions of the phase space do not allow for an equilibrium. Thus when a system reaches this region, it will no longer be able to maintain an equilibrium. It will continue to evolve its microstate, and at some point, when the phase transition is complete, it will reappear in the configuration space, in alignment with our previous discussion of quasi-static processes. Thus it is not the system that somehow evolves in an unpredictable way during a phase transition, it is our description in terms of equilibria that breaks down at this point.
 
 Let us take a closer look at the role that the Gibbs energy plays in a phase transition. For that purpose, let us assume that a portion of the gas described by the van der Waals equations is contained in a vessel and let us consider a system that consists of a comparatively small, but fixed number of particles within the vessel, but can change its volume and its internal energy - this could just be a small bubble within the system that can absorb or emit heat and shrink or grow. 
 
@@ -1236,7 +1239,7 @@ with a function depending on $T$ only. The part depending on $T$ and the corresp
 \label{fig:VanDerWaalsMaxwell}
 \end{figure}
 
-When a state moves along the isotherm starting below $H$, it will, at some point, experience a phase transition. It will then cross the instable region and appear again at the left hand side of the diagram. It could do so at point H and reappear at point 
+When a state moves along the isotherm starting below $H$, it will, at some point, experience a phase transition. It will then disappear from the configuration space and appear again at the left hand side of the diagram. It could do so at point H and reappear at point 
 B, or it could transition into the second phase upon reaching point G and reappear at point A. How can we determine at which point the transition really happens?
 
 To understand this, consider a little subsystem as before, for which we now know that the Gibbs energy has a minimum, but this time suppose that this system is by itself a composition of two subsystems, which are both in contact with the surrounding reservoirs. The first subsystem, with $N_1$ particles and volume $V_1$, is still in the phase I on the left hand side of the unstable region, whereas the second subsystem, with $N_2$ particles and occupying volume $V_2$, is already in phase II. In each of the phases, the Gibbs energy it proportional to $g(T, V_i) N_i$ with $g$ as above. As the Gibbs energy is additive in the particle number (and pressure and temperature are the same for both subsystems), we know that
@@ -1249,7 +1252,7 @@ $$
 $$
 i.e. if the Gibbs energies at both sides of the instable region are identical. If the Gibbs energies are different, say if $g(T, V_1) > g(T, V_2)$, then the system is not stable as transferring additional substance from phase I to phase II will increase the Gibbs energy. Thus we can conclude that we can have a stable state if and only if the two Gibbs energies are equal.
 
-Assuming stability, let us now take a look at the plot of the Gibbs energy. We see that for the pair of states H and B, the Gibbs energy on the left hand side of the unstable region is much higher than the energy on the right hand side. As the system is striving for a minimum of the Gibbs energy, no transition from H to B will take place, at least not in a quasi-stable process.If, however, we increase the pressure further and the state moves further along the isotherm and eventually reaches G, the Gibbs energies on both sides (points G and A) will be equal. So at this point the transition will take place. We note that this will make the Gibbs function continuous as a function of the pressure $p$. 
+Assuming stability, let us now take a look at the plot of the Gibbs energy. We see that for the pair of states H and B, the Gibbs energy on the left hand side of the unstable region is much higher than the energy on the right hand side. As the system is striving for a minimum of the Gibbs energy, no transition from H to B will take place. If, however, we increase the pressure further and the state moves further along the isotherm and eventually reaches G, the Gibbs energies on both sides (points G and A) will be equal. So at this point the transition will take place. We note that this will make the Gibbs function continuous as a function of the pressure $p$. 
 
 Put differently, the points G and A mark two states in two different phases with the same pressure and temperatures, but different volumes and hence densities, that have the same Gibbs free energy and are therefore able to coexist in a stable state. This is called a {\em coexistence state}. If we think of the two phases as gas and liquid phase, this is just the boiling point. Thus, there is one pressure for which coexistence is possible for each given value of the temperature less than $T_c$. When plotted into a P-T diagram, as in figure \ref{fig:VanDerWaalsPhaseDiagram} (where we have again plotted the normalized pressure and temperature), we find a curve that ends at the critical point. A diagram like this is called a {\em phase diagram}.
 
@@ -1314,7 +1317,9 @@ $$
 The constant $k_B$ is called the {\em Boltzmann constant}.
 \end{defn}
 
-Let us try to relate this to the Shannon entropy that we know from information and probability theory. So far, we have not yet said anything about the probability to be in a specific microstate, i.e. we have not yet defined a probability distribution on the space of states ${\mathcal S}$. We now close this gap and make an assumption which is central to statistical mechanics: 
+There is a little subtlety concerning this definition that is worth mentioning. In many cases, we will want to apply this to system of many particles which have discrete energy levels. The actual energy of a system is then the sum of the individual energies and can therefore also take only discrete values. Thus $\Omega(U)$ would be zero for almost all values of $U$ and the entropy would be minus infinity. To avoid this, Callen proposes in \cite{Callen} section 15.5 that we technically have to consider all states with energies in a range $(U - \Delta U, U + \Delta U)$ and makes a nice argument why for a sufficiently high-dimensional state space, the choice of $\Delta U$ does not matter. However, this creates a certain conflict with the idea that the entropy is a function of the macroscopic variables and thus depends on the average energy of a system, not on the exact value of the energy in a certain state. This can be resolved by thinking of both, the entropy and the average energy, as properties of the probability distribution, not as that of an individual state.
+
+Let us therefore try to relate Boltzmann's  definition of entropy to the Shannon entropy that we know from information and probability theory. So far, we have not yet said anything about the probability to be in a specific microstate, i.e. we have not yet defined a probability distribution on the space of states ${\mathcal S}$. We now close this gap and make an assumption which is central to statistical mechanics: 
 
 {\em All microstates that are compatible with the imposed constraints and values of the macroscopic variables have equal possibility}. 
 
@@ -1483,7 +1488,7 @@ p(s) \simeq e^{- \frac{q(s)}{k_B T}}
 $$
 We find that the probability for a state $s$ of the smaller system depends on the exponential of the energy that this state has. This might be a bit surprising, so let us look at an extreme case to understand why this happens. Suppose our small system consists of exactly one oscillator, and we consider a state where all the energy is concentrated in our small system. Then all quanta are placed in this single oscillator, and none of the quanta are in any off the oscillators in system $B$. Thus there is exactly one state for which the small system has energy $q_t$, and the probability to be in this state is extremely low. If we reduce the energy in system $A$, more and more states will be possible for system $B$ and the probability will increase. 
 
-We will soon see that this is no coincidence, but a general phenomena - when we consider a system in thermal equilibrium with a reservoir, the probability distribution of states of the small system will be of a similar form. Thus when we allow the smaller system to exchange heat with the reservoir, the probability distribution changes from an initially uniform distribution to an exponential distribution, and with it change all macroscopic variables that are in fact average values and thus depend on this probability distribution. If you want, you can image the actual configuration space as a space of probability distributions which determines all macroscopically observable variables. The macroscopic energy, for instance, is the average energy of this distribution. The entropy is what is called the {\em Shannon entropy} of the distribution, and you could in fact rephrase the second law by stating that the distribution will tend to an equilibrium distribution which maximizes the Shannon entropy, we will come back to this point a bit later.
+We will soon see that this is no coincidence, but a general phenomena - when we consider a system in thermal equilibrium with a reservoir, the probability distribution of states of the small system will be of a similar form. Thus when we allow the smaller system to exchange heat with the reservoir, the probability distribution changes from an initially uniform distribution to an exponential distribution, and with it change all macroscopic variables that are in fact average values and thus depend on this probability distribution. If you want, you can image the actual configuration space as a space of probability distributions which determines all macroscopically observable variables, like the average energy or the (Shannon) entropy, and you could in fact rephrase the second law by stating that the distribution will tend to an equilibrium distribution which maximizes the Shannon entropy, we will come back to this point a bit later.
 
 
 The approximations that we have made for our example do in fact work reasonably well also for comparatively low numbers of $N_A$ and $N_B$. In diagram \ref{fig:BoltzmannEinsteinSolid}, we have plotted the exact values of the probability distribution (blue bars) for $N_A = 1$, $N_B = 12$ and $q_{tot} = 20$, computed using binomial coefficients, along with the prediction made by the Boltzmann distribution (yellow). We see that the actual distribution is reasonably close to a Boltzmann distribution even in this case. The average energy $U$ is $U \approx 1.54$, and the most likely energy level is $E = 0$, with a probability of $\approx 0.38$ (so there is one energy level below the most likely level and the average, a situation which is untypical and disappears if we increase the number of particles).
@@ -1523,7 +1528,7 @@ If we wait until the system has exchanged heat with the reservoir to adjust its 
 $$
 U_R = U_{tot} - U
 $$
-Let us see how both terms can be related to $U$. For the denominator, we can write, using the additivity of the entropy
+Let us see how both entropy terms can be related to $U$. For the denominator, we can write, using the additivity of the entropy
 $$
 \Omega_{tot} = \exp \frac{1}{k_B} S_{tot}(U_{tot}) = \exp(\frac{1}{k_B} S(U)) \exp(\frac{1}{k_B} S_R(U_{tot} - U))
 $$
@@ -1531,8 +1536,8 @@ For the numerator, we write
 $$
 U_{tot} - E(s) = (U_{tot} - U) + (U - E(s)) =  U_R + (U - E(s))
 $$
-If we assume that the energy $U_R$ of the reservoir is much higher than the difference $U - E(s)$, we can try to approximate $S_R(U_{tot} - E(s))$ by 
-a Taylor expansion of the entropy of the reservoir around the point $U_R$. As we have assumed that the particle number and volume of the reservoir are fixed, the only relevant first derivative is
+Thus we can try to express $S_R(U_{tot} - E(s))$ by 
+using a Taylor expansion of the entropy of the reservoir around the point $U_R$. As we have assumed that the particle number and volume of the reservoir are fixed, the only relevant first derivative is
 $$
 \frac{\partial S_R}{\partial U_R} = \frac{1}{T_R} = \frac{1}{T}
 $$
@@ -1548,7 +1553,7 @@ S_R(U_{tot} - E(s)) = S_R(U_{tot} - U) + \frac{1}{T} (U - E(s))
 $$
 so that
 $$
-\Omega_R(U_{tot} - U(s)) = \exp( \frac{1}{k_B} S_R(U_{tot} - U)) \exp(\frac{1}{Tk_B} (U - E(s)))
+\Omega_R(U_{tot} - E(s)) = \exp( \frac{1}{k_B} S_R(U_{tot} - U)) \exp(\frac{1}{Tk_B} (U - E(s)))
 $$
 Let us now introduce the abbreviation
 $$
@@ -1559,7 +1564,7 @@ $$
 p(s) = \exp (\beta(U - E(s))) \exp (- \beta TS(U)) = \exp (\beta(U-TS)) 
 \exp (-\beta E(s))
 $$
-Now recall that $U$ is the average, i.e. the macroscopically observed energy of our primary system. Therefore the quantity $U - TS$ is nothing but the Helmholtz potential of the primary system, and we obtain the fundamental equation
+Now recall that $U$ is the average, i.e. the macroscopically observed energy of our primary system (an assumption that we have in fact not even used so far). Therefore the quantity $U - TS$ is nothing but the Helmholtz potential of the primary system, and we obtain the fundamental equation
 \begin{align*}
 p(s) = e^{\beta F} e^{-\beta E(s)}
 \end{align*}
@@ -1633,7 +1638,21 @@ Finally, we can express the entropy in terms of the partition function. We know 
 $$
 S = k_B \frac{\partial}{\partial T} T \ln Z
 $$
-
+It is reassuring that up to the factor $k_B$, this is the same as the Shannon entropy of the distribution. In fact, by defnition 
+$$
+\ln p(s) = - \ln Z - \beta E(s)
+$$
+and thus
+\begin{align*}
+S_{Shannon} &= - \sum_s p(s) \ln p(s) \\
+&= \sum_s p(s) \ln Z + \sum_s \beta p(s) E(s)  \\
+&= \ln Z \sum_s p(s) + \beta \langle E \rangle \\
+&= \ln Z + \beta U=  \beta (U - F)
+\end{align*}
+Now using again the definition of the Helmholtz energy as $F = U - TS$, we have $U - F = TS$, so that
+$$
+S_{Shannon} = \beta TS = \frac{1}{k_B T} {TS} = \frac{1}{k_B} {S}
+$$
 
 The equations that we have derived are the fundamental equations describing the Boltzmann distribution and are so important that they deserve being highlighted once more.
 
@@ -1663,7 +1682,7 @@ is the {\em grand free energy} or the {\em grand canonical potential}. Obviously
 
 Let me add a few closing remarks. First, it is worth noting that both, the microcanonical and the canonical distribution, can be derived from a more abstract principle - they are the distributions that maximize the Shannon entropy under the constraints specific to the model. In this sense, they are the distributions that forget everything except the information provided by the constraints, a point of view which is for instance discussed in \cite{Callen}, chapter 17.
 
-Finally, recall that we have obtained the derivation of the Boltzmann distribution using a Taylor expansion of the entropy of the reservoir, which is an approach found in many textbooks, including \cite{Callen}, and (though in a slightly disguised form) \cite{Schroeder}. We remark, however, that there is a different approach to arrive at the Boltzmann distribution, starting with Shannon's definition of entropy and then using Lagrange multipliers to maximize the entropy under the constraints of a fixed energy and a normalization condition, we refer to section 17.2 in \cite{Callen} for details on this approach.
+Finally, recall that we have obtained the derivation of the Boltzmann distribution using a Taylor expansion of the entropy of the reservoir, which is an approach found in many textbooks, including \cite{Callen}, and (though in a slightly disguised form) \cite{Schroeder}. We remark, however, that there is a different approach to arrive at the Boltzmann distribution, starting with Shannon's definition of entropy and then using Lagrange multipliers to maximize the entropy under the constraints of a given average energy and a normalization condition, we refer to section 17.2 in \cite{Callen} for details on this approach.
 
 \section{Ideal gas and blackbody radiation}
 
