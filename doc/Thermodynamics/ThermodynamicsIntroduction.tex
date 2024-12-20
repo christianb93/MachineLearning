@@ -964,7 +964,7 @@ or
 $$
 T dS_{tot} = - dF + dU_{tot}
 $$
-Let us now suppose that we let the composite system somehow interact with the environment. If this interaction is reversible, so that the total entropy of the system $S_{tot}$ is constant, the left hand side of this equation is zero. This implies that a state minimizes the total energy if and only it is minimizes the Helmholtz potential of the primary subsystem. Thus the results from section \ref{sec:minimalinternalenergy} immediately yield a minimum principle for the Helmholtz energy: {\em the equilibrium state of a system which is in diathermal contact with a thermal reservoir minimizes the Helmholtz potential}. Note that the same conclusion holds if the energy of the overall system is conversed. Then $dF = - T dS_{tot}$ so that the Helmholtz free energy is minized if and only if the total entropy is maximized.
+Let us now suppose that we let the composite system somehow interact with the environment. If this interaction is reversible, so that the total entropy of the system $S_{tot}$ is constant, the left hand side of this equation is zero. This implies that a state minimizes the total energy if and only it is minimizes the Helmholtz potential of the primary subsystem. Thus the results from section \ref{sec:minimalinternalenergy} immediately yield a minimum principle for the Helmholtz energy: {\em the equilibrium state of a system which is in diathermal contact with a thermal reservoir minimizes the Helmholtz potential}. Note that the same conclusion holds if the energy of the overall system is conversed. Then $dF = - T dS_{tot}$ so that the Helmholtz free energy is minimized if and only if the total entropy is maximized.
 
 
 Obviously we can apply Legendre transforms to the other extensive variables as well and to combinations of them. Functions obtained in this way are called {\em thermodynamic potentials}. We will not got into further details in this short introduction, but only mention the enthalpy, which is the Legendre transform with respect to the volume, and the Gibbs free energy, which is the Legendre transform with respect to volume and entropy at the same time and given by
@@ -1206,7 +1206,7 @@ $$
 $$
 for $T=2.9$ and $N=1$. In the area between these points (that correspond to an infinitely large value for the isothermal compressibility), the derivative is positive. This means that exercising pressure would in fact cause the material to expand, which is clearly unphysical and would lead to an unstable behavior  (if we place this material in a small container, an expansion would in turn increase the pressure exercised by the air in the container and the process would, once initiated, continue). Thus there is a {\em region of the phase space that does not represent stable systems}. Intuitively, when the state moves along the isothermal, it will proceed directly from a point on the right of the instable region to a point on the left of the region, with a discontinuous behavior of the volume. This is an indication of a {\em phase transition}.
 
-This might sound a bit strange, but recall that all the quantities that are dealing with are only defined in equilibrium, and we have essentially argued that certain regions of the phase space do not allow for an equilibrium. Thus when a system reaches this region, it will no longer be able to maintain an equilibrium. It will continue to evolve its microstate, and at some point, when the phase transition is complete, it will reappear in the configuration space, in alignment with our previous discussion of quasi-static processes. Thus it is not the system that somehow evolves in an unpredictable way during a phase transition, it is our description in terms of equilibria that breaks down at this point.
+This might sound a bit strange, but recall that all the quantities that we are dealing with are only defined in equilibrium, and we have essentially argued that certain regions of the phase space do not allow for an equilibrium. Thus when a system reaches this region, it will no longer be able to maintain an equilibrium. It will continue to evolve its microstate, and at some point, when the phase transition is complete, it will reappear in the configuration space, in alignment with our previous discussion of quasi-static processes. Thus it is not the system that somehow evolves in an unpredictable way during a phase transition, it is our description in terms of equilibria that breaks down at this point.
 
 Let us take a closer look at the role that the Gibbs energy plays in a phase transition. For that purpose, let us assume that a portion of the gas described by the van der Waals equations is contained in a vessel and let us consider a system that consists of a comparatively small, but fixed number of particles within the vessel, but can change its volume and its internal energy - this could just be a small bubble within the system that can absorb or emit heat and shrink or grow. 
 
@@ -1219,7 +1219,7 @@ dU_{tot} &= dU + dU_R  \\
 \end{align*}
 where we have used that the number of particles within the subsystem and therefore within the reservoir is constant to get from the first line to the second line, the fact that the total volume is constant to get from there to the third line and the fact that temperature and pressure are constant in the last line.
 
-When we now assume in addition that the total energy is preserved and therefore $dU_{tot} = 0$ (this even holds if the total energy is not preserved by merely minimized), we find that 
+When we now assume in addition that the total energy is preserved and therefore $dU_{tot} = 0$ (this even holds if the total energy is not preserved but merely minimized), we find that 
 $$
 dG = - T dS_{tot}
 $$
@@ -1230,7 +1230,7 @@ $$
 g = \frac{G}{N k_B T_c} = - \bar{T} \ln (3\bar{V} - 1) 
 +  \frac{\bar{T}}{3\bar{V} - 1} - \frac{9}{4 \bar{V}} + f(T)
 $$
-with a function depending on $T$ only. The part depending on $T$ and the corresponding P-V curve for a fixed temperature $T = 0.85*T_c$ are plotted in figure \ref{fig:VanDerWaalsMaxwell}.
+with a function depending on $T$ only (usually one would write down the Gibbs energy in terms of temperature and pressure, but in this case, we cannot do this as the volume is not a function of pressure as it is the case in the absence of phase transitions). The part depending on $V$ and the corresponding P-V curve for a fixed temperature $T = 0.85*T_c$ are plotted in figure \ref{fig:VanDerWaalsMaxwell}.
 
 \begin{figure}[ht]
 \centering
@@ -1240,14 +1240,14 @@ with a function depending on $T$ only. The part depending on $T$ and the corresp
 \end{figure}
 
 When a state moves along the isotherm starting below $H$, it will, at some point, experience a phase transition. It will then disappear from the configuration space and appear again at the left hand side of the diagram. It could do so at point H and reappear at point 
-B, or it could transition into the second phase upon reaching point G and reappear at point A. How can we determine at which point the transition really happens?
+B (which, as we can see in the lower diagram, are two points with the same pressure but different values) or it could transition into the second phase upon reaching point G and reappear at point A (another pair of points with the same pressure and different volumes). How can we determine at which point the transition really happens?
 
 To understand this, consider a little subsystem as before, for which we now know that the Gibbs energy has a minimum, but this time suppose that this system is by itself a composition of two subsystems, which are both in contact with the surrounding reservoirs. The first subsystem, with $N_1$ particles and volume $V_1$, is still in the phase I on the left hand side of the unstable region, whereas the second subsystem, with $N_2$ particles and occupying volume $V_2$, is already in phase II. In each of the phases, the Gibbs energy it proportional to $g(T, V_i) N_i$ with $g$ as above. As the Gibbs energy is additive in the particle number (and pressure and temperature are the same for both subsystems), we know that
 $$
 G = g(T, V_1) N_1 + g(T, V_2) N_2 = g(T, V_1) N_1 + g(T, V_2) (N - N_1)
 $$
 where $N$ is the number of particles in our subsystems. Now this is a minimum if and only if
-$$
+$$	
 0 = \frac{G}{\partial N_1} = g(T, V_1) - g(T, V_2)
 $$
 i.e. if the Gibbs energies at both sides of the instable region are identical. If the Gibbs energies are different, say if $g(T, V_1) > g(T, V_2)$, then the system is not stable as transferring additional substance from phase I to phase II will increase the Gibbs energy. Thus we can conclude that we can have a stable state if and only if the two Gibbs energies are equal.
