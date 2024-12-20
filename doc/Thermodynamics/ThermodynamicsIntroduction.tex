@@ -1180,13 +1180,15 @@ It is useful and simplifies a few calculations to express the temperature and pr
 \begin{align*}
 \bar{T} = \frac{T}{T_c} \\
 \bar{V} = \frac{V}{V_c} \\
-\bar{P} = \frac{}{P_c} 
+\bar{P} = \frac{P	}{P_c} 
 \end{align*}
 Then, for instance, the expression for the normalized pressure becomes
 $$
 \bar{P} = \frac{8 \bar{T}}{3 \bar{V}-1} - \frac{3}{\bar{V}^2}
 $$
 (see \cite{Callen}, example 1 in section 9.4 for a reassuring cross-check).
+We also see that to solve this for the volume given temperature and pressure, we have to find the roots of a third-order polynomial in the volume. Thus there will in general be three roots. We will soon see that one of these roots is in the instable region, while the other two correspond to the volumes of the gas and liquid phase.
+
 
 In figure \ref{fig:VanDerWaals}, we have displayed some of the relations between pressure, temperature and volume. 
 
@@ -1203,7 +1205,7 @@ The diagram on the left displays the dependency of $P$ on $V$ for four different
 An example for such a curve (for $T=2.9 = 0.93 T_c$) is displayed in detail in the picture at the right, this time with the axis reverted. We see that, as we expect, the relation between $V$ and $P$ can no longer be inverted, i.e. for one value of $P$, there is more than one matching value of $V$. The zeros of the derivative are marked with red diamonds. The same markers have been added in the diagram at the bottom, which displays the partial derivative
 $$
 \frac{\partial{P}}{\partial V}
-$$
+$$	
 for $T=2.9$ and $N=1$. In the area between these points (that correspond to an infinitely large value for the isothermal compressibility), the derivative is positive. This means that exercising pressure would in fact cause the material to expand, which is clearly unphysical and would lead to an unstable behavior  (if we place this material in a small container, an expansion would in turn increase the pressure exercised by the air in the container and the process would, once initiated, continue). Thus there is a {\em region of the phase space that does not represent stable systems}. Intuitively, when the state moves along the isothermal, it will proceed directly from a point on the right of the instable region to a point on the left of the region, with a discontinuous behavior of the volume. This is an indication of a {\em phase transition}.
 
 This might sound a bit strange, but recall that all the quantities that we are dealing with are only defined in equilibrium, and we have essentially argued that certain regions of the phase space do not allow for an equilibrium. Thus when a system reaches this region, it will no longer be able to maintain an equilibrium. It will continue to evolve its microstate, and at some point, when the phase transition is complete, it will reappear in the configuration space, in alignment with our previous discussion of quasi-static processes. Thus it is not the system that somehow evolves in an unpredictable way during a phase transition, it is our description in terms of equilibria that breaks down at this point.
@@ -1225,12 +1227,39 @@ dG = - T dS_{tot}
 $$
 As the total entropy has a maximum in the equilibrium state, we can conclude that the Gibbs energy has a minimum in the equilibrium state. More general, for systems that are in touch with a heat and a pressure reservoir, the Gibbs energy is minimized by the equilibrium state subject to the condition of constant total entropy - this is the equivalent of the respective condition for the Helmholtz energy if merely the temperature is kept stable by a heat reservoir.
 
-Armed with this information, let us now get back to the van der Waals equation and study in more detail the phase transition along an isotherm. Using the dimensionless variables introduced earlier, we can express the normalized Gibbs energy as
+Armed with this information, let us now get back to the van der Waals equation and study in more detail the phase transition along an isotherm. For that purpose, we want to express the Gibbs energy in terms of the normalized variables used earlier. We are only interested in the terms depending on the volume $\bar{V}$, and we will use the normalized molar Gibbs energy, i.e.
 $$
-g = \frac{G}{N k_B T_c} = - \bar{T} \ln (3\bar{V} - 1) 
-+  \frac{\bar{T}}{3\bar{V} - 1} - \frac{9}{4 \bar{V}} + f(T)
+g = \frac{G}{N k_B T_c}
 $$
-with a function depending on $T$ only (usually one would write down the Gibbs energy in terms of temperature and pressure, but in this case, we cannot do this as the volume is not a function of pressure as it is the case in the absence of phase transitions). The part depending on $V$ and the corresponding P-V curve for a fixed temperature $T = 0.85*T_c$ are plotted in figure \ref{fig:VanDerWaalsMaxwell}.
+The first term that depends on $V$ can be written as follows
+\begin{align*}
+- \frac{1}{N k_B T_c} N k_B T  \ln\frac{V-bN}{N}  &= - \frac{T}{T_c}  \ln\frac{V-bN}{N} \\
+&= - \bar{T} \ln\frac{3 \bar{V} b N - bN}{N} \\
+&= - \bar{T} \ln b (3 \bar{V}   - 1) = - \bar{T} \ln  (3 \bar{V}   - 1) - \bar{T} \ln b
+\end{align*}
+where we have used the relation
+$$
+V = V_c \bar{V} = 3 \bar{V} b N
+$$
+We will only keep the first logarithm and move the second term into the part that does not depend on $V$. Similary, the second term in the Gibbs energy turns into
+\begin{align*}
+\frac{1}{N k_B T_c}	\frac{N k_B TV}{V-bN} &= \bar{T} \frac{V}{V - bN} \\
+&= \bar{T} \frac{3 \bar{V} b N}{3 \bar{V} b N - bN} \\
+&= \bar{T} \frac{3 \bar{V} }{3 \bar{V} - 1} \\
+&= \bar{T} \frac{3 \bar{V} - 1 }{3 \bar{V} - 1} + \bar{T} \frac{1 }{3 \bar{V} - 1} = \bar{T}  + \bar{T} \frac{1 }{3 \bar{V} - 1}
+\end{align*}	
+Again, we move the first term into the part of the Gibbs energy that only depends on the temperature. Finally, the third term of the Gibbs energy that depends on $V$ turns into
+\begin{align*}
+- \frac{1}{N k_B T_c} \frac{2aN^2}{V} &= - \frac{1}{k_B T_c} \frac{2aN}{3 b N \bar{V}} \\
+&= - \frac{27b}{8a} \frac{2a}{3 b \bar{V}} = - \frac{9}{4 \bar{V}}
+\end{align*}
+where we have used that $k_B T_c =  \frac{8a}{27b}$. 
+Collecting all terms depending on $V$, we thus arrive at
+$$
+g =  - \bar{T} \ln (3\bar{V} - 1) 
++  \frac{\bar{T}}{3\bar{V} - 1} - \frac{9}{4 \bar{V}} + f(\bar{T})
+$$
+with a function depending on $\bar{T}	$ only (usually one would write down the Gibbs energy in terms of temperature and pressure, but in this case, we cannot do this as the volume is not a function of pressure as it is the case in the absence of phase transitions). The part depending on $V$ and the corresponding P-V curve for a fixed temperature $T = 0.85*T_c$ are plotted in figure \ref{fig:VanDerWaalsMaxwell}.
 
 \begin{figure}[ht]
 \centering
