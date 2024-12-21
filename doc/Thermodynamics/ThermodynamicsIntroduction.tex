@@ -1363,13 +1363,172 @@ You might now conclude that if we perturb $M$ a bit, it will move to state $N$ a
 It is interesting to relate the equilibrium conditions to the graphical representation of the Helmholtz energy in diagram \ref{fig:VanDerWaalsHelmholtz}. The first condition - equality of the pressures - simply means that the slope of the graph is the same at the two points $A$ and $B$. To interpret the second condition, let us express the Helmholtz energies of the two states $A$ and $B$ in terms of the Gibbs energy at the (common) pressure $P$. We have
 \begin{align*}
 F(T, V_A, N) &= G_A(T, P, N) - P V_A \\
-F(T, V_B, N) &= G_B(T, P, N) - P V_B \\
+F(T, V_B, N) &= G_B(T, P, N) - P V_B 
 \end{align*}
 Thus if the two Gibbs energies are equal, then
 $$
 F(T, V_A, N) - F(T, V_B, N) = -P (V_A - V_B)
 $$
 As the slope is $-P$, this condition now simply states that the slopes are not only equal at the points $A$ and $B$, but that the dashed connecting the two points $A$ and $B$ on which $N$ is located has the exact same slope! Thus this line is tangent at both points, which is the reason why this construction is sometimes called the {\em double tangent construction}. As we know that the dashed line is the Helmholtz energy of the mixed state, this is also the condition that we require to make sure that the pressure remains continuous across the entire phase transition.
+
+To complete the picture, let us now indicate how we could directly derive the equilibrium conditions that we have derived earlier using the Gibbs energy using the Helmholtz energy alone. Thus we consider a system composed of $N_l$ particles in the liquid phase occupying volume $V_l$ and $N_g$ particles in the gas phase occupying volume $V_g$, both in contact with a heat bath. The Helmholtz energy of the combined system is then
+$$
+F(T, V_l, N_l) + F(T, V_g, N_g)
+$$
+We want to minimize this subject to the condition of fixed volume $V$ and fixed total particle number $N$. For that purpose, we introduce two Lagrange multipliers $\eta$ and $\lambda$ and consider the function
+$$
+L = F(T, V_l, N_l) + F(T, V_g, N_g) + \lambda (N_g + N_l - N) + \eta (V_g + V_l - V)
+$$
+Let us start by taking the partial derivatives of $V$ with respect to the volumes and setting them to zero. We have
+\begin{align*}
+0 = \frac{\partial F(T, V_g, N_l)}{\partial V_g} + \eta \\
+0 = \frac{\partial F(T, V_l, N_l)}{\partial V_l} + \eta 
+\end{align*}
+We can therefore conclude that both partial derivatives are equal, i.e. that
+$$
+p(T, V_g, N_g) = p(T, V_l, N_l)
+$$
+This, however, is not exactly the form of the equilibrium condition that we discussed earlier, as it is a condition on the volumes and particle numbers in the mixture, not on the volumes $V_A$ and $V_B$ which are the volumes that the full particle number $N$ occupies in the respective phases. To find this relation, recall that the pressure is minus a partial derivative of the Helmholtz energy. As the Helmholtz energy is homogeneous of degree one, the pressure is homogeneous of degree zero, i.e. constant on rays (see the appendix on homogeneous functions and the Gibbs-Duhem relation). Thus
+$$
+p(T, V_g, N_g) = p(T, V_g \frac{N}{N_g}, N) = p(T, V_A, N)
+$$
+and similarly for $V_B$. Thus we find that
+$$
+p(T, V_A, N) = p(T, V_B, N)
+$$
+which is our first equilibrium condition. Similarly, setting the derivatives with respect to the particle numbers to zero and applying the same argument once more to the chemical potentials yields
+$$
+\mu(T, V_A, N) = \mu(T, V_B, N)
+$$
+As we already know that the pressure is the same for both states, this amounts to 
+$$
+\mu_g(T, P, N) = \mu_l(T, P, N)
+$$
+For fixed $P$, the chemical potential does not depend on $N$ as we show in the appendix, and is in fact simply the specific Gibbs energy, and we recover the equilibrium condition for the Gibbs energy that we have derived earlier. Note that in both cases, however, we did assume that there is no chemical interaction between the phases, so that the energy of each part does not depend on the variables of the other part, so this is still a somewhat simplified model. 
+
+There is a reason why I have decided to discuss the role of the Helmholtz energy in great detail. When a student hits upon the above illustration in a textbook and learns that the Helmholtz free energy is not convex and therefore the system tends to move into a mixture of two phases, this is a bit against what that student might have learned about the Helmholtz energy. In most cases, a phase transition like vaporization does {\em not} take place at constant volume - in fact, a vapor usually occupies a much higher volume than the liquid - but the Helmholtz free energy is what you usually minimize for systems of constant volume. However, as the above discussion hopefully demonstrate, we do {\em not} use the Helmholtz energy to find the equilibrium volme of the system (which would be futile, as the curve shows that the Helmholtz energy does not have a minimum at any of the states that we consider). Instead, we only use it for one very specific argument - we compare a metastable state $M$ at a given volume and a mixed state $N$ at the {\em same volume}, and then conclude that, as one of them has a smaller Helmholtz energy than the other, the metastable state is not stable. This is a completely legitimate usage of the minimum principle for the Helmholtz energy.
+
+Let us now turn to another quantity that we have not yet discussed so far - the entropy. As a starting point, let us again take the van der Waals gas as an example whose entropy is given by
+$$
+S = \frac{3}{2} N k_B + 
+N k_B [\ln \frac{V-bN}{N} + \frac{3}{2} \ln k_B T]
+$$
+Now suppose we consider a van der Waals liquid at constant atmospheric pressure, maybe in an open vessel, and in contact with a heat bath, and we slowly increase the temperature of the heat bath and therefore the gas. This process corresponds to an isobar in the phase diagram. At some point, we will reach the coexistence curve. The liquid will vapor and thus increase its volume. However, the temperature of the system will remain the same, as we are still in contact with the heat bath. Thus the above formula shows us that the entropy will increase by an amount
+$$
+\Delta S = N k_B \ln \frac{V_{g}-bN}{V_{l}-bN} = N k_B \ln \frac{3 \bar{V}_{g} - 1}{3 \bar{V}_{l}- 1}
+$$
+The {\em latent heat} $L$ is defined as the heat corresponding to this change in entropy, i.e. 
+$$
+L = T \Delta S
+$$
+In the case of the van der Waals model, we find that
+$$
+\frac{L}{N k_B T_c} = \bar{T}  \ln \frac{3 \bar{V}_{l} - 1}{3 \bar{V}_{g}- 1}
+$$
+During this process, all potentials of the gas change, and it is instructive to relate them to see what is happening. First, the volume of the gas increases, so there is some work
+$$
+P \Delta V = P (V_g - V_l) 
+$$
+being done on the environment. Using the van der Waals relation between pressure and volume, we can write
+$$
+P V_g = \frac{N k_B T V_g}{V_g - bN} - \frac{aN^2}{V}
+$$
+and similarly for $P V_l$, so that
+$$
+P \Delta V = N k_B T (\frac{V_g}{V_g - bN} - \frac{V_l}{V_l - bN}) - a N^2 (\frac{1}{V_g} - \frac{1}{V_l})
+$$
+The latent heat is given by
+$$
+L = T \Delta S = N k_B T \ln (V_{g}-bN) - N k_B T \ln (V_{l}-bN)
+$$
+The total energy in the gas phase is given by
+$$
+U_g =  \frac{3}{2} N k_B T - a \frac{N^2}{V_g}
+$$
+so that
+$$
+\Delta U = - aN^2  (\frac{1}{V_g} - \frac{1}{V_l})
+$$
+From the first law of thermodynamics, we expect that
+$$
+\Delta U = T \Delta S - P \Delta V
+$$
+i.e. we expect that
+\begin{align*}
+	- aN^2  (\frac{1}{V_g} - \frac{1}{V_l})=&    N k_B T \ln (V_{g}-bN) - N k_B T \ln (V_{l}-bN) \\
+&-  N k_B T (\frac{1}{V_g - bN} - \frac{1}{V_l - bN}) + a N^2 (\frac{1}{V_g} - \frac{1}{V_l}) 
+\end{align*}
+which we can rearrange as
+\begin{align*}
+	0 =&     N k_B T  \frac{1}{V_l - bN} - N k_B T \ln (V_{l}-bN) -  \frac{2a N^2}{V_l} \\
+	& -  \big[ N k_B T \frac{1}{V_g - bN}  - N k_B T \ln (V_{g}-bN)-  \frac{2a N^2}{V_g}    \big]
+\end{align*}
+Comparing this with our expression for the Gibbs energy
+$$
+G =  - N k_B T [ \ln\frac{V-bN}{N} + \frac{3}{2} \ln k_B T] + \frac{N k_B TV}{V-bN} 
+-\frac{2aN^2}{V	}
+$$
+we find that this is just the change in the Gibbs energy. But we have already seen that the condition for the coexistence curve is exactly that this change is zero. Thus we find that the first law holds (as it should be) or, put differently, we once more see that the equality of the Gibbs energies is the correct condition for the phase transition to take place. 
+
+Thus during the phase transition, the system will draw some energy in the form of heat from the heat bath, this is the latent heat $T \Delta S$. A part of this energy is used to increase the internal energy and remains in the system. Another part is used to do work on the environment by increasing the volume against the constant atmospheric pressure. The Gibbs energy will remain constant (this is our coexistence condition). Due to the relation
+$$
+G = F + PV
+$$
+we see that the change in the free Helmholtz energy is equal to the work being done on the environment. And finally, the change in the free enthalpy $H = G - TS$ is equal to the latent heat $ T \Delta S$, again because $\Delta G = 0$.
+
+Let us do a numerical example to get a feeling for the involved quantities. From \cite{Tables}, we can obtain the molar formation enthalpies of liquid and vaporized water which are (at atmospheric pressure and standard temperature)
+\begin{align*}
+\Delta_f H_2O (l) &= - 285 \text{kJ} / \text{mol}  \\
+\Delta_f H_2O (g) &= - 241 \text{kJ} / \text{mol}  
+\end{align*}
+The difference is the latent heat which is therefore
+$$
+L = 44 \cdot 10^3 \text{J} / \text{mol}
+$$
+To approximate the work due to the change of volume when water vaporizes, we ignore the volume of the water and approximate the liquid of one mol of vapor by
+$$
+V = \frac{RT}{P}
+$$
+so that
+$$
+P\Delta V \approx RT = 8.3 \frac{\text{J}}{\text{mol} \cdot \text{K}} \cdot 298 \text{K} = 2.4 \text{kJ}
+$$
+Comparing this to the molar latent heat, we find that only a small part of the heat drawn from the reservoir is used to perform volume expansion work. The larger part is absorbed by the increase of internal energy - this is the energy that is required to break the bonds between the water molecules to turn the water into vapor.
+
+In the example of the van der Waals liquid, we were able to find a closed expression for the latent heat. In general, this is more difficult. However, there is a beautiful equation that allows us to determine the latent heat from the slope of the phase boundary. To find this equation, consider a process that moves a system along the phase boundary in the $P$-$T$ plane (recall  diagram \ref{fig:VanDerWaalsPhaseDiagram}). Let $\gamma$ denote the path on the phase boundary corresponding to this process, and let us analyze the derivative of the Gibbs energies for each of the phases during this process. More precisely, we look at $G = G(T, P, N)$ for both phases. For the gas phase, the derivative of this with respect to the curve parameter is, by the chain rule
+$$
+d G_g \cdot \dot{\gamma}(0) = - S_g dT \cdot \dot{\gamma}(0)  + V_g dP  \cdot \dot{\gamma}(0)  
+$$
+and the same holds for the liquid phase. Now we know that while we move along the phase boundary, the equilibrium condition is maintained, i.e. the two Gibbs energies are equal. Thus the derivatives along the curve need to be equal as well, and we find that
+$$
+- S_g dT \cdot \dot{\gamma}(0)  + V_g dP  \cdot \dot{\gamma}(0)   = - S_l dT \cdot \dot{\gamma}(0)  + V_l dP  \cdot \dot{\gamma}(0)  
+$$
+or, collecting terms
+$$
+(V_g  - V_l) dP  \cdot \dot{\gamma}(0)   = (S_g - S_l) dT \cdot \dot{\gamma}(0)
+$$
+Dividing by the change of the temperature on both sides and returning to a slightly more sloppy notation, we find that
+$$
+\frac{dP}{dT} = \frac{S_g - S_l}{V_g - V_l} 
+$$
+or
+$$
+\frac{dP}{dT} = \frac{L}{T \Delta V} 
+$$
+In other words, the latent heat $T \Delta S = T (S_g - S_l)$ is equal to the slope of the phase boundary times the change in volume $V_g - V_l$ times the temperature. This is the famous {\em Clausius-Clapeyron equation}. Recalling that the change in the enthalpy $H$ is equal to the latent heat, we could also write this as
+$$
+\frac{dP}{dT} = \frac{\Delta H}{T \Delta V} 
+$$
+Finally, we can approximate the change in volume by the volume of the gas (which is usually much higher as that of the solid) and treat the gas as an ideal gas, so that 
+$$
+\frac{dP}{dT} = \frac{\Delta H}{T  V} =  \frac{P \Delta H}{T^2 N k_B } = \frac{P \Delta H^0}{T^2 R }
+$$
+where now $\Delta H^0$ is the molar latent heat. Assuming that $L$ is constant and doing a separation of variables to solve the resulting partial differential equation shows that the vaporization pressure is approximatel
+$$
+P \approx \text{const} \cdot e^{\frac{-L}{RT}}
+$$
+Of course, this will only hold in a small region of the curve where the assumption that $L$ is constant is approximately valid, so use this with care.
+
 
 \section{The microcanonical ensemble}
 
@@ -2504,6 +2663,21 @@ $$
 G(T, P, N_i) = \sum_i \mu_i N_i
 $$
 which is an amazingly simple expression (which, however, has some hidden complexities as the $\mu_i$ will in general depend on parameters, i.e. $\mu_i$ might even depend on $N_j$ as the example of the formula for the chemical potential in a dilute solution nicely illustrates). 
+
+There is one case, however, where this relation is especially nice, which is the case of only one particle. In general, the chemical potential will then depend on $T$, $P$ and $N$. Our result on the derivatives of homogeneous functions, however, implies that $\mu$ is homogeneous of degree zero in $N$. Thus
+$$
+\mu(T, P, N) = \mu(T, P, 1)
+$$
+i.e. $\mu$ does not depend on the particle number any more. The Gibbs energy is then simply 
+$$
+G(T, P, N) = \mu(T, P) N
+$$
+and we see that
+$$
+\mu(T, P) = G(T, P, 1) = \frac{G(T, P, N)}{N}
+$$
+is the same as the specific (or molar, depending on units that we use) Gibbs energy. 
+
 
 To see yet another implication of the homogenous function theorem, let us take the derivative of our expression for $U$. We obtain
 \begin{align*}
