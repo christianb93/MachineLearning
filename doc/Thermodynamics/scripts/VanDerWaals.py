@@ -6,6 +6,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import argparse
 
 #
 # Normalize temperature and volume, i.e. divide
@@ -30,7 +31,7 @@ def P(T,V, N, a = 1, b = 1):
 # Determine the reduced pressure in terms of
 # reduced volume and reduced temperature
 #
-def Pb(Tb, Vb, N, a = 1, b = 1):
+def Pb(Tb, Vb):
     return 8.0*Tb/(3.0*Vb-1) - 3.0/Vb**2
 
 #
@@ -41,6 +42,13 @@ def Pb(Tb, Vb, N, a = 1, b = 1):
 #
 def Gb(Tb, Vb):
     return - Tb * (np.log(3.0*Vb - 1.0) - 1.0/(3.0*Vb - 1)) - 9.0/(4.0*Vb)
+
+#
+# Return the reduced Helmholtz energy
+#
+def Fb(Tb, Vb):
+    return - Tb * np.log(3.0*Vb - 1.0) - 9.0/(8.0*Vb)
+
 
 #
 # Given a certain combination of reduced
@@ -79,9 +87,9 @@ def compute_derivatives(x,y):
 # - we stop if the sign of the difference between the Gibbs energies of
 #   the gas phase and the liquid phase changes
 #
-def find_coexistence_state(_Tb = 0.85):
+def find_coexistence_state(_Tb = 0.85, step = 0.001):
     diff = 0.1
-    for _Pb in np.arange(0.01, 1.0, 0.002):
+    for _Pb in np.arange(0.01, 1.0, step):
         _Vb1, _Vb2, _Vb3 = solve_forVb(Pb = _Pb,Tb = _Tb)
         _Gbvalues = Gb(Tb = _Tb, Vb = np.array([_Vb1, _Vb2, _Vb3]))
         # Here we assume that the middle value of the volume is the
@@ -92,7 +100,15 @@ def find_coexistence_state(_Tb = 0.85):
         diff = diff_new
     return 0
 
-
+#
+# Parse arguments
+# 
+parser = argparse.ArgumentParser()
+parser.add_argument("--show", 
+                    action = "store_true",
+                    help ="Show generated images")
+args=parser.parse_args()
+show = args.show
 
 a = 1.05
 b = 0.1
@@ -170,10 +186,10 @@ ax1.set_xlim(0, 6)
 
 Tb = 0.85
 Vb = np.arange(0.53, 6, 0.001)
-Pb = Pb(Tb, Vb, N, a = a, b = b)
-values = Gb(Tb,Vb)   
-ax0.plot(Vb,values)
-ax1.plot(Vb, Pb)
+_Pb = Pb(Tb, Vb)
+values = Gb(Tb, Vb)   
+ax0.plot(Vb, values)
+ax1.plot(Vb, _Pb)
 
 #
 # Now let us mark a few points for different values
@@ -184,17 +200,17 @@ markers = ["rD", "gD", "yD"]
 text = [["A","B","C"], ["D", "E", "F"], ["G", "H", "I"]]
 offset = 0.02
 i = 0
-for Pb in [0.505, 0.4]:
-    Vb1, Vb2, Vb3 = solve_forVb(Pb = Pb,Tb = 0.85)
-    Gbvalues = Gb(Tb=0.85, Vb=np.array([Vb1, Vb2, Vb3]))
-    line_y = np.full(600, Pb)
+for _Pb in [0.505, 0.4]:
+    Vb1, Vb2, Vb3 = solve_forVb(Pb = _Pb,Tb = 0.85)
+    Gbvalues = Gb(Tb = 0.85, Vb = np.array([Vb1, Vb2, Vb3]))
+    line_y = np.full(600, _Pb)
     ax1.plot(np.arange(0, 6, 0.01), line_y, lines[i])
-    ax1.plot(Vb1, Pb, markers[i])
-    ax1.text(Vb1, Pb + offset, text[0][i])
-    ax1.plot(Vb2, Pb, markers[i])
-    ax1.text(Vb2, Pb + offset, text[1][i])
-    ax1.plot(Vb3, Pb, markers[i])
-    ax1.text(Vb3, Pb + offset, text[2][i])
+    ax1.plot(Vb1, _Pb, markers[i])
+    ax1.text(Vb1, _Pb + offset, text[0][i])
+    ax1.plot(Vb2, _Pb, markers[i])
+    ax1.text(Vb2, _Pb + offset, text[1][i])
+    ax1.plot(Vb3, _Pb, markers[i])
+    ax1.text(Vb3, _Pb + offset, text[2][i])
     ax0.plot(np.array([Vb1, Vb2, Vb3]), Gbvalues, markers[i])
     ax0.text(Vb1 - 0.2, Gbvalues[0] - offset*0.5, text[0][i])
     ax0.text(Vb2, Gbvalues[1]+ offset, text[1][i])
@@ -203,6 +219,56 @@ for Pb in [0.505, 0.4]:
     i += 1
 
 plt.savefig("VanDerWaalsMaxwell.png")
+
+
+
+#
+# Let us now turn to the Helmholtz free energy and do a plot
+# compared to the reduced pressure
+#
+fig = plt.figure(figsize=(10,8))
+ax0 = fig.add_subplot(2, 1, 1)
+ax1 = fig.add_subplot(2, 1, 2)
+ax0.set_xlabel("Normalized volume")
+ax0.set_ylabel("Normalized Helmholtz energy f")
+ax1.set_xlabel("Normalized volume")
+ax1.set_ylabel("Normalized pressure")
+ax1.set_xlim(0, 5)
+ax1.set_ylim(-1.0 , 2.0)
+ax0.set_xlim(0, 5)
+Tb = 0.78
+Vb = np.arange(0.42, 5, 0.001)
+_Pb = Pb(Tb, Vb)
+values = Fb(Tb, Vb)   
+ax0.plot(Vb, values)
+ax1.plot(Vb, _Pb)
+
+# Let us now look at a certain pressure in more detail
+# namely the coexistence pressure for the given temperature
+_Pb = find_coexistence_state(_Tb = Tb)
+offset = 0.1
+i = 0
+Vb1, Vb2, Vb3 = solve_forVb(Pb = _Pb, Tb = Tb)
+# draw a horizontal red line at the pressure 
+line_y = np.full(600, _Pb)
+ax1.plot(np.arange(0, 6, 0.01), line_y, "r--")
+# add markers at the volume of gas and liquid phase
+ax1.plot(Vb1, _Pb, "rD")
+ax1.text(Vb1, _Pb + offset, "A")
+ax1.plot(Vb3, _Pb, "rD")
+ax1.text(Vb3, _Pb + offset, "B")
+# add the same markers in the upper diagram
+Fbvalues = Fb(Tb = Tb, Vb = np.array([Vb1, Vb3]))
+ax0.plot(np.array([Vb1,  Vb3]), Fbvalues + offset*0.2, "v")
+ax0.text(Vb1, Fbvalues[0] + offset*0.8, "A")
+ax0.text(Vb3, Fbvalues[1] + offset*0.8, "B")
+# finally draw a line from Vb3 to Vb1
+t = np.arange(0, 1.0, 0.001)
+_v = t* Vb3 + (1.0 - t) * Vb1
+_fb = t* Fbvalues[1] + (1.0 - t) * Fbvalues[0]
+ax0.plot(_v, _fb, "g--")
+
+plt.savefig("VanDerWaalsHelmholtz.png")
 
 
 # 
@@ -219,7 +285,7 @@ ax.set_xlim(0.3, 1.3)
 ax.set_ylim(0.0, 1.3)
 
 values = []
-Tb = np.arange(0.3, 0.999, 0.001)
+Tb = np.arange(0.3, 0.999, 0.005)
 for _Tb in Tb:
     # print("_Tb =", _Tb)
     Pb = find_coexistence_state(_Tb = _Tb)
@@ -230,5 +296,5 @@ ax.plot(1.0, 1.0, "bo")
     
 plt.savefig("VanDerWaalsPhaseDiagram.png")
 
-plt.show()
-
+if show:
+    plt.show()

@@ -1292,7 +1292,35 @@ Put differently, the points G and A mark two states in two different phases with
 \label{fig:VanDerWaalsPhaseDiagram}
 \end{figure}
  
+ 	
+\section{More on phase transitions}
+ 
+Some textbooks take a different approach to phase transitions that is based on the properties of the Helmholtz free energy. As a few important details are typically left out when this is presented, it might be worth to take a closer look at this argument. We will again use the van der Waals gas as an example, but the structure of the argument does not depend on any specifics of this system. 
 
+
+To simplify some of the calculations, let us íntroduce a normalized Helmholtz energy
+$$
+f = \frac{F}{k_B N T_c}
+$$
+as we have done it for the Gibbs free energy and find an expression for it in terms of the reduced quantities. Reusing some of the calculations that we have done for the normalized Gibbs energy, we find that
+$$
+f =  - \bar{T} \ln (3\bar{V} - 1) - \frac{9}{8 \bar{V}} + f_0(T)
+$$
+with a function $f_0$ depending on the temperature alone. To get an idea for the shape of this curve, let us take a look at diagram \ref{fig:VanDerWaalsHelmholtz}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.5]{VanDerWaalsHelmholtz}
+	\caption{Helmholtz energy of a van der Waals gas}
+	\label{fig:VanDerWaalsHelmholtz}
+\end{figure}
+
+
+The upper part of this diagram displays the free Helmholtz energy as a function of the reduced volume while the lower part of the diagram shows the corresponding values of the reduced pressure which (up to a constant due to normalization) is the derivative of the Helmholtz energy. We already know that we will find two volumes $V_A$ and $V_B$ for which the pressure is the same, which we can interpret as the volumes of the liquid phase and the gas phase exposed to the same pressure. 
+
+We also know that the pressure is - up to a normalization factor that is due to our usage of reduced quantities - minus the derivative of the Helmholtz energy with respect to the reduced volume. In addition, the derivative of the pressure with respect to the volume changes its sign and is positive in a small region. In this region, the second derivative of the Helmholtz energy is negative, meaning that the Helmholtz energy fails to be a convex function of the volume in this range.
+
+Let us try to understand what this means. Suppose we are looking at a temperature between $V_A$ and $V_B$. 
 
 \section{The microcanonical ensemble}
 
