@@ -1271,17 +1271,17 @@ with a function depending on $\bar{T}	$ only (usually one would write down the G
 When a state moves along the isotherm starting below $H$, it will, at some point, experience a phase transition. It will then disappear from the configuration space and appear again at the left hand side of the diagram. It could do so at point H and reappear at point 
 B (which, as we can see in the lower diagram, are two points with the same pressure but different values) or it could transition into the second phase upon reaching point G and reappear at point A (another pair of points with the same pressure and different volumes). How can we determine at which point the transition really happens?
 
-To understand this, consider a little subsystem as before, for which we now know that the Gibbs energy has a minimum, but this time suppose that this system is by itself a composition of two subsystems, which are both in contact with the surrounding reservoirs. The first subsystem, with $N_1$ particles and volume $V_1$, is still in the phase I on the left hand side of the unstable region, whereas the second subsystem, with $N_2$ particles and occupying volume $V_2$, is already in phase II. In each of the phases, the Gibbs energy it proportional to $g(T, V_i) N_i$ with $g$ as above. As the Gibbs energy is additive in the particle number (and pressure and temperature are the same for both subsystems), we know that
+To understand this, consider a little subsystem as before, for which we now know that the Gibbs energy has a minimum, but this time suppose that this system is by itself a composition of two subsystems, which are both in contact with the surrounding reservoirs. The first subsystem, with $N_1$ particles and volume $V_1$, is still in the phase I on the left hand side of the unstable region, whereas the second subsystem, with $N_2$ particles and occupying volume $V_2$, is already in phase II. For each of the two phases, we have a well pressure and can do a Legendre transform to arrive at a Gibbs energy that depends  only on temperature, pressure and particle number and is extensive in the particle number. As pressure and temperature are the same for both subsystems, we know that
 $$
-G = g(T, V_1) N_1 + g(T, V_2) N_2 = g(T, V_1) N_1 + g(T, V_2) (N - N_1)
+G = G_I(T, p, N_1)  + G_{II}(T, P, N_2) = g_I(T, P) N_1 + g_{II}(T, V_2) (N - N_1)
 $$
-where $N$ is the number of particles in our subsystems. Now this is a minimum if and only if
+where $N$ is the number of particles in our subsystems and $g$ is the respective molar Gibbs energy. Now this is a minimum if and only if
 $$	
-0 = \frac{G}{\partial N_1} = g(T, V_1) - g(T, V_2)
+0 = \frac{G}{\partial N_1} = g_I(T, P) - g_{II}(T, P)
 $$
-i.e. if the Gibbs energies at both sides of the instable region are identical. If the Gibbs energies are different, say if $g(T, V_1) > g(T, V_2)$, then the system is not stable as transferring additional substance from phase I to phase II will increase the Gibbs energy. Thus we can conclude that we can have a stable state if and only if the two Gibbs energies are equal.
+i.e. if the Gibbs energies at both sides of the instable region are identical. If the Gibbs energies are different, say if $g_I(T, P) > g_{II}(T, P)$, then the system is not stable as transferring additional substance from phase I to phase II will increase the Gibbs energy. Thus we can conclude that we can have a stable state if and only if the two molar Gibbs energies are equal. 
 
-Assuming stability, let us now take a look at the plot of the Gibbs energy. We see that for the pair of states H and B, the Gibbs energy on the left hand side of the unstable region is much higher than the energy on the right hand side. As the system is striving for a minimum of the Gibbs energy, no transition from H to B will take place. If, however, we increase the pressure further and the state moves further along the isotherm and eventually reaches G, the Gibbs energies on both sides (points G and A) will be equal. So at this point the transition will take place. We note that this will make the Gibbs function continuous as a function of the pressure $p$. 
+Assuming stability, let us now take a look at the plot of the Gibbs energy. We see that for the pair of states H and B, the Gibbs energy on the left hand side of the unstable region is much higher than the energy on the right hand side. As the system is striving for a minimum of the Gibbs energy, no transition from H to B will take place. If, however, we increase the pressure further and the state moves further along the isotherm and eventually reaches G, the Gibbs energies on both sides (points G and A) will be equal. So at this point the transition will take place. We note that this will make the Gibbs energy continuous as a function of the pressure $p$. 
 
 Put differently, the points G and A mark two states in two different phases with the same pressure and temperatures, but different volumes and hence densities, that have the same Gibbs free energy and are therefore able to coexist in a stable state. This is called a {\em coexistence state}. If we think of the two phases as gas and liquid phase, this is just the boiling point. Thus, there is one pressure for which coexistence is possible for each given value of the temperature less than $T_c$. When plotted into a P-T diagram, as in figure \ref{fig:VanDerWaalsPhaseDiagram} (where we have again plotted the normalized pressure and temperature), we find a curve that ends at the critical point. A diagram like this is called a {\em phase diagram}.
 
@@ -1320,7 +1320,56 @@ The upper part of this diagram displays the free Helmholtz energy as a function 
 
 We also know that the pressure is - up to a normalization factor that is due to our usage of reduced quantities - minus the derivative of the Helmholtz energy with respect to the reduced volume. In addition, the derivative of the pressure with respect to the volume changes its sign and is positive in a small region. In this region, the second derivative of the Helmholtz energy is negative, meaning that the Helmholtz energy fails to be a convex function of the volume in this range.
 
-Let us try to understand what this means. Suppose we are looking at a temperature between $V_A$ and $V_B$. 
+Let us try to understand the physical implications of this lack of convexity. Suppose we have a gas that has a volume slightly above $V_B$ and we very slowly and cautiously continue to compress gas further, all this in the presence of a heat reservoir so that the temperature stays constant. When we hit $V_B$, in most cases, a phase transition will take place, i.e. the gas will liquify and we re-enter the configuration space at volume $V_A$. However, it is very well possible that we can move the system a bit beyond $V_B$  without a phase transition taking place. This will produce what is called a {\em metastable state} that we denote by $M$. 
+
+Now let us try to produce a state $N$ with the same volume by mixing the liquid and gas phases. Thus we consider a system that consists of $N_A$ particles of liquid and $N_B$ particles of gas, subject to the condition that $N_A + n_B = N$. Using the notation
+$$
+n_A = \frac{N_A}{N}
+$$ 
+and similarly for $N_B$, this condition turns into 
+$$
+n_A + n_B = 1
+$$
+Be careful, we will continue to use the symbol $V_A$ to denote the volume of $N$ particles in the gas phase, so that the volume of $N_A$ particles is
+$$
+\frac{N_A}{N} V_A = n_a V_A
+$$
+and similarly for the liquid. Therefore the volume of the mixture is given by
+$$
+n_A V_A + n_B V_B = n_A V_A + (1 - n_A) V_B
+$$
+Clearly, we can choose $n_A$ to realize any volume between $V_A$ and $V_B$ that we want in this way, including the volume $V_M$ of the state $M$. 
+
+Let us now calculate the Helmholtz energy of the combined system. This is simply the sum of the Helmholtz energies of the individual systems, i.e. (recall our notation for the volumes)
+\begin{align*}
+F &= F(T, \frac{N_A}{N} V_A, N_A) + F(T, \frac{N_B}{N} V_B, N_B) \\
+&= N_A F(T, \frac{V_A}{N}, 1) + N_B F(T, \frac{V_B}{N}, 1)
+\end{align*}
+where we have used the fact that the Helmholtz energy is an extensive quantity. Dividing both sides by $N$ and using the extensitivity once more thus yields
+\begin{align*}
+\frac{F}{N} &= n_A F(T, \frac{V_A}{N}, 1) + (1 - n_A) F(T, \frac{V_B}{N}, 1) \\
+&= n_A \frac{1}{N} F(T, V_A, N) + (1 - n_A) \frac{1}{N} F(T, V_B, N) 
+\end{align*}
+and dividing this by $k_B T_c$ therefore shows that the normalized Helmholtz energy of the mixture is given by
+$$
+f = n_A f(\bar{T}, \bar{V}_A, N) + (1 - n_A) f(\bar{T}, \bar{V}_B, N)
+$$
+This just the convex combination of the free Helmholtz energies of the liquid phase and gas phase. In the $f - V$ diagram (the upper part of diagram \ref{fig:VanDerWaalsHelmholtz}), this is therefore the point $N$ located at the same volume as $M$ on the dashed straight line connecting the two values of the Helmholtz energy at $V_A$ and $V_B$.
+
+This is now where the lack of convexity comes into play - this point is located {\em below} the point $M$, i.e. has a lower Helmholtz energy than $M$. Now recall that the Helmholtz energy is minimized in the presence of a heat bath and at fixed volume. As we have found a thermodynamic state $N$ - our mixed state  - that occupies the same volume as $M$ but has a lower Helmholtz energy, we can therefore conclude that $M$ is not stable.
+
+You might now conclude that if we perturb $M$ a bit, it will move to state $N$ and remain there. This, however, is in general not true, as you should be able to tell if you have read the previous section. In fact, in the previous section, we have found that the mixed state is only an equilibrium state if both phases have the same pressure and if the Gibbs energy of both phases is the same, and these are conditions that we have not used at all so far. Thus in general, $N$ will not be an equilibrium state, i.e. the Helmholtz energy of $N$ is smaller than that of $M$, but not a minimum. If, however, these conditions are fulfilled, then $N$ will be an equilibrium state and the system will settle there. 
+
+It is interesting to relate the equilibrium conditions to the graphical representation of the Helmholtz energy in diagram \ref{fig:VanDerWaalsHelmholtz}. The first condition - equality of the pressures - simply means that the slope of the graph is the same at the two points $A$ and $B$. To interpret the second condition, let us express the Helmholtz energies of the two states $A$ and $B$ in terms of the Gibbs energy at the (common) pressure $P$. We have
+\begin{align*}
+F(T, V_A, N) &= G_A(T, P, N) - P V_A \\
+F(T, V_B, N) &= G_B(T, P, N) - P V_B \\
+\end{align*}
+Thus if the two Gibbs energies are equal, then
+$$
+F(T, V_A, N) - F(T, V_B, N) = -P (V_A - V_B)
+$$
+As the slope is $-P$, this condition now simply states that the slopes are not only equal at the points $A$ and $B$, but that the dashed connecting the two points $A$ and $B$ on which $N$ is located has the exact same slope! Thus this line is tangent at both points, which is the reason why this construction is sometimes called the {\em double tangent construction}. As we know that the dashed line is the Helmholtz energy of the mixed state, this is also the condition that we require to make sure that the pressure remains continuous across the entire phase transition.
 
 \section{The microcanonical ensemble}
 
@@ -2527,6 +2576,9 @@ OpenStax, {\em Chemistry 2e}, available at \url{https://openstax.org/details/boo
 
 \bibitem{Tables}
 National Bureau of Standards, {\em The NBS table of chemical thermodynamical properties}, Journal of Physical and Chemical Reference Data, Volume 11 (1982), Supplement No. 2
+
+\bibitem{Schwartz}
+M. Schwartz, {\em Statistical mechanics lecture notes}, available at \url{https://scholar.harvard.edu/schwartz/teaching}	
 
 \end{thebibliography}
 \end{document}

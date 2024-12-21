@@ -263,10 +263,26 @@ ax0.plot(np.array([Vb1,  Vb3]), Fbvalues + offset*0.2, "v")
 ax0.text(Vb1, Fbvalues[0] + offset*0.8, "A")
 ax0.text(Vb3, Fbvalues[1] + offset*0.8, "B")
 # finally draw a line from Vb3 to Vb1
-t = np.arange(0, 1.0, 0.001)
+t = np.arange(0, 1.0    , 0.001)
 _v = t* Vb3 + (1.0 - t) * Vb1
 _fb = t* Fbvalues[1] + (1.0 - t) * Fbvalues[0]
 ax0.plot(_v, _fb, "g--")
+# add markers for a metastable state
+Vm = Vb3 - 2.0  
+Pm = Pb(Tb, Vm)
+Fm = Fb(Tb, Vm)
+ax1.plot(Vm, Pm, "rD")
+ax1.text(Vm, Pm + offset*0.8, "M")
+ax0.plot(Vm, Fm, "rD")
+ax0.text(Vm, Fm + offset*0.8, "M")
+#
+# Mark the mixture that has the same volume as M
+#
+t = (Vm - Vb3) / (Vb1 - Vb3)
+Fn = t * Fbvalues[0] + (1.0 - t) * Fbvalues[1]
+ax0.plot(Vm, Fn, "bD")
+ax0.text(Vm, Fn - offset*0.8, "N")
+
 
 plt.savefig("VanDerWaalsHelmholtz.png")
 
