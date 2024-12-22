@@ -282,7 +282,10 @@ $$
 \Delta S_1 + \Delta S_2 = C [N_1 C\ln \frac{T_f}{T_1} + N_2 \ln {T_f}{T_2}] 
 = C \ln \frac{T_f^{N_1 + N_2}}{T_1^{N_1} T_2^{N_2}}
 $$
-is positive. And this is always true, as the numerator is guaranteed to be at least equal to the denominator by the inequality of weighted arithmetic and geometric mean, and therefore the logarithm is never negative.
+is positive. And this is always true, as the numerator is guaranteed to be at least equal to the denominator by the inequality of weighted arithmetic and geometric mean, and therefore the logarithm is 
+never negative.
+
+Also note that in this case, the entropy changes even though no heat is exchanged with the environment. Thus heat flow between a system and its environment is not the only source of a change in entropy, other sources are possible, like - as in this case - an internal flow of heat or, as we will see later, the process of mixing to initially separated sub-systems.
 \end{example}
 
 \section{Quasistatic and irreversible processes}
@@ -945,35 +948,70 @@ dF = - S dT - PdV + \mu dN
 $$
 We have already seen above that the Helmholtz energy has an interesting physical interpretation: the maximal work that can be delivered by a system connected to a thermal reservoir is the decrease of the Helmholtz energy. In that sense, the Helmholtz energy is the potential of a system to deliver work at fixed temperature, which explains why this quantity is often called the {\em Helmholtz potential}.
 
-The Helmholtz potential has another important property, which we will now derive. Suppose again that we are considering a system which is in contact with a thermal reservoir of temperature $T$. Consider some process which is quasi-static and in particular keeps the temperature of our system constant and equal to the temperature of the reservoir. Differentiating equation \ref{eq:helmholtzenergy}, interpreted as defining a function of $(U,V,N)$, and restricting to tangent vectors along the hypersurfaces of constant temperature so that $dT = 0$, we obtain
-$$
-dF = - P dV + \mu dN
-$$
-Now consider the total entropy of the composite system that consists of the system of interest and the thermal reservoir. As the volume and particle number of the thermal reservoir are constant, we can calculate the 
-total differential of the entropy of the reservoir and obtain
-$$
-d S_R = \frac{1}{T} dU_R = - \frac{1}{T} dU + \frac{1}{T} dU_{tot}
-$$
-so that the differential of the total entropy is
+The Helmholtz potential has another important property, which we will now derive. Suppose again that we are considering a system which is in contact with a thermal reservoir of temperature $T$, and that, as usual, the heat bath can only adjust its energy by exchanging heat with the system. Let us also assume that the overall system, i.e. the combination of the system under consideration and the reservoir, is sufficiently isolated so that its energy is constant. Let us now try to relate the fact that the total energy $U_{tot}$ is constant to the thermodynamical variables of our system. We have
 \begin{align*}
-d S_{tot} &= dS - \frac{1}{T} dU + \frac{1}{T} dU_{tot} \\
-& = \frac{1}{T} (P dV - \mu dN) + \frac{1}{T} dU_{tot} \\ 
-&= - \frac{1}{T} dF + \frac{1}{T} dU_{tot}
+0 &= dU_{tot} = dU + dU_R \\
+&= dU + T_R dS_R \\
+&= dU + T dS_R \\
+&= dU - TdS +  T dS_{tot} \\
+&= d(U - TS) + T d(S_{tot} = dF + dS_{tot}
 \end{align*}
-or
+where we have used the fact that the reservoir can only exchange heat with our system in the second line, the fact that the temperatures of the system and the reservoir are the same in the third line, and the fact that the temperature is constant in the last line. Thus we find that
 $$
-T dS_{tot} = - dF + dU_{tot}
+dF = - T dS_{tot} 
 $$
-Let us now suppose that we let the composite system somehow interact with the environment. If this interaction is reversible, so that the total entropy of the system $S_{tot}$ is constant, the left hand side of this equation is zero. This implies that a state minimizes the total energy if and only it is minimizes the Helmholtz potential of the primary subsystem. Thus the results from section \ref{sec:minimalinternalenergy} immediately yield a minimum principle for the Helmholtz energy: {\em the equilibrium state of a system which is in diathermal contact with a thermal reservoir minimizes the Helmholtz potential}. Note that the same conclusion holds if the energy of the overall system is conversed. Then $dF = - T dS_{tot}$ so that the Helmholtz free energy is minimized if and only if the total entropy is maximized.
+As the composite system is isolated, we know that its entropy settles at a maximum when we remove internal constraints. Thus we obtain a minimum principle for the Helmholtz energy -  {\em the equilibrium state of a system which is in diathermal contact with a thermal reservoir minimizes the Helmholtz potential if the overall system is isolated}. 
+
+Typically, we think of the reservoir as being connected to the system by a diathermal, but fixed wall that encloses the system under consideration completely. Then the volume of the system that we consider is fixed, and neither the system itself nor the heat bath can do any work - just think of a process taking place in a vessel immersed into a heat bath. In that situation, the overall energy is clearly conserved, and we can apply our principle. This is why it is often stated that the Helmholtz energy is minimized under the constraint of constant temperature. 
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[scale=.5]{SpringLoadedPiston}
+	\caption{A piston loaded by a spring in a heat bath}
+	\label{fig:SpringLoadedPiston}
+	\end{center}
+\end{figure}
+
+
+However, the condition of fixed volume is not really necessary, as long as the overall system is sufficiently isolated. To illustrate this, let us look at an example taken from \cite{Schwartz}. Imagine a cylinder containing an ideal gas that is, via a piston, in contact with a spring and fully immersed in a heat bath, as shown in diagram \ref{fig:SpringLoadedPiston}.
+
+If $x$ denotes the displacement of the spring from its equilibrium position, its potential energy is given by
+$$
+E_s = \frac{1}{2} c x^2
+$$
+with a constant $c$. As $x$ also determines the volume of the gas, the free energy of the overall system is given by 
+$$
+F(x) = E_s(x) + U(x) - TS(x)
+$$ 
+For an ideal gas, the energy does only depend on the temperature, which is constant due to the heat bath. So the derivative of the free energy with respect to $x$ is
+\begin{align*}
+\frac{dF}{dx} &= \frac{d}{dx} E_s(x) - T \frac{dS}{dx} \\
+&= c x - T \frac{dS}{dV} \frac{dV}{dx} \\
+&= c x - A T \frac{dS}{dV} = cx - A P
+\end{align*}
+where $A$ is the area of the piston. We therefore find that a necessary condition for equilibrium is that
+$$
+cx =  A P
+$$
+But the left hand side is simply the force exerted by the spring and the right hand side is the force exerted by the gas, so that this condition simply says that these two forces are equal. Thus applying the minimum principle for the Helmholtz energy yields the result that we expect.
 
 
 Obviously we can apply Legendre transforms to the other extensive variables as well and to combinations of them. Functions obtained in this way are called {\em thermodynamic potentials}. We will not got into further details in this short introduction, but only mention the enthalpy, which is the Legendre transform with respect to the volume, and the Gibbs free energy, which is the Legendre transform with respect to volume and entropy at the same time and given by
 $$
 G(T, P, N) = U - TS + PV
 $$
-These potentials have properties similar to the Helmholtz energy, for instance we can deduce in a similar way that the Gibbs free energy is minimized in equilibrium if a process is constrained to a fixed temperature and pressure - we will actually demonstrate an application of this in the next section.
-
-
+These potentials have properties similar to the Helmholtz energy. Let us consider this in more detail for the Gibbs energy, which is a very natural description for many chemical reactions which tend to take place at constant temperature and constant pressure, say atmospheric pressure. To derive a minimum principle for the Gibbs energy, let us now consider a system that is in touch with two reservoir - a heat reservoir $HR$ and a pressure reservoir $PR$. Again we assume that the only way the heat reservoir can change its energy is to exchange heat with the system, and similarly that the only way for the pressure reservoir to change its energy is to exchange mechanical work with the system. And again we assume that the overall system is fully isolated, in particular that its energy and volume are constant. Then we can argue as in the case of the Helmholtz free energy: 
+\begin{align*}
+	0 &= dU_{tot} = dU + dU_{HR} + dU_{PR}  \\
+	&= dU + T dS_{HR} - P dV_{PR} \\
+	&= dU - T dS + T dS_{tot} + P dV \\
+	&= d(U - TS + PV) + T dS_{tot}
+\end{align*}
+so that 
+$$
+dG = - T dS_{tot}
+$$
+Note that we have also used that $T dS_{PR} = 0$, i.e. that the pressure reservoir has a constant entropy. As for the Helmholtz energy, this implies that the Gibbs energy has a minimum in the equilibrium state. More general, for systems that are in touch with a heat and a pressure reservoir, the Gibbs energy is minimized by the equilibrium state
 
 As an example, let us calculate the Gibbs energy of an ideal gas. In a previous section, we have already derived the following expression for the chemical potential.
 $$
@@ -992,6 +1030,53 @@ $$
 G(T, P, N) = \frac{N}{N_A} \frac{T}{T_0} G_0 - N T R  \ln \big[ \big( \frac{T}{T_0} \big)^{c+1} \frac{P_0}{P}  \big]
 $$
 where $G_0$ is the Gibbs energy of one mole of our gas at standard conditions.
+
+\section{Isothermal and adiabatic processes}
+
+Among the many types of processes that typically occur in thermodynamics, there are two types that occur rather frequently and that we will briefly discuss in this section - isothermal and adiabatic processes.
+
+A process is called {\em isothermal} if the temperature remains constant throughout the entire process, often because the process takes place in contact with a thermal reservoir. When a process is isothermal, the state of the system is completely characterized by two remaining variables, for instance pressure and volume. Typically, these two are further related by a {\em state law}. Let us take an ideal gas as an example. We know that 
+$$
+PV = N R T
+$$
+which is constant for an isothermal process, so that $PV = \text{const}$ (known as the law of Boyle-Mariotte). We also know that the energy only depends on particle number and temperature, so that the energy of the gas remains constant during an isothermal process. This, however, is only true for an ideal gas - there are many isothermal processes that change the internal energy. An example is the vaporization of a liquid that we will study a bit later in more detail, where the internal energy changes due to the changing volume even though the temperature remains at the boiling point.
+
+Note that when we draw a P-V diagram of an isothermal process, then the area under the curve is the work being exchanged between the system and the environment. For an ideal gas, for instance, which is compressed from volume $V_1$ to a volume $V_2 < V_1$, the work that needs to be done on the system is
+\begin{align*}
+W = - \int_{V_1}^{V_2} P dV = -  NRT \int_{V_1}^{V_2} \frac{dV}{V} = NRT \ln \frac{V_1}{V_2}
+\end{align*}
+Again for the special case of an ideal gas, this must go entirely into a change of the entropy as the internal energy $U$ remains constant, which we can confirm by comparing this term to the part of the expression for the entropy of an ideal gas derived earlier that depends on the volume.
+
+Let us now consider a different type of process - and {\em adiabatic} process, meaning that no heat is exchanged with the environment. Most of the time, this term is applied only to a process which is also quasi-static. As this implies that $Q = T dS$, we can conclude that such a process leaves the entropy constant (be careful, however - whether this is true depends on the exact definition of quasi-static, see the section on quasi-static and irreversible processes for a more detail discussion).
+
+Let us try to understand what happens to an ideal gas that undergoes an adiabatic (and quasi-static) process, i.e. a process for which the entropy remains constant. We know that the entropy of an ideal gas is given by
+$$
+S =  N s_0 + N R \ln \big[ \big( \frac{U}{U_0} \big)^c \frac{V}{V_0} N^{-c - 1}  \big]
+$$
+Assuming constant particle number, we can derive that a process leaves the entropy unchanged if
+$$
+U^c V = \text{const}
+$$
+Now by the ideal gas law, we know that
+$$
+U = cNRT = cPV
+$$
+so that our condition becomes
+$$
+P^c V^{c+1} = \text{const}
+$$
+where we have absorbed the factor $c^c$ into the constant. Introducing the constant
+$$
+\gamma = 1 + \frac{1}{c} = \frac{f + 2}{f}
+$$
+which is called the {\em adiabatic index}, this turns into
+$$
+P V^\gamma = \text{const}
+$$
+For a monatomic ideal gas, there are $f = 3$ degrees of freedom, so $\gamma = \frac{5}{2}$. In reality, an adiabatic process can at least approximately be achieved by a fast compression that does not allow the gas to continously consume heat from the environment, so that the heat transfer is zero or at least very small. 
+
+Note that this relation implies that the curve of an adiabatic process in P-V space is steeper than an isotherm. In \cite{Schroeder}, Schroeder gives a nice argument why we should expect this - if we do an adiabatic compression, we create heat that cannot be transferred to the environment, so that the temperature needs to increase. Thus we move between two isotherms in the P-V plane, and therefore this curve must be steeper than the isotherms.
+
 
 \section{The Carnot cycle and heat engines}
 
@@ -1045,66 +1130,20 @@ $$
 $$
 Now $W$ is the work done on the system, so that $-W$ is the work that is done on the environment. The left hand side is therefore exactly the efficiency as we have defined it earlier, and we find that the efficiency of a Carnot engine is in fact equal to the theoretical limit. 
 
-\begin{figure}[h]
-	\centering
-	\begin{tikzpicture}
-		% axes
-		\draw[->] 
-		(-.5, 0) -- (-.5, 5) node[left=.1cm] {P};
-		\draw[->] 
-		(-.5, 0) -- (5.5, 0) node[below=.1cm] {V};
-		% arcs
-		\draw[-] (3.12,2.52) arc (259:230:6.3);
-		\draw[-] (3.12,2.52) arc (220:240:5);
-		\draw[-] (4.45,1.38) arc (260:230:6);
-		\draw[-] (1.67,2.68) arc (265:193:1.6);
-		% labels
-		\node[label=I]  at (0.4,3.8) {};
-		\node[label=II]  at (3.2,2.6) {};
-		\node[label=III]  at (4.5,1.4) {};
-		\node[label=IV]  at (1.6,1.9) {};
-		% text
-		\node at (1.8,3.6) {\tiny isothermic at $T_h$};
-		\node at (4.1,2.3) {\tiny adiabatic};
-		\node at (2.5,1.4) {\tiny isothermic at $T_l$};
-		\node at (.6,2.6) {\tiny adiabatic};
-	\end{tikzpicture}
-	\caption{Carnot cycle in V-P space}\label{fig:carnotpv}
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[scale=0.4]{CarnotCycle}
+	\caption{Carnot cycle}
+	\label{fig:carnot}
+	\end{center}		
 \end{figure}
 
-To visualize the process, it is useful to display the process as a curve in our configuration space. The first diagram (\ref{fig:carnotpv}) displays this process in the state space spanned by pressure $P$ and volume $V$. We start at state $I$ with an isothermic expansion at temperature $T_h$, then switch at some point to an adiabatic expansion, followed by an isothermal compression at temperature $T_l$ and finally use an adiabatic process to return to our starting point. 
-
-\begin{figure}[h]
-	\centering
-	\begin{tikzpicture}
-		% axes
-		\draw[->] 
-		(-.5, 0) -- (-.5, 5) node[left=.1cm] {T};
-		\draw[->] 
-		(-.5, 0) -- (5.5, 0) node[below=.1cm] {S};
-		% arcs
-		\draw[-] (1, 4) -- (4, 4);
-		\draw[-] (4, 4) -- (4, 1);
-		\draw[-] (4, 1) -- (1, 1);
-		\draw[-] (1, 1) -- (1, 4);						
-		% labels
-		\node[label=I]  at (0.7,4) {};
-		\node[label=II]  at (4.2, 4) {};
-		\node[label=III]  at (4.2,.2) {};
-		\node[label=IV]  at (.7,.2) {};
-		% text
-		\node at (2.4,4.2) {\tiny isothermic at $T_h$};
-		\node at (4.7,2.5) {\tiny adiabatic};
-		\node at (2.4,.8) {\tiny isothermic at $T_l$};
-		\node at (.3,2.5) {\tiny adiabatic};
-	\end{tikzpicture}
-	\caption{Carnot cycle in S-T space}\label{fig:carnotst}
-\end{figure}
+To visualize the process, it is useful to display the process as a curve in our configuration space. The upper part of diagram (\ref{fig:carnot}) displays this process in the state space spanned by pressure $P$ and volume $V$. We start at state $I$ with an isothermal expansion at temperature $T_h$, then switch at some point to an adiabatic expansion, followed by an isothermal compression at temperature $T_l$ and finally use an adiabatic process to return to our starting point. 
 
 
-If we describe the process in terms of the conjugated variables $S$ and $T$, we obtain diagram \ref{fig:carnotst}. Here we see that during the first and third phase of the process, the temperature remains constant, while the entropy changes, as heat is transferred in an isothermal process. In phase two and four, no heat is transferred, and as we assume the process to be quasi-static, the entropy does not change. Again, the cycle returns to its original state as $S$ and $T$ are state variables.
+If we describe the process in terms of the conjugated variables $S$ and $T$, we obtain the lower part of diagram \ref{fig:carnot}. Here we see that during the first and third phase of the process, the temperature remains constant, while the entropy changes, as heat is transferred in an isothermal process. In phase two and four, no heat is transferred, and as we assume the process to be quasi-static, the entropy does not change. Again, the cycle returns to its original state as $S$ and $T$ are state variables.
 
-Also note that the Carnot cycle demonstrates nicely that the amount of heat emitted or absorbed is actually path-dependent. In diagram \ref{fig:carnotpv}, the system can move from state I to state III by either following the first part of the cycle or the (reversed) second part of the cycle. In the first case, the amount of heat absorbed is $Q_h$, in the second case, this is $Q_l$, and our calculation shows that these are not equal unless $T_h = T_l$.
+Also note that the Carnot cycle demonstrates nicely that the amount of heat emitted or absorbed is actually path-dependent. In diagram \ref{fig:carnot}, the system can move from state I to state III by either following the first part of the cycle or the (reversed) second part of the cycle. In the first case, the amount of heat absorbed is $Q_h$, in the second case, this is $Q_l$, and our calculation shows that these are not equal unless $T_h = T_l$.
 
 \section{The van der Waals model}
 
@@ -1210,24 +1249,9 @@ for $T=2.9$ and $N=1$. In the area between these points (that correspond to an i
 
 This might sound a bit strange, but recall that all the quantities that we are dealing with are only defined in equilibrium, and we have essentially argued that certain regions of the phase space do not allow for an equilibrium. Thus when a system reaches this region, it will no longer be able to maintain an equilibrium. It will continue to evolve its microstate, and at some point, when the phase transition is complete, it will reappear in the configuration space, in alignment with our previous discussion of quasi-static processes. Thus it is not the system that somehow evolves in an unpredictable way during a phase transition, it is our description in terms of equilibria that breaks down at this point.
 
-Let us take a closer look at the role that the Gibbs energy plays in a phase transition. For that purpose, let us assume that a portion of the gas described by the van der Waals equations is contained in a vessel and let us consider a system that consists of a comparatively small, but fixed number of particles within the vessel, but can change its volume and its internal energy - this could just be a small bubble within the system that can absorb or emit heat and shrink or grow. 
+Let us take a closer look at the role that the Gibbs energy plays in a phase transition. For that purpose, let us assume that a portion of the gas described by the van der Waals equations is contained in a vessel and let us consider a system that consists of a comparatively small, but fixed number of particles within the vessel, but can change its volume and its internal energy - this could just be a small bubble within the system that can absorb or emit heat and shrink or grow. Thinking of the surrounding part as a heat and pressure reservoir we want to apply the fact that under these conditions, the Gibbs energy is minimized.
 
-We can then model the part of the vessel outside this small subsystem as a heat reservoir that keeps the temperature $T$ stable and, at the same time, as a pressure reservoir, so that the pressure $P$ is constant as well. The subsystem itself could again be a composite system and therefore be described by its total energy, volume and other, internal parameters. If we use the index R to indicate that a quantity refers to the reservoir and quantity without subscript to refer to our small subsystem, we then have
-\begin{align*}
-dU_{tot} &= dU + dU_R  \\
-&= dU - P dV_R + T dS_R \\
-&= dU + P dV - T dS + T dS_{tot} \\
-&= dU + d(PV) - d(TS) + TdS_{tot} = dG + TdS_{tot}
-\end{align*}
-where we have used that the number of particles within the subsystem and therefore within the reservoir is constant to get from the first line to the second line, the fact that the total volume is constant to get from there to the third line and the fact that temperature and pressure are constant in the last line.
-
-When we now assume in addition that the total energy is preserved and therefore $dU_{tot} = 0$ (this even holds if the total energy is not preserved but merely minimized), we find that 
-$$
-dG = - T dS_{tot}
-$$
-As the total entropy has a maximum in the equilibrium state, we can conclude that the Gibbs energy has a minimum in the equilibrium state. More general, for systems that are in touch with a heat and a pressure reservoir, the Gibbs energy is minimized by the equilibrium state subject to the condition of constant total entropy - this is the equivalent of the respective condition for the Helmholtz energy if merely the temperature is kept stable by a heat reservoir.
-
-Armed with this information, let us now get back to the van der Waals equation and study in more detail the phase transition along an isotherm. For that purpose, we want to express the Gibbs energy in terms of the normalized variables used earlier. We are only interested in the terms depending on the volume $\bar{V}$, and we will use the normalized molar Gibbs energy, i.e.
+So let us now get back to the van der Waals equation and express the Gibbs energy in terms of the normalized variables used earlier. We are only interested in the terms depending on the volume $\bar{V}$, and we will use the normalized molar Gibbs energy, i.e.
 $$
 g = \frac{G}{N k_B T_c}
 $$
@@ -1241,7 +1265,7 @@ where we have used the relation
 $$
 V = V_c \bar{V} = 3 \bar{V} b N
 $$
-We will only keep the first logarithm and move the second term into the part that does not depend on $V$. Similary, the second term in the Gibbs energy turns into
+We will only keep the first logarithm and move the second term into the part that does not depend on $V$. Similarly, the second term in the Gibbs energy turns into
 \begin{align*}
 \frac{1}{N k_B T_c}	\frac{N k_B TV}{V-bN} &= \bar{T} \frac{V}{V - bN} \\
 &= \bar{T} \frac{3 \bar{V} b N}{3 \bar{V} b N - bN} \\
