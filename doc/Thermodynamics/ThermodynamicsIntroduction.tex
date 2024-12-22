@@ -253,23 +253,42 @@ It is important to realize that macroscopic variables are only defined for syste
 
 
 \begin{example}[see 4.1 and 4.4 in \cite{Callen}]\label{ex:idealgascomposite}
-Let us now make our example more concrete by assuming a specific relation between entropy and the extensive parameters which holds for both subsystems. Specifically, let us assume that the entropy is given by
+Let us now make our example more concrete by assuming a specific relation between entropy and the extensive parameters which holds for both subsystems. Specifically, let us assume that our system consists of two chambers, both filled with an ideal gas, with particle numbers $N_1$ and $N_2$, so that the energy of each subsystem is given by
 $$
-S = \bar{S}(V,N) + N C \ln U
+U_i = c N_i R T_i
 $$
-with a positive constant $C$, where $\bar{S}$ is a function of volume and particle number alone (we will see later that this is true for an ideal gas). Then, by taking partial derivatives, we find that
+In a later example, we will derive a formula for the entropy of an ideal gas, namely
 $$
-\frac{1}{T} = \frac{\partial S}{\partial U} = CN \frac{\partial \ln U}{\partial U} = \frac{CN}{U}
+S =  N s_0 + N R \ln \big[ \big( \frac{U}{U_0} \big)^c \frac{V}{V_0} N^{-c - 1}  \big]
 $$
-so that we obtain
+Thus, up to an additive constant that depends on particle number and volume, the entropies of the individual subsystems are given by
 $$
-U = NCT
+S_i =  c N_i R \ln U_i
 $$
-Note that this holds for both systems, and we also assume that the constant $C$ is the same for both systems. Now let us again assume that at some point, we allow heat to flow between the two subsystems, but keep their volumes and particle numbers constant. We want to compare the entropy before allowing heat to flow and after we have removed the constraint and reached equilibrium again. The initial entropy is the sum of the entropies of both subsystems. The same is true for the final entropy. So the change of the total entropy is the sum of the changes of the individual entropies. In any case, the energy will be preserved, so that, if $T_f$ is the final temperature in which the composite system has settled, we have
+Now let us again assume that at some point, we allow heat to flow between the two subsystems, but keep their volumes and particle numbers constant. Let $U$ denote the total energy of our system, so that $U = U_1 + U_2$. 
+Using the additivity of the entropy, the total entropy $S$ is then a function of, say, $U_1$ and $U$ and given by
 $$
-U = (N_1 + N_2) C T_f = N_1 C T_1 + N_2 C T_2
+S = c N_2 R \ln [ U_1^\frac{N_1}{N_2} (U - U_1)  ] = c N_2 R \ln [ U U_1^\frac{N_1}{N_2} -  U_1^{\frac{N_1}{N_2} + 1} ]
 $$
-In other words, the final temperature is the weighted arithmetic mean of the initial temperatures:
+Let us now fix the value $U$ of the total energy and determine the equilibrium state by maximizing $S$. The derivative of the entropy with respect to $U_1$ is given by
+\begin{align*}	
+\frac{dS}{d U_1} &= \frac{cN_2 R}{U_1^\frac{N_1}{N_2} (U - U_1)} [ \frac{N_1}{N_2} U U_1^{\frac{N_1}{N_2} - 1}    -    (\frac{N_1}{N_2} + 1) U_1^\frac{N_1}{N_2}  ] \\
+&= \frac{cN_2R}{U_1 (U - U_1)}[ \frac{N_1}{N_2} U     -   \frac{N_1 + N_2}{N_2}  U_1  ] \\
+&= \frac{c R}{U_1 (U - U_1)} [ N_1 U  -   (N_1 + N_2)  U_1  ]
+\end{align*}
+which  is zero if and only if the final energy of system one is given by
+$$
+U_{1, f} = U \frac{N_1}{N}
+$$
+i.e. the energies are distributed in the same ratio as the particles (which is not quite surprising). Let us now compute the final temperature $T_f$ of subsystem one (and then, by the equilibrium condition, subsystem two as well). We have
+$$
+T_f = \frac{U_{1, f}}{c N_1 R} = \frac{U}{(N_1 + N_2) c R}
+$$
+However 
+$$
+U = U_1 + U_2 = c R N_1 T_1 + c R N_2 T_2
+$$
+so that we eventually obtain that the final temperature is the weighted arithmetic mean of the initial temperatures:
 $$
 T_f = \frac{N_1 T_1 + N_2 T_2}{N_1 + N_2}
 $$
@@ -286,6 +305,7 @@ is positive. And this is always true, as the numerator is guaranteed to be at le
 never negative.
 
 Also note that in this case, the entropy changes even though no heat is exchanged with the environment. Thus heat flow between a system and its environment is not the only source of a change in entropy, other sources are possible, like - as in this case - an internal flow of heat or, as we will see later, the process of mixing to initially separated sub-systems.
+
 \end{example}
 
 \section{Quasistatic and irreversible processes}
@@ -738,10 +758,48 @@ which qualifies the extremum as a minimum, and the proof is complete.
 
 To summarize, we have demonstrated that in the energy representation, the principle of maximal entropy turns into the principle of minimal energy, which is phrased as follows in \cite{Callen}: {\em the equilibrium of any unconstrained internal parameter is such as to minimize the energy for the given entropy}. 
 
-It is instructive to plot a typical entropy and visualize how this works
-\footnote{
-This is in fact a Python generated version of a by now classical and often copied illustration in \cite{Callen}, which has the advantage that in an interactive Python, one can rotate the surface and zoom into it.
-}. In figure \ref{fig:EntropyPlot}, we have displayed the entropy of the composite system considered in example \ref{ex:idealgascomposite}. The entropy $S$ is plotted along the z-axis, and the grey surface displays the value of the entropy depending on the total energy $U$ and the energy $X$ of the first subsystem. The blue solid lines represent values of the entropy for four different, but fixed values of the energy. The red dotted line shows those points in the state space that are equilibrium points. Thus we see that given a fixed value of $U$, the point of the blue curve that corresponds to the equilibrium is actually the point with the largest value of $S$ along the curve, which corresponds to the principle of maximum entropy.
+\begin{example}\label{ex:idealgascompositeII}
+Let us consider the system that we have studied in example \ref{ex:idealgascomposite} once more and try to derive a condition for the equilibrium using the minimum energy principle. The first step is to obtain the energy representation that expresses the total energy as a function of the total entropy and the remaining parameters.
+Thus we start with our relation between the total entropy and $U_1$ and solve this for $U$. Our formula for the entropy  that we have derived in example \ref{ex:idealgascomposite}  yields
+$$
+\exp(\frac{S}{cN_2R}) = U_1^\frac{N_1}{N_2} (U - U_1)
+$$
+so that we obtain an expression for $U$ in terms of entropy and our parameter $U_1$. 
+$$
+U(S, U_1) = U_1 + \exp(\frac{S}{cN_2R}) U_1^{-\frac{N_1}{N_2}}
+$$
+The principle of minimum energy now tells us to minimize this for fixed $S$. So let us take the derivative with respect to $U_1$.
+$$
+\frac{\partial U}{\partial U_1} = 1 - \frac{N_1}{N_2} \exp(\frac{S}{cN_2R}) U_1^{-\frac{N_1}{N_2} - 1}
+$$
+This looks a bit intimidating, but simplifies greatly if we use our expression for the exponential that we have already used once. 
+\begin{align*}
+	\frac{\partial U}{\partial U_1} &= 1 - \frac{N_1}{N_2} \exp(\frac{S}{cN_2R}) U_1^{-\frac{N_1}{N_2} - 1} \\
+	&= 1 - \frac{N_1}{N_2} (U - U_1) U_1^{-\frac{N_1}{N_2} - 1} \\
+	&= 1 - \frac{N_1}{N_2} (U - U_1) U_1^{-1} \\
+	&= 1 - \frac{N_1}{N_2} ( \frac{U}{U_1} - 1)
+\end{align*}
+This is zero if and only if
+$$
+1 = \frac{N_1}{N_2} ( \frac{U}{U_1} - 1)
+$$
+i.e. 
+$$
+N_2 U_1 = N_1 (U - U_1)
+$$
+or
+$$
+N U_1 = N_1 U
+$$
+yielding the exact same condition
+$$
+U_1 = U \frac{N_1}{N}
+$$
+for the equilibrium as before. Thus we arrive at the same condition, regardless of whether we vary the entropy for fixed total energy or whether we vary the energy for fixed entropy.
+\end{example}
+
+It is instructive to study a graphical plot of a typical entropy and visualize how and why both principles - maximal entropy and minimal energy - work and yield the same result\footnote{This is in fact a Python generated version of an illustration in \cite{Callen} that actually uses the example that we have just discussed}.
+In figure \ref{fig:EntropyPlot}, we have displayed the entropy of the composite system considered in example \ref{ex:idealgascomposite}. The entropy $S$ is plotted along the z-axis, and the grey surface displays the value of the entropy depending on the total energy $U$ and the energy $U_1$ of the first subsystem. The blue solid lines represent values of the entropy for four different, but fixed values of the energy. The black dotted line shows those points in the state space that are equilibrium points. Thus we see that given a fixed value of $U$, the point of the blue curve that corresponds to the equilibrium is actually the point with the largest value of $S$ along the curve, which corresponds to the principle of maximum entropy.
 
 Similary, the dotted blue line represents a curve with a fixed value of $S$, i.e. the intersection of the surface given by the entropy with a plane perpendicular to the $S$-axis. We see that, among the points on this curve, the equilibrium point is the one with the lowest value of the total energy $U$, illustrating the principle of minimum entropy. Thus it is the special shape of the entropy surface that forces these two extremum principles to determine the same point in the configuration space.
 
@@ -752,8 +810,6 @@ Similary, the dotted blue line represents a curve with a fixed value of $S$, i.e
 \label{fig:EntropyPlot}
 \end{figure}
 
-
-To be able to work directly with a minimum principle in the energy representation often has advantages. Suppose, for instance, we study systems that are not completely isolated, but permit the exchange of energy with the environment in the form of mechanical work. Then the energy will not be constant, whereas the entropy will be preserved, as no heat flows into the system or out of the system. It is then much more natural to work with a constraint reflecting this, i.e. to consider states with a fixed entropy, and the energy minimum principle then tells us how the system moves through the state space as other constraints are removed.
 
 Finally, we note that of course, as the energy representation and the entropy representation are completely equivalent, both principles hold in both representations, the only difference being that the principle is more easily exploited if the constraint fixes the value of a coordinate and not the value of some function.
 
@@ -1132,7 +1188,7 @@ Now $W$ is the work done on the system, so that $-W$ is the work that is done on
 
 \begin{figure}[ht]
 	\begin{center}
-	\includegraphics[scale=0.4]{CarnotCycle}
+	\includegraphics[scale=0.4	]{CarnotCycle}
 	\caption{Carnot cycle}
 	\label{fig:carnot}
 	\end{center}		
