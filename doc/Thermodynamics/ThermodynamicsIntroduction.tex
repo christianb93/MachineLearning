@@ -1100,11 +1100,21 @@ $$
 But the left hand side is simply the force exerted by the spring and the right hand side is the force exerted by the gas, so that this condition simply says that these two forces are equal. Thus applying the minimum principle for the Helmholtz energy yields the result that we expect.
 
 
-Obviously we can apply Legendre transforms to the other extensive variables as well and to combinations of them. Functions obtained in this way are called {\em thermodynamic potentials}. We will not got into further details in this short introduction, but only mention the enthalpy, which is the Legendre transform with respect to the volume, and the Gibbs free energy, which is the Legendre transform with respect to volume and entropy at the same time and given by
+Obviously we can apply Legendre transforms to the other extensive variables as well and to combinations of them. Functions obtained in this way are called {\em thermodynamic potentials}. We will not got into further details in this short introduction, but only mention the {\em enthalpy}, which is the Legendre transform with respect to the volume, and the {\em Gibbs free energy}, which is the Legendre transform with respect to volume and entropy at the same time.
+
+
+We start with the enthalpy, which is widely used in chemistry as many processes in a laboratory take place at constant (often atmospheric) pressure. By definition, the enthalpy is
+$$
+H(p, V, N) = U + PV
+$$
+To interpret this quantity, imagine a system that has some internal energy $U$ and takes some volume $V$ inside a reservoir of constant pressure $P$. Imagine that you were somehow able to create this system from scratch. You would then have to make room inside the environment, i.e. you would have to create an empty space of volume $V$, which requires the work $PV$ being done on the environment, and you would then have to create the system with its internal energy $U$. Thus the enthalpy represents the energy that you would have to invest (at least) to create a system from scratch in an environment of constant pressure. Conversely, suppose that the system would vanish. The energy you would then obtain is the internal energy of the system plus the work that now the environment does to fill up the volume left behind (this is nicely illustrated in section 1.6 of \cite{Schroeder}). We will look at some applications of the enthalpy in our appendix.
+
+
+Similarly, the Gibbs free energy is a natural potential to work with when considering processes with constant temperature and pressure and is given by
 $$
 G(T, P, N) = U - TS + PV
 $$
-These potentials have properties similar to the Helmholtz energy. Let us consider this in more detail for the Gibbs energy, which is a very natural description for many chemical reactions which tend to take place at constant temperature and constant pressure, say atmospheric pressure. To derive a minimum principle for the Gibbs energy, let us now consider a system that is in touch with two reservoir - a heat reservoir $HR$ and a pressure reservoir $PR$. Again we assume that the only way the heat reservoir can change its energy is to exchange heat with the system, and similarly that the only way for the pressure reservoir to change its energy is to exchange mechanical work with the system. And again we assume that the overall system is fully isolated, in particular that its energy and volume are constant. Then we can argue as in the case of the Helmholtz free energy: 
+Both of these potentials have properties similar to the Helmholtz energy. Let us consider this in more detail for the Gibbs energy. To derive a minimum principle for the Gibbs energy, let us now consider a system that is in touch with two reservoir - a heat reservoir $HR$ and a pressure reservoir $PR$. Again we assume that the only way the heat reservoir can change its energy is to exchange heat with the system, and similarly that the only way for the pressure reservoir to change its energy is to exchange mechanical work with the system. And again we assume that the overall system is fully isolated, in particular that its energy and volume are constant. Then we can argue as in the case of the Helmholtz free energy: 
 \begin{align*}
 	0 &= dU_{tot} = dU + dU_{HR} + dU_{PR}  \\
 	&= dU + T dS_{HR} - P dV_{PR} \\
@@ -1920,7 +1930,11 @@ $$
 \frac{\hbar \omega}{T} = \hbar \omega \frac{dS}{dU} = \frac{dS}{dq} =  k_B \ln (1 + \frac{N}{q})
 $$
 as an expression for the temperature. 
-We see in particular that for large values of $q$, the temperature will be almost proportional to $q$ and therefore the energy, so that the heat capacity tends to a constant value. In the diagram below, we have plotted the values of entropy and temperature for a system with $N = 500$ and $\hbar \omega = 1$. 
+For large values of $q$, we can approximate the logarithm by
+$$
+\ln (1 + \frac{N}{q}) \approx \frac{N}{q}
+$$
+and we see that the temperature will be almost proportional to $q$ and therefore the energy, so that the heat capacity tends to a constant value. In the diagram below, we have plotted the values of entropy and temperature for a system with $N = 500$ and $\hbar \omega = 1$. 
 
 \begin{figure}[ht]
 \centering
@@ -2066,9 +2080,9 @@ p(s) = \exp (\beta(U - E(s))) \exp (- \beta TS(U)) = \exp (\beta(U-TS))
 \exp (-\beta E(s))
 $$
 Now recall that $U$ is the average, i.e. the macroscopically observed energy of our primary system (an assumption that we have in fact not even used so far). Therefore the quantity $U - TS$ is nothing but the Helmholtz potential of the primary system, and we obtain the fundamental equation
-\begin{align*}
-p(s) = e^{\beta F} e^{-\beta E(s)}
-\end{align*}
+\begin{empheq}[box=\widefbox]{align*}
+p(s) = e^{\beta (F- E(s))}
+\end{empheq}
 If we sum this over all possible states $s$, we find that
 \begin{align*}
 1 = \sum_s p(s) = e^{\beta F} \sum_s e^{-\beta E(s)}
@@ -2154,6 +2168,7 @@ Now using again the definition of the Helmholtz energy as $F = U - TS$, we have 
 $$
 S_{Shannon} = \beta TS = \frac{1}{k_B T} {TS} = \frac{1}{k_B} {S}
 $$
+This is not just pure coincidence - \cite{Tong} has a nice argument in section 1.3.3 that Shannon and Boltzmann entropy are identical for all physical systems. 
 
 The equations that we have derived are the fundamental equations describing the Boltzmann distribution and are so important that they deserve being highlighted once more.
 
@@ -2168,6 +2183,62 @@ var(E) &= - \frac{\partial U}{\partial \beta} = k_B T^2 C_V
 \end{empheq}
 
 We note that given the partition function, we can use the second or third relation in this list to obtain the Helmholtz potential from which - as we know - we can either obtain all thermodynamical quantities directly or to which we can apply an inverse Legendre transform to obtain the energy. Thus knowledge of the partition function will enable us to derive all classical thermodynamical properties of the system.
+
+It is interesting to compare the various energy related quantities that we have discussed so far. So pick a certain macrostate, which, as we know, fixes the average energy $U = \langle E \rangle$ as well as the entropy $S$. We know that the probability of an individual state $s$ is given
+$$
+p(s) = \exp( \beta (F - E(s)))
+$$
+Being a probability, this cannot exceed one, so that we immediately find
+$$
+E(s) \geq F
+$$
+for every microstate $s$. If there is equality for a microstate, the probability to be in that state is one, i.e. the system only has one possible state, a case that we ignore. Thus if we denote the smallest possible energy by $E_0$, we find that $E_0 > F$. 
+
+There is a similar relation between the average energy $U$ and the smallest possible energy. In fact
+$$
+U = \langle E \rangle = \sum_s p(s) E(s) \geq \sum_s p(s) E_0 = E_0
+$$
+and if we have equality, then
+$$
+E_0 = \sum_s p(s) E(s) = \sum_s p(s) (E - E_0) + \sum_s p(s) E_0 = \sum_s p(s) (E - E_0) + E_0
+$$
+from which we could again conclude that only states with energy $E_0$ have a probability different from zero. Excluding this pathological case, we therefore find that
+$$
+F < E_0 < \langle E \rangle  
+$$
+Due to the large factor $k_B T$ in the exponent, the probability will go down rapidly if the energy is significantly (i.e. in the order of $k_B T$ times a small number) higher than $E_0$ and therefore $F$. Thus typically, the states that have a relevant probability of occuring have energies that are rather close to the ground state energy $E_0$, and states with much higher energy are rather unlikely. Diagram \ref{fig:BoltzmannDistributionEnergies} summarizes our findings.
+
+\begin{figure}[ht]
+	\begin{center}
+		\begin{tikzpicture}
+			
+			
+			% Helmholtz energy
+			\draw[dashed] (0,0) -- (5, 0) node[right] {$\, F$};
+
+			% Lowest energy state
+			\draw (0,1) -- (5, 1) node[right] {$\, E_0$};
+			
+			% first state
+			\draw (0,1.4) -- (5, 1.4) node[right] { $\, E_1 $};
+
+			% Average energy
+			\draw[dashed] (0,1.8) -- (5, 1.8) node[right] {$\langle E \rangle $};
+			
+			
+			% Higher states
+			\draw (0,2.3) -- (5, 2.3) node[right] {$\, E_n $};
+
+
+			% Axis
+			\draw[->] (2.6, -1) -- (2.6, 4) node[left] {Energy};
+			
+		\end{tikzpicture}
+	\end{center}
+	\caption{Energy niveaus in the Boltzmann distribution}
+	\label{fig:BoltzmannDistributionEnergies}
+\end{figure}
+
 
 
 So far we have treated the particle number as constant. In some situations, however, fluctuations of the particle number can no longer be ignored. In that case, we can replace the Boltzmann distribution by a distribution called the {\em Gibbs distribution}. The derivation is very similar. In addition to assuming that our system is in contact with a heat reservoir, we also have to assume that the reservoir acts as a chemical reservoir, so that in equilibrium, the chemical potential is constant. In equilibrium, the primary system will then settle down at a certain energy $U$ and a certain particle number $N$. In equation \ref{eq:probsubsystem}, we can then expand the logarithm of the numerator again into a Taylor series, where the terms of higher order vanish, but this time we need a contribution of the derivatives with respect to $U$ and $N$. If we then collect terms and the smoke settles, we find that 
@@ -2636,7 +2707,7 @@ To be able to better look up the chemical potentials, let us write this as
 $$
 H_2 O \longrightarrow OH^- + H^+
 $$
-as the Gibbs energy of the remaining $H_2 O$ appears on both sides. Looking up the values for the individual Gibbs energies $\Delta_r G^0$ (i.e. the chemical potentials) in \cite{Table} gives us
+as the Gibbs energy of the remaining $H_2 O$ appears on both sides. Looking up the values for the individual Gibbs energies $\Delta_r G^0$ (i.e. the chemical potentials) in \cite{Tables} gives us
 \begin{align*}
 \Delta_r G^0(H_2 O) &= - 237.129 \text{kJ} / \text{mol}^{-1} \\
 \Delta_r G^0(OH^-) &= - 157.244\text{kJ} / \text{mol}^{-1} \\
@@ -2722,13 +2793,9 @@ and conversely, the reaction runs backwards if $Q > K$. Thus the reaction moves 
 	
 \section{Applications in chemistry - the reaction enthalpy}
 
-In previous sections, we have used the Helmholtz free energy and the Gibbs free energy, both of which happen to be Legendre transforms of the internal energy $U$. There is yet another Legendre transform, this time with respect to pressure alone, that is widely applied in chemistry which is the {\em enthalpy} defined by
-$$
-H(p, V, N) = U + PV
-$$
-To interpret this quantity, imagine a system that has some internal energy $U$ and takes some volume $V$ inside a reservoir of constant pressure $P$. Imagine that you were somehow able to create this system from scratch. You would then have to make room inside the environment, i.e. you would have to create an empty space of volume $V$, which requires the work $PV$ being done on the environment, and you would then have to create the system with its internal energy $U$. Thus the enthalpy represents the energy that you would have to invest (at least) to create a system from scratch in an environment of constant pressure. Conversely, suppose that the system would vanish. The energy you would then obtain is the internal energy of the system plus the work that now the environment does to fill up the volume left behind (this is nicely illustrated in section 1.6 of \cite{Schroeder}).
+In previous sections, we have used the Helmholtz free energy and the Gibbs free energy, both of which happen to be Legendre transforms of the internal energy $U$. The third Legendre transform that we have already briefly touched on is the enthalpy.
 
-To get a better intuition for what a {\em change} in enthalpy actually describes let us consider a physical system in which a reaction takes place (think of a vessel filled with a dilute solution or with gas). Let us suppose that one wall of this system contains a movable piston that the system can adjust to transfer energy in the form of mechanical work into a pressure reservoir PR, which is otherwise closed and isolated from the environment. Suppose further that there is also a heat sink HS to which our system is connected and to which it can transfer heat, but which is again isolated towards the environment. We do not assume that this is a heat reservoir in the classical sense with unlimited heat capacity, but simply that it is connected to the primary system by the diathermic wall (thus we do only require constant pressure, not constant temperature).
+To get a better intuition for what a {\em change} in enthalpy actually describes, let us consider a physical system in which a reaction takes place (think of a vessel filled with a dilute solution or with gas). Let us suppose that one wall of this system contains a movable piston that the system can adjust to transfer energy in the form of mechanical work into a pressure reservoir PR, which is otherwise closed and isolated from the environment. Suppose further that there is also a heat sink HS to which our system is connected and to which it can transfer heat, but which is again isolated towards the environment. We do not assume that this is a heat reservoir in the classical sense with unlimited heat capacity, but simply that it is connected to the primary system by the diathermic wall (thus we do only require constant pressure, not constant temperature).
 
 To make this more tangible, let us envision a {\em coffee cup calorimeter} as described in chapter 7 of \cite{Petrucci}. This calorimeter is simply a well insulated coffee cup, maybe out of styrofoam, and a cover with two holes in it. The cup contains water as a solvent, and one hole is used to insert a temperature sensor, while the other hole is used to insert a stirrer. Small amounts of the reactants of the reaction in question are dissolved in the water in the cup. Then the system is given some time to achieve equilibrium (implying that the temperature of the solvent and that of the solute will be the same). Next the stirrer is used to initiate the reaction. When the reaction takes place, the volume of the system typically changes, but as the cup is not fully airtight, this results in the change of volume of the water at constant pressure. Thus the water in the cup serves as both the pressure reservoir (in combination with the surrounding atmosphere) and heat sink, while the system under consideration is composed of reactants and products of the reaction that we want to study. The heat transferred into the surrounding water can be measured using the temperature sensor. Picture \ref{fig:coffeecupcalorimeter}, (taken from \cite{openstax} ) displays a sketch of such a device.
 
@@ -2989,6 +3056,9 @@ National Bureau of Standards, {\em The NBS table of chemical thermodynamical pro
 
 \bibitem{Schwartz}
 M. Schwartz, {\em Statistical mechanics lecture notes}, available at \url{https://scholar.harvard.edu/schwartz/teaching}	
+
+\bibitem{Tong}
+D. Tong, {\em Statistical physics - lecture notes}, available at \url{https://www.damtp.cam.ac.uk/user/tong/statphys.html}
 
 \end{thebibliography}
 \end{document}
