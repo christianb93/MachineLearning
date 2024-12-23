@@ -155,10 +155,35 @@ One way to introduce the entropy is using a maximum principle - we want to be ab
 	
 In \cite{Callen}, it is not explicitly mentioned that the maximum principle that is expressed by this statement is only valid for isolated systems, though this becomes apparent from the context. However, we will see later that this restriction is in fact necessary (cf. for instance chapter 9 of \cite{Sweden}). A system can, for instance, reduce its entropy by transferring heat to a system with lower temperature, but this process will inevitably increase the entropy of the composite system. In many practical applications, the composite system is made up by the system under interest and some concieved system acting as the environment that essentially represents the total surroundings of the system under investigation, or - if you want - the entire universe outside of our primary system.
 
-To understand how this principle relates to the famous {\em second law of thermodynamics}, let us consider a hypothetical system consisting of a barrel with a movable wall separating the barrel into two compartments, and assume that the two chambers contain gases with different pressures. Initially, the movable wall is somehow fixed, so that the system has an additional constraint fixing the volumes of the two chambers. Some time after this system has been initially established, the gases inside the two chambers and with them the composite system will have reached equilibrium and the entropy has settled to a certain value. 
+To understand how this principle relates to the famous {\em second law of thermodynamics}, let us consider a hypothetical system consisting of a barrel with a movable wall separating the barrel into two compartments, as in diagram \ref{fig:MovableWall}, and assume that the two chambers contain gases with different pressures $P_1$ and $P_2$, so that the wall experiences a net force of
+$$
+(P_1 - P_2) \cdot A
+$$ 
+where $A$ is the area of the wall. Initially, the movable wall is somehow fixed, so that the system has an additional constraint fixing the volumes of the two chambers. Some time after this system has been initially established, the gases inside the two chambers and with them the composite system will have reached equilibrium and the entropy has settled to a certain value. 
 
+\begin{figure}[ht]
+	\begin{center}
+		\begin{tikzpicture}
+			
+				
+				% Walls of the vessel
+				\draw[thick,color=black, fill = gray, pattern=crosshatch] (-.2, -.2) rectangle (6.2, 3.2);
+				\draw[thick,color=black, fill = white] (0, 0) rectangle (6, 3);
+				
+				% The piston
+				\fill[rounded corners, color = blue] (3, 0) rectangle (3.2, 3);
+				
+				%Labels
+				\draw[->] (.5, 1.5)  -- (2.5, 1.5) node[above left]{$F_1 = P_1 \cdot A$};
+				\draw[->] (5.5, 1.5) node[above left]{$F_2 = P_2 \cdot A$} -- (3.5, 1.5) ;
+				
+		\end{tikzpicture}
+	\end{center}
+	\caption{Two chambers in a barrel separated by a movable wall}
+	\label{fig:MovableWall}
+\end{figure}
 
-When we now allow the wall to move freely, we have effectively removed a constraint. The current state of the system is then obviously still allowed by the remaining constraints, but additional states (i.e. values of the extensive parameters) become accessible. In addition, the system is now no longer in equilibrium. Instead, the wall will start to move until the pressures on both sides are equal and the system settles in a new equilibrium. Our maximum principle assures that the new entropy is maximized in this state. As the initial state was also permissible by the constraints, the new value of the entropy can thus not be smaller than the initial value. In other words, the entropy has increased or remained equal, which is exactly what the second law of thermodynamics states. 
+When we now allow the wall to move freely, we have effectively removed a constraint. The current state of the system is then obviously still allowed by the remaining constraints, but additional states (i.e. values of the extensive parameters) become accessible. In addition, the system is now no longer in equilibrium. Instead, the wall will start to move until the pressures on both sides are equal and the system settles in a new equilibrium. Our maximum principle assures that the new entropy is maximized in this state. As the initial state was also permissible by the constraints, the new value of the entropy can thus not be smaller than the initial value. In other words, the entropy has increased or remained equal, which is exactly what the famous {\em second law of thermodynamics} states. 
 
 Also note that strictly speaking, the formalism that we are about to develop only assumes the existence of the entropy for equilibrium states. While the wall in the above example is moving, the system is not in equilibrium, so strictly speaking the entropy of the composite system is not even defined during this time. If you think of the states of the system as points in the {\em configuration space} spanned by the extensive parameters, then intuively speaking, the system will disappear from the configuration space if it moved out of equilibrium, for instance due to some interaction with another system or due to some constraints being altered, and only reappear once it has settled into its new equilibrium. We know that the entropy of this new state is equal to or higher than the entropy of the starting point, but we have lost track of the states of the system while the change took place.
 
@@ -191,15 +216,16 @@ We now bring together the two systems such that they are connected by a thin, bu
 
 To apply the principle of maximal entropy, we first have to define a system of coordinates for our configuration space, i.e. a set of extensive parameters of the system such that their combined value characterizes the system completely. The choice of these coordinates system and the associated state space is crucial. In particular, we need to define how we reflect the existing constraints. In our case, a possible choice would be to use the individual energies $U_i$ along with the individual particle numbers $N_i$ and the volumes $V_i$. However, if we do this, we still have a constraint, namely $U_1 + U_2 = U$, where $U$ is the total energy of the system that we assume to be a constant. This would restrict the possible trajectories of the system in the configuration space to a submanifold. It is easier to adjust coordinates a bit to better reflect this, so we choose $U, U_1, N_1, N_2, V_1$ and $V_2$. Then the entropy is a function on the configuration space, i.e.
 $$
-S = S(U_1, V_i, N_i)
+S = S(U, U_1, V_i, N_i)
 $$
+It is very common to include the total energy as a parameter, even though it is usually fixed by the conservation of energy for the overall system. However, we will soon see that the partial derivative with respect to it plays a vital role. 
 More generally, given an arbitrary composite system, one usually choses the total energy $U$ and some extensive parameters of the systems, denoted by $X_i$, as coordinates for the configuration space. If the energies of all but one subsystem is among the $X_i$, then we can reconstruct all energies, and the conservation of total energy is expressed as the simple constraint $U = const$.
 
  
 To extract useful information from the principle of maximum entropy, we now have to relate the total entropy to the entropies of the two subsystems, and this is were the assumption that the entropy is additive comes into play. Specifically, in this example,
 we have an entropy $S^i$ for each of the subsystems, and additivity implies that
 $$
-S(U_1, N_i, V_i) = S^1(U_1, N_1, V_1) + S^2(U - U_1, N_2, V_2)
+S(U, U_1, N_i, V_i) = S^1(U_1, N_1, V_1) + S^2(U - U_1, N_2, V_2)
 $$
 Let us now see what happens if we allow heat to flow between the systems. The principle of maximal entropy tells us that those parameters which are no longer restricted will then settle at a value which maximizes the entropy. In our case, the parameter $U_1$ is now free to change, and so are the $N_i$ and the $V_i$. Thus, as function of $U_1$, the entropy will be maximized. Thus
 $$
@@ -209,7 +235,7 @@ at the point of equilibrium. This directly translates into
 $$
 0 = \frac{\partial S^1}{\partial U_1}(U_1, N_1, V_1) - \frac{\partial S^2}{\partial U_2}(U - U_1, N_2, V_2)
 $$
-So the partial derivative of the entropy with respect to the energy seems to control the flow of heat. We call
+So the partial derivative of the entropy with respect to the energy seems to control the flow of heat. For a general system with entropy $S(U, V, N, ...)$, we call
 $$
 \beta = \frac{\partial S}{\partial U}
 $$
@@ -217,9 +243,8 @@ the {\em inverse temperature} and
 $$
 T = \frac{1}{\beta}
 $$
-the {\em temperature} of the system. Note that this is a partial derivative of the entropy and therefore a function of $U, V$ and $N$. Thus we find that stability is reached when the temperatures of both systems reach the same value - a very appealing result. 
+the {\em temperature} of the system. Note that this is a partial derivative of the entropy and therefore a function of $U, V$ and $N$ and any other parameters. Thus we find that stability is reached when the temperatures of both systems reach the same value - a very appealing result. 
 
-What happens to the entropy in the process of reaching equilibrium? Initially, the entropy is the sum $S^1 + S^2$ of the initial entropies of the individual systems. Our postulate states that after equilibrium has been reached, the entropy will be maximal among all possible states that are compatible with the still existing external constraints. As the initial distribution of the energies is clearly compatible with these constraints, we can conclude that the new entropy is at least $S_1 + S_2$, i.e. the total entropy can change in the course of this process, but can never decrease. This is known as the {\em second law of thermodynamics}. Be careful, however, as this is only true for the total entropy - the entropy of an individual subsystem can actually decrease over time.
 
 As part of our postulates, we have assumed that the derivative of $S$ with respect to $U$ is positive, and therefore we can express $U$ as a function of $S$ (and the fixed values for $V$ and $N$). Then of course 
 $$
@@ -277,7 +302,7 @@ It is important to realize that macroscopic variables are only defined for syste
 
 
 \begin{example}[see 4.1 and 4.4 in \cite{Callen}]\label{ex:idealgascomposite}
-Let us now make our example more concrete by assuming a specific relation between entropy and the extensive parameters which holds for both subsystems. Specifically, let us assume that our system consists of two chambers, both filled with an ideal gas, with particle numbers $N_1$ and $N_2$, so that the energy of each subsystem is given by
+Let us now make our example in diagram \ref{fig:DiathermalWall} more tangible by assuming a specific relation between entropy and the extensive parameters which holds for both subsystems. Specifically, let us assume that our system consists of two chambers, both filled with an ideal gas, with particle numbers $N_1$ and $N_2$, so that the energy of each subsystem is given by
 $$
 U_i = c N_i R T_i
 $$
@@ -598,7 +623,7 @@ We know that the total energy is the sum of the $U_i$ and the total pressure is 
 $$
 TS = \sum_i U_i + \sum_i P_i V - \sum_i \mu_i N_i
 $$
-Let us now assume that the chemical potentials of the components are the same as it would be in isolation (which seems reasonable as we think of the components as non-interacting, we will later verify this by showing that the expression for $S$ that we obtain in this way gives the correct gas laws - however we will also justify this more formally a bit later). Thus we assume that
+Let us now assume that the chemical potentials of the components are the same as it would be in isolation (which seems reasonable as we think of the components as non-interacting, we will later justify this assumption with a bit more formal argument). Thus we assume that
 $$
 \mu_i = -T s_{0, i} - T R \ln \big[ \big( \frac{U_i}{U_0} \big)^c \frac{V}{V_0} N_i^{-c - 1}  \big] + (c_i+1) RT
 $$
@@ -677,7 +702,7 @@ which is the same as
 $$
 \Delta S = \sum_i  N_i R ( \ln \frac{N}{N_i })
 $$
-This is inherently positive, as $N > N_i$, and represents a gain in entropy that is called the {\em entropy of mixing}. We will meet this term again when we calculate the chemical potential of a solute in a later section.
+This is inherently positive, as $N > N_i$, and represents a gain in entropy that is called the {\em entropy of mixing}. We will meet this term again when we calculate the chemical potential of a solute in a later section. This is another example for a process which is not quasi-static and for which our identification of the heat transfer (which is zero in this case) with $T \Delta S$ (which is not zero as we have just seen) breaks down. 
 
 \section{The principal of minimal internal energy}\label{sec:minimalinternalenergy}
 
@@ -822,7 +847,7 @@ $$
 for the equilibrium as before. Thus we arrive at the same condition, regardless of whether we vary the entropy for fixed total energy or whether we vary the energy for fixed entropy.
 \end{example}
 
-It is instructive to study a graphical plot of a typical entropy and visualize how and why both principles - maximal entropy and minimal energy - work and yield the same result\footnote{This is in fact a Python generated version of an illustration in \cite{Callen} that actually uses the example that we have just discussed}.
+It is instructive to study a graphical plot of a typical entropy and visualize how and why both principles - maximal entropy and minimal energy - work and yield the same result\footnote{This is in fact a Python generated version of an illustration in \cite{Callen}}.
 In figure \ref{fig:EntropyPlot}, we have displayed the entropy of the composite system considered in example \ref{ex:idealgascomposite}. The entropy $S$ is plotted along the z-axis, and the grey surface displays the value of the entropy depending on the total energy $U$ and the energy $U_1$ of the first subsystem. The blue solid lines represent values of the entropy for four different, but fixed values of the energy. The black dotted line shows those points in the state space that are equilibrium points. Thus we see that given a fixed value of $U$, the point of the blue curve that corresponds to the equilibrium is actually the point with the largest value of $S$ along the curve, which corresponds to the principle of maximum entropy.
 
 Similary, the dotted blue line represents a curve with a fixed value of $S$, i.e. the intersection of the surface given by the entropy with a plane perpendicular to the $S$-axis. We see that, among the points on this curve, the equilibrium point is the one with the lowest value of the total energy $U$, illustrating the principle of minimum entropy. Thus it is the special shape of the entropy surface that forces these two extremum principles to determine the same point in the configuration space.
@@ -842,7 +867,7 @@ Finally, we note that of course, as the energy representation and the entropy re
 
 To further illustrate the formalism developed so far and to introduce some terminology that we will need in the sequel let us now consider special types of thermodynamical subsystems. 
 
-A {\em reversible work source} is a subsystem which can change its energy only via changes in its geometry. In other words, it is a system surrounded by impermeable (so that the particle number is constant) and adiabatic (so that no heat transfer is possible) walls. Thus the change of energy for this system is
+A {\em reversible work source} is a subsystem which can change its energy only via changes in its geometry. In other words, it is a system surrounded by impermeable (so that the particle number is constant) and adiabatic (so that no heat transfer is possible) movable walls. Thus the change of energy for this system is
 $$
 dU = - P dV = dW
 $$
@@ -870,7 +895,7 @@ so that
 $$
 dQ = C(T) dT
 $$
-A {\em thermal reservoir} is a reversible heat source with an infinite heat capacity, so that, no matter how large the transfer of heat actually is, the temperature of the reservoir remains constant.
+A {\em thermal reservoir} or {\em heat bath} is a reversible heat source with an infinite heat capacity, so that, no matter how large the transfer of heat actually is, the temperature of the reservoir remains constant. Similary a {\em pressure reservoir} is a reversible work force with constant pressure. 
 
 Let us now consider a composite system which is made up of three subsystems, namely a reversible work source, a reversible heat source and a third subsystem, which we call the {\em primary subsystem}, and which is the one which is actually of interest. Let us denote its state by $(U,V,N)$. We assume that the primary subsystem is connected to the reversible work source and the reversible heat source in such a way that it can exchange heat with the heat source and work with the work source.
 
@@ -1090,7 +1115,7 @@ so that
 $$
 dG = - T dS_{tot}
 $$
-Note that we have also used that $T dS_{PR} = 0$, i.e. that the pressure reservoir has a constant entropy. As for the Helmholtz energy, this implies that the Gibbs energy has a minimum in the equilibrium state. More general, for systems that are in touch with a heat and a pressure reservoir, the Gibbs energy is minimized by the equilibrium state
+As for the Helmholtz energy, this implies that the Gibbs energy has a minimum in the equilibrium state. More general, for systems that are in touch with a heat and a pressure reservoir, the Gibbs energy is minimized by the equilibrium state
 
 As an example, let us calculate the Gibbs energy of an ideal gas. In a previous section, we have already derived the following expression for the chemical potential.
 $$
@@ -1104,11 +1129,11 @@ where $N_0$ is the particle number of our reference state. When we conveniently 
 $$
 \mu  = -T s_0 - T R \ln \big[ N_A^{-c - 1} \big( \frac{T}{T_0} \big)^{c+1} \frac{P_0}{P}  \big] + (c+1) RT
 $$
-showing that {\em the chemical potential of an ideal gas in isolation does not depend on the particle number}. Based on the results in the appendix on homogenous functions, this is what we expect, as the chemical potential is homogenous of degree $0$ in $N$ and therefore constant (along rays, but as there is only one particle involved this implies that is does not depend on $N$). This only becomes apparent if we express the chemical potential really in terms of $T$, $P$ and $N$ alone and unravel all hidden dependencies on $N$, for instance in $S$.  As the Gibbs energy is homogenous in $N$,  the Gibbs energy of a system with $N$ particles is simply $\mu N$. Spelling this out explicitly and collecting terms, we find that
+showing that {\em the chemical potential of an ideal gas in isolation does not depend on the particle number but only on pressure and temperature}. Based on the results in the appendix on homogenous functions, this is what we expect, as the chemical potential is homogenous of degree $0$ in $N$ and therefore constant (along rays, but as there is only one particle involved this implies that is does not depend on $N$). This only becomes apparent if we express the chemical potential really in terms of $T$, $P$ and $N$ alone and unravel all hidden dependencies on $N$, for instance in $S$.  As the Gibbs energy is homogenous in $N$,  the Gibbs energy of a system with $N$ particles is simply $\mu N$. Spelling this out explicitly and collecting terms, we find that
 $$
 G(T, P, N) = \frac{N}{N_A} \frac{T}{T_0} G_0 - N T R  \ln \big[ \big( \frac{T}{T_0} \big)^{c+1} \frac{P_0}{P}  \big]
 $$
-where $G_0$ is the Gibbs energy of one mole of our gas at standard conditions.
+where $G_0$ is the Gibbs energy of one mole of our gas at standard conditions. Be careful, however - we will later see an example where the chemical potential does depend on the number of other particles in the system. Also note that this is of course only true if the other variables are pressure and temperature, not if for instance we use volume and temperature, as the example of an ideal gas shows as well.
 
 \section{Isothermal and adiabatic processes}
 
