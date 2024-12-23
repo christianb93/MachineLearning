@@ -10,8 +10,10 @@
 \usepackage{bbm}
 \usepackage{empheq}
 \usepackage{caption}
-\usepackage{tikz}
 \usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{patterns, decorations.pathreplacing}
+
 
 
 \renewcommand\lstlistingname{Algorithm}
@@ -155,6 +157,7 @@ In \cite{Callen}, it is not explicitly mentioned that the maximum principle that
 
 To understand how this principle relates to the famous {\em second law of thermodynamics}, let us consider a hypothetical system consisting of a barrel with a movable wall separating the barrel into two compartments, and assume that the two chambers contain gases with different pressures. Initially, the movable wall is somehow fixed, so that the system has an additional constraint fixing the volumes of the two chambers. Some time after this system has been initially established, the gases inside the two chambers and with them the composite system will have reached equilibrium and the entropy has settled to a certain value. 
 
+
 When we now allow the wall to move freely, we have effectively removed a constraint. The current state of the system is then obviously still allowed by the remaining constraints, but additional states (i.e. values of the extensive parameters) become accessible. In addition, the system is now no longer in equilibrium. Instead, the wall will start to move until the pressures on both sides are equal and the system settles in a new equilibrium. Our maximum principle assures that the new entropy is maximized in this state. As the initial state was also permissible by the constraints, the new value of the entropy can thus not be smaller than the initial value. In other words, the entropy has increased or remained equal, which is exactly what the second law of thermodynamics states. 
 
 Also note that strictly speaking, the formalism that we are about to develop only assumes the existence of the entropy for equilibrium states. While the wall in the above example is moving, the system is not in equilibrium, so strictly speaking the entropy of the composite system is not even defined during this time. If you think of the states of the system as points in the {\em configuration space} spanned by the extensive parameters, then intuively speaking, the system will disappear from the configuration space if it moved out of equilibrium, for instance due to some interaction with another system or due to some constraints being altered, and only reappear once it has settled into its new equilibrium. We know that the entropy of this new state is equal to or higher than the entropy of the starting point, but we have lost track of the states of the system while the change took place.
@@ -163,7 +166,28 @@ To rectify this, it is common to consider only quasi-static processes, i.e. proc
 
 To see the postulates in action and understand entropy further, let us now conduct a thought experiment. Assume that we have two systems that are initially isolated against each other and against the environment and that each of the subsystems is in equilibrium. As the two subsystems cannot interact, the composite system will then also be in equilibrium and will be characterized by extensive quantities like volume, energy and number of particles.
 
-We now bring together the two systems such that they are connected by a thin, but rigid wall that allows heat to pass, but cannot be crossed by any particles. As soon as this happens, the system is no longer in equilibrium. In fact, energy in the form of heat can now be exchanged between the systems. We have effectively removed a constraint, i.e. the constraint that the individual energies are fixed, but we still have the constraint imposed on us by the conservation of energy, i.e. the sum of the energies remains constant. Thus the energies of the subsystems will change until the composite system has again reached an equilibrium state that we want to determine.
+We now bring together the two systems such that they are connected by a thin, but rigid wall that allows heat to pass, but cannot be crossed by any particles (see diagram \ref{fig:DiathermalWall}). As soon as this happens, the system is no longer in equilibrium. In fact, energy in the form of heat can now be exchanged between the systems. We have effectively removed a constraint, i.e. the constraint that the individual energies are fixed, but we still have the constraint imposed on us by the conservation of energy, i.e. the sum of the energies remains constant. Thus the energies of the subsystems will change until the composite system has again reached an equilibrium state that we want to determine.
+
+\begin{figure}[ht]
+	\begin{center}
+		\begin{tikzpicture}
+				
+			% Walls of the vessel
+			\draw[thick,color=black, fill = gray] (-.2, -.2) rectangle (6.2, 3.2);
+			\draw[thick,color=black, fill = white] (0, 0) rectangle (6, 3);
+			
+			% The wall
+			\draw[color = gray, fill = gray, opacity = .3, pattern = crosshatch] (2.9, 0) rectangle (3.1, 3);
+				
+		% Labels
+		\draw (1.5, 2.0) node {$U_1$, $V_1$, $N_1$};
+		\draw (4.5, 2.0) node {$U_2$, $V_2$, $N_2$};				
+		\end{tikzpicture}
+		\caption{Vessel with a diathermal wall}
+		\label{fig:DiathermalWall}
+	\end{center}
+\end{figure}
+
 
 To apply the principle of maximal entropy, we first have to define a system of coordinates for our configuration space, i.e. a set of extensive parameters of the system such that their combined value characterizes the system completely. The choice of these coordinates system and the associated state space is crucial. In particular, we need to define how we reflect the existing constraints. In our case, a possible choice would be to use the individual energies $U_i$ along with the individual particle numbers $N_i$ and the volumes $V_i$. However, if we do this, we still have a constraint, namely $U_1 + U_2 = U$, where $U$ is the total energy of the system that we assume to be a constant. This would restrict the possible trajectories of the system in the configuration space to a submanifold. It is easier to adjust coordinates a bit to better reflect this, so we choose $U, U_1, N_1, N_2, V_1$ and $V_2$. Then the entropy is a function on the configuration space, i.e.
 $$
@@ -1010,7 +1034,7 @@ The Helmholtz potential has another important property, which we will now derive
 &= dU + T_R dS_R \\
 &= dU + T dS_R \\
 &= dU - TdS +  T dS_{tot} \\
-&= d(U - TS) + T d(S_{tot} = dF + dS_{tot}
+&= d(U - TS) + T dS_{tot} = dF + dS_{tot}
 \end{align*}
 where we have used the fact that the reservoir can only exchange heat with our system in the second line, the fact that the temperatures of the system and the reservoir are the same in the third line, and the fact that the temperature is constant in the last line. Thus we find that
 $$
@@ -1018,18 +1042,17 @@ dF = - T dS_{tot}
 $$
 As the composite system is isolated, we know that its entropy settles at a maximum when we remove internal constraints. Thus we obtain a minimum principle for the Helmholtz energy -  {\em the equilibrium state of a system which is in diathermal contact with a thermal reservoir minimizes the Helmholtz potential if the overall system is isolated}. 
 
-Typically, we think of the reservoir as being connected to the system by a diathermal, but fixed wall that encloses the system under consideration completely. Then the volume of the system that we consider is fixed, and neither the system itself nor the heat bath can do any work - just think of a process taking place in a vessel immersed into a heat bath. In that situation, the overall energy is clearly conserved, and we can apply our principle. This is why it is often stated that the Helmholtz energy is minimized under the constraint of constant temperature. 
 
 \begin{figure}[ht]
 	\begin{center}
 	\includegraphics[scale=.5]{SpringLoadedPiston}
-	\caption{A piston loaded by a spring in a heat bath}
+	\caption{A piston pressing against a spring in a heat bath}
 	\label{fig:SpringLoadedPiston}
 	\end{center}
 \end{figure}
 
 
-However, the condition of fixed volume is not really necessary, as long as the overall system is sufficiently isolated. To illustrate this, let us look at an example taken from \cite{Schwartz}. Imagine a cylinder containing an ideal gas that is, via a piston, in contact with a spring and fully immersed in a heat bath, as shown in diagram \ref{fig:SpringLoadedPiston}.
+To illustrate this, let us look at an example taken from \cite{Schwartz}. Imagine a cylinder containing an ideal gas that is, via a piston, in contact with a spring and fully immersed in a heat bath, as shown in diagram \ref{fig:SpringLoadedPiston}.
 
 If $x$ denotes the displacement of the spring from its equilibrium position, its potential energy is given by
 $$
@@ -1133,6 +1156,107 @@ For a monatomic ideal gas, there are $f = 3$ degrees of freedom, so $\gamma = \f
 
 Note that this relation implies that the curve of an adiabatic process in P-V space is steeper than an isotherm. In \cite{Schroeder}, Schroeder gives a nice argument why we should expect this - if we do an adiabatic compression, we create heat that cannot be transferred to the environment, so that the temperature needs to increase. Thus we move between two isotherms in the P-V plane, and therefore this curve must be steeper than the isotherms.
 
+\begin{example}
+Let us look at isothermal and adiabatic processes in a bit more detail for a specific example. Suppose we are given a vessel that is separated into two chambers separated by a piston. Both chambers are filled with an ideal gas and initially occupy the same volume $V$ and have the same number of particles $N$ at the same pressure $P$. 
+
+Let us now assume that we can manipulate and move the piston from outside the vessel, so that the volume of both chambers changes. Let us first consider one of the chambers, say the left one, and denote its volume at time $t$ by $V(t)$, so that $V(0) = V$. We will use the same notation for the other properties of this chamber, see diagram \ref{fig:Piston}.
+
+We will now consider two different cases. In the first case, we connect the vessel to a thermal reservoir so that during the entire process, the temperature in both chambers remains at its initial value. As we move the piston, the gas in one chamber is compressed, but the gas in the other chamber is expanded. The process is isothermic, so we know that
+$$
+P(t)V(t) = PV
+$$
+As the energy in both chambers depends only on the temperature and is therefore constant, the total energy is constant, so we expect that the net work being done on the system is zero. On the other hand heat is exchanged, so we should see a change in the entropy.
+
+The other case that we consider is the case that the chambers are thermally isolated, so that the expansion and compression are adiabatic. In this case, we know that
+$$
+P(t)V(t)^\gamma = PV^\gamma
+$$
+Initially, the pressures in both chambers are equal, so that the net force on the piston is zero. However, once we have moved the piston a bit out of equilibrium, the pressure in one chamber will increase and that in the other chamber will decrease, so that there will be a net force acting on the piston that we need to overcome. This is mechanical work that we need to put into the system. As this energy cannot escape in the form of heat, we expect that the total energy is increased but the entropy remains the same.
+
+\begin{figure}[ht]
+\begin{center}
+\begin{tikzpicture}
+	
+	% move the entire thing a bit
+	\draw (0,0);
+	\begin{scope}[shift={(1.5,.5)}]
+		
+	% Walls of the vessel
+	\draw[thick,color=black, fill = gray, pattern=crosshatch] (-.2, -.2) rectangle (6.2, 3.2);
+	\draw[thick,color=black, fill = white] (0, 0) rectangle (6, 3);
+	
+	% The piston
+	\fill[rounded corners, color = blue] (3, 0) rectangle (3.2, 3);
+	
+	% the rod used to move the piston
+	\draw[thick] (3.2, 1.5) -- (7, 1.5);
+	
+	% Labels
+	\draw (1.5, 2.0) node {$V(t)$, $P(t)$, $N$};
+	\draw [decorate,decoration=brace](0.0, 3.5) -- (6.0, 3.5) node[midway, above] {$2V$, $2P$, $2N$};
+	\end{scope}
+\end{tikzpicture}
+\caption{A movable piston in a vessel}
+\label{fig:Piston}
+\end{center}
+\end{figure}
+
+To confirm our expectations for both cases, let us assume a more general process of moving the piston where the volume and the pressure of one of the chambers are related by
+$$
+P(t) V(t)^\eta = PV^\eta
+$$
+In the isothermic case, $\eta = 1$, in the adiabatic case, $\eta = \gamma$. Let us denote the degree by which the gas in the first chamber is compressed by
+$$
+\lambda(t) = \frac{V(t)}{V}
+$$
+As the sum of the volumes of both chambers remains constant at $2V$, we see that the volume of the second chamber is given by
+$$
+2 V - \lambda(t) V = V ( 2 - \lambda(t))
+$$
+
+Let us now establish formulas for both the entropy and the energy of the total system at time $t$. The energy of the first chamber is proportional to the temperature and thus to $P(t) V(t)$, so we find that
+\begin{align*}
+U(t) &= U \frac{P(t) V(t)}{PV} \\
+&= U \frac{P(t) V(t)^{\eta} V(t)^{1 -\eta}}{PV^{\eta} V^{1 -\eta}} \\
+&= U \frac{V(t)^{1 -\eta}}{V^{1 -\eta}} = U \lambda^{1 - \eta}
+\end{align*}
+The same formula with $\lambda$ replaced by $2 - \lambda$ holds for the second chamber, and we therefore find that the total energy is given by
+\begin{align*}
+U_{tot} &= U [ \lambda^{1 - \eta} +  (2 - \lambda)^{1 - \eta} ]
+\end{align*}
+Let us take the derivative with respect to $\lambda$ to see how this changes over time. We have
+$$
+\frac{dU_{tot}}{d\lambda} = (1 - \eta)  U [ \lambda^{-\eta} - (2 - \lambda)^{-\eta} ]
+$$
+For $\eta = 1$, this is zero. For $\eta > 1$ this is zero if and only if $\lambda = 1$, positive for $\lambda > 1$ and negative for $\lambda < 1$, so that we can conclude that $U_{tot}$ has a minimum at $\lambda = 1$. 
+
+This confirms our expectations about the energy. In fact, in the isothermic case, $\eta = 1$ and the total energy is constant. In the adiabatic case, $\eta = \gamma > 1$ and we find that $U_{tot}$ increases as we move the piston. 
+
+Let us now turn to the entropies. Using once more our formula for the entropy of an ideal gas, we find that the entropy of the first chamber is given by a constant plus
+$$
+N R \ln U(t)^c + NR \ln V(t)   = NR [ \ln U \lambda^{c(1 - \eta)} + \ln \lambda] = S_0 + NR \ln \lambda^{c + 1 - c\eta}
+$$
+As the same expression holds for the second chamber, we find that the total entropy is given by
+$$
+S_{tot} = S_{tot}(t = 0) + NR (c + 1 - c\eta)\ln [ \lambda (2 - \lambda) ]
+$$
+Again we can differentiate this with respect to $\lambda$. We find that
+$$
+\frac{d}{d\lambda} S_{tot} = ( c + 1 - c\eta ) \frac{2 NR(1 -  \lambda)}{\lambda (2 - \lambda)} 
+$$
+For $\eta = 1$, i.e. in the isothermic case, this shows that the entropy has a maximum at $\lambda = 1$, so that moving the piston increases the total entropy, as we have expected. In the adiabatic case, 
+$$
+\eta = \gamma = 1 + \frac{1}{c}
+$$
+i.e.
+$$
+c + 1 - c \eta = 0
+$$
+and the total entropy is constant, as expected.
+
+The upshot of the discussion is that to establish or change a constraint, we will in general have to apply an external force and therefore do work on the system. If the process by which we do this is adiabatic and quasi-static, then the entropy will remain constant, but the energy will be captured in the system. If we allow the energy to leave the system again to make sure that the total energy of the system remains constant, we will have to allow the flow of heat and this will come at the cost of an increase in entropy.
+
+\end{example}
 
 \section{The Carnot cycle and heat engines}
 
@@ -1443,7 +1567,9 @@ f = n_A f(\bar{T}, \bar{V}_A, N) + (1 - n_A) f(\bar{T}, \bar{V}_B, N)
 $$
 This just the convex combination of the free Helmholtz energies of the liquid phase and gas phase. In the $f - V$ diagram (the upper part of diagram \ref{fig:VanDerWaalsHelmholtz}), this is therefore the point $N$ located at the same volume as $M$ on the dashed straight line connecting the two values of the Helmholtz energy at $V_A$ and $V_B$.
 
-This is now where the lack of convexity comes into play - this point is located {\em below} the point $M$, i.e. has a lower Helmholtz energy than $M$. Now recall that the Helmholtz energy is minimized in the presence of a heat bath and at fixed volume. As we have found a thermodynamic state $N$ - our mixed state  - that occupies the same volume as $M$ but has a lower Helmholtz energy, we can therefore conclude that $M$ is not stable. Moreover, this state is stable, as we have asumed that our states $A$ and $B$ are on the coexistence curve, i.e. equalities of pressure and molar Gibbs energy hold. We can conclude that, if we perturb $M$ a bit, it will move to state $N$ and remain there.  
+This is now where the lack of convexity comes into play - this point is located {\em below} the point $M$, i.e. has a lower Helmholtz energy than $M$. Now recall that the Helmholtz energy is minimized in the presence of a heat bath and at constant volume. More precisely, we can think of the state $M$ as living in a vessel enclosing the volume $V_M$ that is kept at constant temperature by a heat bath but is mechanically isolated. We can then think of a process that slowly converts a part of the gas in the metastable state into the mixture of stable gas and liquid represented by $N$, all this inside the vessel and thus subject to the condition of fixed volume $V_M$. Eventually, the full volume, i.e. the vessel, will be in state $N$ - our mixed state. As the entire process took place at constant temperature we can appeal to the principle of minimal energy for the Helmholtz energy to conclude that $M$ is not stable. 
+
+Moreover, the new state $N$ is stable, as we have assumed that our states $A$ and $B$ are on the coexistence curve, i.e. equalities of pressure and molar Gibbs energy hold. We can conclude that, if we perturb $M$ a bit, it will move to state $N$ and remain there.  
 
 It is interesting to relate the equilibrium conditions to the graphical representation of the Helmholtz energy in diagram \ref{fig:VanDerWaalsHelmholtz}. The first condition - equality of the pressures - simply means that the slope of the graph is the same at the two points $A$ and $B$. To interpret the second condition, let us express the Helmholtz energies of the two states $A$ and $B$ in terms of the Gibbs energy at the (common) pressure $P$. We have
 \begin{align*}
@@ -1462,7 +1588,7 @@ G = F + PV
 $$
 the Helmholtz energie therefore moves along a line with slope $P$, which is the line that we have indicated. This is below the graph of $F$, so a mixture will the be energetically preferred state. 
 
-There is, however, a reason why I have decided to discuss the role of the Helmholtz energy in a bit more detail. When a student hits upon the above illustration in a textbook and learns that the Helmholtz free energy is not convex and therefore the system tends to move into a mixture of two phases, this is a bit against what that student might have learned about the Helmholtz energy. In most cases, a phase transition like vaporization does {\em not} take place at constant volume - in fact, a vapor usually occupies a much higher volume than the liquid - but the Helmholtz free energy is what you usually minimize for systems of constant volume. However, as the above discussion hopefully demonstrate, we do {\em not} use the Helmholtz energy to find the equilibrium volme of the system (which would be futile, as the curve shows that the Helmholtz energy does not have a minimum at any of the states that we consider). Instead, we only use it for one very specific argument - we compare a metastable state $M$ at a given volume and a mixed state $N$ at the {\em same volume}, and then conclude that, as one of them has a smaller Helmholtz energy than the other, the metastable state is not stable. This is a completely legitimate usage of the minimum principle for the Helmholtz energy.
+There is, however, a reason why I have decided to discuss the role of the Helmholtz energy in a bit more detail. When a student hits upon the above illustration in a textbook and learns that the Helmholtz free energy is not convex and therefore the system tends to move into a mixture of two phases, this is a bit against what that student might have learned about the Helmholtz energy. In most cases, a phase transition like vaporization does {\em not} take place at constant volume - in fact, a vapor usually occupies a much higher volume than the liquid - but the Helmholtz free energy is what you usually minimize for (combined) systems that do not do any work on the remaining environment, i.e. have constant volume. However, as the above discussion hopefully demonstrate, we do {\em not} use the Helmholtz energy to find the equilibrium volume of the system (which would be futile, as the curve shows that the Helmholtz energy does not have a minimum at any of the states that we consider). Instead, we only use it for one very specific argument - we compare a metastable state $M$ at a given volume and a mixed state $N$ at the {\em same volume}, and then conclude that, as one of them has a smaller Helmholtz energy than the other, the metastable state is not stable. This is a completely legitimate usage of the minimum principle for the Helmholtz energy.
 
 Let us now turn to another quantity that we have not yet discussed so far - the entropy. As a starting point, let us again take the van der Waals gas as an example whose entropy is given by
 $$
@@ -1530,9 +1656,36 @@ Thus during the phase transition, the system will draw some energy in the form o
 $$
 G = F + PV
 $$
-we see that the change in the free Helmholtz energy is equal to the work being done on the environment. And finally, the change in the free enthalpy $H = G - TS$ is equal to the latent heat $ T \Delta S$, again because $\Delta G = 0$.
+we see that the change in the free Helmholtz energy is equal to the work being done on the environment. And finally, the change in the free enthalpy $H = G - TS$ is equal to the latent heat $T \Delta S$, again because $\Delta G = 0$. This is summarized in diagram \ref{fig:latentheat}.
 
-Let us do a numerical example to get a feeling for the involved quantities. From \cite{Tables}, we can obtain the molar formation enthalpies of liquid and vaporized water which are (at atmospheric pressure and standard temperature)
+\begin{figure}[ht]
+	\begin{center}
+		\begin{tikzpicture}
+			
+				
+		% The heat bath
+		\draw[color=black] (-.5, 0) rectangle (1.5, 2);
+		\draw (.4, .5) node {Heat bath};
+			
+		% The boiling water
+		\draw[color=black] (5, 0) rectangle (7, 2);
+		\draw (5.9, .5) node[align=center] {Boiling \\ water};
+			
+		% Energy transfers
+		\draw[->] (1.6, 1) -- (4.5, 1) node[above left, align = center]{Latent heat \\ $L = \Delta H = T \Delta S$ };		
+		\draw[->] (7.1, 2.3) -- (8, 3.5) node[midway, below, right, align = center]{Energy \\ increase \\ $\Delta U = L - P\Delta V$};
+		% Energy transfers
+		\draw[->] (7.1, -.3) -- (8, -1.5) node[midway, below, right, align = center]{Pressure work \\ $P\Delta V$};
+				
+		\end{tikzpicture}
+	\end{center}
+	\caption{Latent heat}
+	\label{fig:latentheat}
+
+\end{figure}
+
+
+Let us do a numerical example to get a feeling for the involved quantities. From \cite{Tables}, we can obtain the molar formation enthalpies of liquid and vaporized water which are (at atmospheric pressure and standard temperature - to be more precise we would of course have to use the values at the boiling points 373 K of water)
 \begin{align*}
 \Delta_f H_2O (l) &= - 285 \text{kJ} / \text{mol}  \\
 \Delta_f H_2O (g) &= - 241 \text{kJ} / \text{mol}  
@@ -1541,13 +1694,13 @@ The difference is the latent heat which is therefore
 $$
 L = 44 \cdot 10^3 \text{J} / \text{mol}
 $$
-To approximate the work due to the change of volume when water vaporizes, we ignore the volume of the water and approximate the liquid of one mol of vapor by
+The true value is roughly $41  \text{kJ} / \text{mol}$, the difference being due to the values that we have used being valid at room temperature, not at the boiling point. To approximate the work due to the change of volume when water vaporizes, we ignore the volume of the water and approximate the liquid of one mol of vapor by
 $$
 V = \frac{RT}{P}
 $$
 so that
 $$
-P\Delta V \approx RT = 8.3 \frac{\text{J}}{\text{mol} \cdot \text{K}} \cdot 298 \text{K} = 2.4 \text{kJ}
+P\Delta V \approx RT = 8.3 \frac{\text{J}}{\text{mol} \cdot \text{K}} \cdot 373 \text{K} = 3.1 \text{kJ}
 $$
 Comparing this to the molar latent heat, we find that only a small part of the heat drawn from the reservoir is used to perform volume expansion work. The larger part is absorbed by the increase of internal energy - this is the energy that is required to break the bonds between the water molecules to turn the water into vapor.
 
