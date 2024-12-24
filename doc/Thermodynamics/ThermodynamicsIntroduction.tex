@@ -2252,6 +2252,17 @@ $$
 is the {\em grand free energy} or the {\em grand canonical potential}. Obviously, $\Psi$ is minus the Legendre transform of the energy with respect to $S$ and $N$. This distribution is called the 
 {\em Gibbs distribution}\footnote{The terminology is a bit confusing at this point. If we allow the volume to vary at constant pressure and do the same derivation, the Gibbs energy appears in the exponent, but it seems that this distribution is NOT called the Gibbs distribution in most textbooks}. It is now clear how other combinations of constraints lead to distributions in which other Legendre transforms of the energy appear. 
 
+Later, we will often consider systems which are combinations of non-interacting subsystems. In this case, the partition function is multiplicative. To make this more precise, assume that we are given two systems $S_1, S_2$ and a combined system, so that the state of the combined system is described by a pair $s = (s_1, s_2)$ where $s_i$ is the state of system $S_i$. If there is no interaction term in the energy, then we can write the energy as
+$$
+E(s) = E_1(s_1) + E_2(s_2) 
+$$
+The partition function then becomes
+\begin{align*}
+Z &= \sum_{s_1, s_2} \exp(-\beta E(s)) \\
+&= \sum_{s_1} \exp(- \beta E_1(s_1)) \sum_{s_2}  \exp(- \beta E_2(s_2)) = Z_1 Z_2
+\end{align*}
+As we will soon see, this can simplify the calculation of partition functions greatly.
+
 Let me add a few closing remarks. First, it is worth noting that both, the microcanonical and the canonical distribution, can be derived from a more abstract principle - they are the distributions that maximize the Shannon entropy under the constraints specific to the model. In this sense, they are the distributions that forget everything except the information provided by the constraints, a point of view which is for instance discussed in \cite{Callen}, chapter 17.
 
 Finally, recall that we have obtained the derivation of the Boltzmann distribution using a Taylor expansion of the entropy of the reservoir, which is an approach found in many textbooks, including \cite{Callen}, and (though in a slightly disguised form) \cite{Schroeder}. We remark, however, that there is a different approach to arrive at the Boltzmann distribution, starting with Shannon's definition of entropy and then using Lagrange multipliers to maximize the entropy under the constraints of a given average energy and a normalization condition, we refer to section 17.2 in \cite{Callen} for details on this approach.
@@ -2485,6 +2496,167 @@ $$
 \lim_{\hbar \rightarrow 0} \langle E \rangle = \beta^{-1} = k_B T
 $$
 This is in perfect agreement with our expectation - a classical oscillator has two kinds of energy, kinetic energy and potential energy, and it is a general rule (known as the equipartition theorem) that each type of energy and each degree of freedom contribute $k_B T$ to the average energy of a classical system. Unfortunately, an average energy that does not depend on $\omega$ is a disaster because the energy density is then proportional to $\omega^2$ and therefore the integral over $\omega$ and thus the total energy diverges. Thus the prediction of a classical treatment would be that the radiation in a cavity at thermal equilibrium has infinite energy, which is of course absurd. This issue was known as the {\em ultraviolet catastrophe}. Historically, this lead M. Planck in 1900 to the postulate that the energy of a mode of the radiation field is quantized according to equation \eqref{eq:quantizationpostulate} which can be considered the birth of quantum mechanics. 
+
+\section{The Ising model}
+
+The Ising model is probably one of the most influential models in modern physics. It was originally conceived by the physicist E. Ising in his doctoral thesis in 1924 in an attempt to explain ferromagnetism. In the Ising model, we consider a d-dimensional lattice and, at each site of the lattice, a hypothetical particle which has a spin that can either be +1 (up) or -1 (down).  A state is then described by recording for each site $i$ whether the particle at this site has spin up or spin down, i.e. by a vector
+$$
+s = (s_1, s_2 , \dots, s_N ) \in \{ -1, 1\}^N
+$$
+where $N$ is the number of sites in the lattice. 
+Each particle can interact with the other particles on the lattice, but we assume that the interaction drops off quickly with increasing distance, so that only the interactions with the nearest neighbors are relevant. In addition, each particle can interact with an external magnetic field $B$. 
+The energy of a state is then given by
+$$
+E(s) = - \frac{1}{2} J \sum_{i, j} d(i, j) s_i s_j - B \sum_i s_i 
+$$
+with a distance function
+$$
+d(i, j) = 
+\begin{cases}
+1 & \text{i and j are direct neighbors} \\
+0 & \text{otherwise}
+\end{cases}
+$$
+and a constant $J$ that describes the size of the interaction. It is common to use the notation $\langle i, j \rangle$ for a pair of lattice points that are direct neighbors. With this convention, our formula reads
+$$
+E(s) =  - J \sum_{\langle i, j \rangle }  s_i s_j - B \sum_i s_i 
+$$
+as we count every pair only once. The model is called {\em ferromagnetic} if $J > 0$ which we will assume. For a given state $s$, we define the {\em magnetization} to be
+$$
+m(s) = \frac{1}{N} \sum_i s_i
+$$
+and the quantity that we are primarily interested in is the average magnetization
+$$
+M = \langle m \rangle = \sum_s p(s) m(s)
+$$
+The idea behind this model is as follows. Given our previous discussion of the Boltzmann distribution, we should expect that for a given temperature $T$, those states are most likely that minimize the energy. This can be achieved in two ways - a spin can align with the external field $B$ or it can align with the neighboring spins to minimize the first part of the energy (this is why we have chosen $J > 0$). For a strong external magnetic field $B$, the first contribution will probably dominate, so we should expect that the states of lowest energies are those were all spins are aligned with the external field. In this state, all the spins are aligned with the field and consequently among each other. This creates a magnetic moment, i.e. the overall system becomes magnetic, a fact which is well known under the name {\em paramagnetism}. 
+
+If we now slowly turn off the external field, it might happen that the system initially remains in this state. If now one of the spins flips spontaneously and is now anti-aligned, the energy will increase, so that our state remains the state with the lowest energy and the body remains magnetic even though the external field has been switched off. This is called {\em ferromagnetism} and this is what Ising wanted to explain with his model. 
+
+To prepare for our discussion of the Ising model, let us first consider the case that $J = 0$, i.e. there is no interaction, and let us try to compute the partition function for this simple case. As now
+$$
+E(s) = - B \sum_i s_i 
+$$
+we have
+\begin{align*}
+Z &= \sum_s \exp(-\beta E(s)) \\
+&= \sum_s \exp(\beta B \sum_i s(i) ) = \sum_s \exp(\beta B N m(s) )
+\end{align*}
+
+This looks daunting, but recall that there is no interaction - the energy that we consider is the sum of the individual contributions $-B s_i$ for each site $i$, so we can try to exploit the fact that the partition function is multiplicative. To do this, we first need to calculate the partition function $Z_1$ for the case $N = 1$. This is easy, as there are only two possible states:
+$$
+Z_1 = \sum_{s = -1, 1} \exp(\beta B s) ) = \exp(- \beta B) + \exp(\beta B) = 2 \cosh(\beta B)
+$$
+With this and the fact that the partition function is multiplicative, we immediately obtain the expression
+$$
+Z = Z_1^N = 2^N \cosh(\beta B)^N
+$$
+for the case $J = 0$.
+
+Of course, the situation is much more complicated in the case $J \neq 0$, and it appears hopeless to find a closed expression for the general model (there are, however, closed expressions for the case $d=1$ due to Ising himself and for the case $B = 0$ and $d = 2$ due to Onsager). However, there is an approximation method that already displays some of the real behaviour of the model. To motivate this method, let us spell out the interaction in terms of the average magnetization $M$, or, more precisely, on the deviations $s_i - M$ that reflect the fluctuations of the spins. Now trivially
+\begin{align*}
+s_i s_j &= ((s_i - M) + M)((s_j - M)+ M) \\
+&= (s_i - M)(s_j - M) + (s_i - M)M + (s_j - M) M + M^2
+\end{align*}
+Let us take a closer look at the contribution that the second term makes to the interaction. For that purpose, let $q$ denote the number of neighbors that each lattice point has (i.e. $q = 2$ in one dimension, $q = 4$ in two dimensions and so on).
+\begin{align*}
+- \frac{1}{2} J \sum_{i,j} d(i, j)(s_i - M) M &= - M J \sum_{i,j} d(i, j)(s_i - M) \\
+&= -\frac{1}{2} MJ \sum_i \sum_j d(i, j) (s_i - M) \\
+&= -\frac{1}{2} MJ \sum_i (s_i - M) \sum_j d(i, j) \\
+&= - \frac{1}{2}MJ q \sum_i (s_i - M)  = - \frac{1}{2}MJ q \sum_i s_i + \frac{1}{2} N M^2 J q
+\end{align*}
+A similar contribution comes from the third term. The last term finally makes the contribution
+$$
+- \frac{1}{2} J \sum_{i, j} d(i, j) M^2 = - \frac{1}{2} J q N M^2 
+$$
+Thus we can write the total energy of a state $s$ as follows,
+$$
+E(s) = - \frac{1}{2} J \sum_{i, j} (s_i - M)(s_j - M) + \frac{1}{2} J q N M^2  - (J M q + B) \sum_i s_i
+$$
+The first term is the energy due to the fluctuations, think of this as a second order term. The second term represents a constant contribution from the average magnetization. The third term is a term that contains the external field and an additional field that each spin experiences which is created by its $q$ nearest neighbors, this is the contribution from the derivations $s_i - M$ in first order. The {\em mean field approximation} now drops the first term and uses the energy term
+$$
+E(s) = \frac{1}{2} J q N M^2  - (J M q + B) \sum_i s_i
+$$
+Let us now write down the partition function arising from this energy term. We find that
+$$
+Z = \sum_s \exp(- \beta E(s)) = \sum_s \exp(\beta -\frac{1}{2} J q N M^2) \exp( \beta (J M q + B) \sum_i s_i)
+$$
+The first term is a constant factor that can be pulled out of the sum so that
+$$
+Z = \exp( -\beta \frac{1}{2} J q N M^2) \sum_s  \exp( \beta (J M q + B) \sum_i s_i)
+$$
+The remaining term, however, is formally the same as that in the case without interaction that we have already studied, and we can therefore write down the partition function immediately.
+$$
+Z = \exp( - \frac{1}{2} \beta J q N M^2) 2^N \cosh(\beta (J M q + B))^N
+$$
+This looks nice. However, we have cheated a bit. Formally, you could do these manipulations for every value of $M$. Physically, however, we know that this only has a chance to be a good approximation if $M$ is actually the average magnetisation of our probability distribution, i.e $M = \langle m \rangle$. So let us calculate this magnetization. We know that
+$$
+\sum_i s_i = - \frac{\partial}{\partial B} E(s)
+$$
+so that
+\begin{align*}
+\langle m \rangle &= \sum_s p(s) m(s) \\
+&= \frac{1}{Z} \frac{1}{N} \sum_s  \exp(- \beta E(s))  \sum_i s_i\\
+&=  \frac{1}{\beta} \frac{1}{Z} \frac{1}{N} \sum_s \exp(- \beta E(s)) \frac{\partial}{\partial B} (- \beta E(s)) \\
+&= \frac{1}{N \beta} \frac{1}{Z} \frac{\partial}{\partial B} \sum_s   \exp(- \beta E(s)) \\
+&= \frac{1}{N \beta} \frac{1}{Z} \frac{\partial}{\partial B} Z = \frac{1}{N \beta} \frac{\partial}{\partial B} \ln Z
+\end{align*}
+Going back to the mean field approximation, we can compute the derivative and find that
+$$
+\frac{\partial Z}{\partial B} = \exp( - \frac{1}{2} \beta J q N M^2) 2^N \cosh (\beta (J M q + B))^{N-1} N \beta  \sinh (\beta (J M q + B))
+$$
+which we can also write as
+$$
+\exp( - \frac{1}{2} \beta J q N M^2) 2^N \cosh (\beta (J M q + B))^N  N \beta \tanh (\beta (J M q + B))
+$$
+so that we arrive at
+$$
+\frac{\partial Z}{\partial B} = \tanh (\beta (J M q + B)) N \beta Z
+$$
+i.e.
+$$
+\langle m \rangle = \tanh (\beta (J M q + B)) 
+$$
+Thus for the mean field approximation to hold, we need to impose the additional {\em consistency condition}
+$$
+M = \tanh (\beta (J M q + B)) 
+$$
+For the sake of completeness, let us also record an explicit expression for the Helmholtz energy:
+$$
+F = -\frac{1}{\beta} \ln Z =  \frac{1}{2} J q N M^2 - \frac{N}{\beta} \ln  2 \cosh(\beta (J M q + B))
+$$
+and of course
+$$
+M = \langle m \rangle = \frac{1}{N \beta} \frac{\partial}{\partial B} \ln Z = - \frac{1}{N} \frac{\partial F}{\partial B}
+$$
+showing that $M$ is, up to a constant, conjugate to $B$. 
+
+Let us now pause for a moment and reflect on what we have done. We have approximated the true behaviour of an Ising model by a thermodynamical system which is described by the temperature, the average magnetization $M$ and the external field $B$. We have then found an expression for the Helmholtz free energy of this system in terms of these quantities. We have seen that two of these quantities $M$ and $B$ are conjugate variables, similar to pressure and volume in system like the ideal gas. And, like for the ideal gas and other systems like the van der Waals model, we have found an additional relation - the consistency relation above - between two conjugated variables, specifically $M$ and $B$. 
+
+For the van der Waals model, we have found that the relation between pressure and volume is multivalued - for a given pressure, we have found several possible values of the volume. Let us now analyze the consistency relation further to see whether the situation is similar. For that purpose, we need to determine the shape of the function
+$$
+f(M) = M -  \tanh (\beta (J M q + B)) 
+$$
+and see how many zeroes is has for fixed $B$, i.e. how many values of $M$ we find for a given $B$. This will tell us the possible magnetizations in equilibrium. The derivative is
+$$
+\frac{df}{dM} = 1 - \frac{\beta J q}{\cosh^2 (\beta (J M q + B))} 		
+$$
+which is zero if and only if
+$$
+\cosh^2 (\beta (J M q + B)) = \beta J q
+$$
+The cosh function takes all values between $+1$ and $+\infty$. Thus we immediately find that if $\beta J q < 1$, or, equivalently,
+$$
+T > \frac{Jq}{k_BT} = T_c
+$$
+the derivative has no zeros and is everywhere positive. As the range of the $\tanh$ term is between $-1$ and $1$, we also know that $f$ tends to $-\infty$ at $M = -\infty$ and to $+\infty$ at $M = +\infty$, so that there is exactly one zero.
+
+This changes if the temperature is below the critical point $T_c$. Then the derivative has a zero, in fact is has two zeroes as the $cosh$ function itself is already symmetric. As $f$ has limits $\pm \infty$, we can conclude that there are in fact three zeroes, i.e. we find three possible magnetizations $M$ for a given value of the external field $B$. We again interpret this as a {\em phase transition}. The situation is especially interesting if $B = 0$. Then our consistency condition reads
+$$
+M = \tanh (\beta J M q ) 
+$$
+which is symmetric in $M$. Thus we find that below the critical temperature, there are three solutions for $M$: $M = 0$, and two additional solutions with the same magnitude but different signs.
+
 
 \section{Applications in chemistry - the law of mass action}
 
