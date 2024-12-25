@@ -2139,7 +2139,7 @@ Motivated by the macroscopic minimum principle for the Helmholtz energy derived 
 
 One additional remark on that formula is in order. If we use this formula with $U=E$ and recall that $Z$ is $\exp(-\beta F)$, we seem to obtain the result that the system is in a state with energy $U$ with certainty, i.e. with probability one. This is of course not true. The reason for this seemingly paradox situation is that the above derivation is only valid if $E$ is one of the discrete energy levels that the system can attain! If $E$ is none of these values, then $\Omega(E) = 0$ and the entropy is formally minus infinity, so that the derivation breaks down. Now, for a large number of particles, the average energy $U$ will be slightly above the lowest energy, but still extremely close to it. Therefore the average energy $U$ is not one of the allowed energy levels and the probability for the system to have that energy is actually zero (which would also be the result if we tried to fix the problem by passing to a continuous model). Thus the only conclusion that we can draw is that among the allowed, discrete energy levels, the one whose Helmholtz energy (computed with the temperature $T$) is closest to the minimum is the most likely energy level.
 
-
+Be careful at this point - the most likely energy is not the energy of the most likely state. The most likely energy level is the one that mininizes the Helmholtz energy as discussed above, while the most likely state is the one with lowest energy. To see why this is not a contradiction, just consider a hypothetical system with three states, one with probability $0.4$ and two others with probability $0.3$. If the two other states have the same energy, than the probability of that energy of $.6$ which is higher than the probability of the energy of the most likely state. This is because to calculate probabilities for an energy, you have to take the number of states that realize this energy into account, i.e. the entropy. Also note that the statement that the most likely energy level is the one with the lowest Helmholtz energy is only true when we fix the probability distribution and with it the partition function and the average energy. 
 
 Let us now differentiate the relation between energy and partition function once more to find the heat capacity. We have
 \begin{align*}
@@ -2240,7 +2240,7 @@ Due to the large factor $k_B T$ in the exponent, the probability will go down ra
 			
 		\end{tikzpicture}
 	\end{center}
-	\caption{Energy niveaus in the Boltzmann distribution}
+	\caption{Energy levels in the Boltzmann distribution}
 	\label{fig:BoltzmannDistributionEnergies}
 \end{figure}
 
@@ -2272,9 +2272,170 @@ Let me add a few closing remarks. First, it is worth noting that both, the micro
 
 Finally, recall that we have obtained the derivation of the Boltzmann distribution using a Taylor expansion of the entropy of the reservoir, which is an approach found in many textbooks, including \cite{Callen}, and (though in a slightly disguised form) \cite{Schroeder}. We remark, however, that there is a different approach to arrive at the Boltzmann distribution, starting with Shannon's definition of entropy and then using Lagrange multipliers to maximize the entropy under the constraints of a given average energy and a normalization condition, we refer to section 17.2 in \cite{Callen} for details on this approach.
 
+\section{A toy example - a two-state system}
+
+To illustrate the concepts discussed in the previous section, let us work out a simple toy example in all details - a two-state system with only one degree of freedom. Specifically, we consider a single particle that can be in one of two states - $s = 1$ corresponding to spin up, and $s = -1$ corresponding to spin down. We think of our particle as being influenced by an external magnetic field $B$, and the energy is
+$$
+E(s) = - Bs
+$$
+so that the only two allowed energy levels are
+$$
+E_0 = E(s = 1) = - B
+$$
+and
+$$
+E_1 = E(s = -1) = B
+$$
+We assume that $B > 0$ so that $E_0 < E_1$. In this simple case, we can of course immediately write down the partition function. We have
+$$
+Z = \sum_s \exp(-\beta E(s)) = \exp(-\beta B ) + \exp(\beta B) = 2 \cosh(\beta B)
+$$
+We can also easily obtain down the full Helmholtz energy as
+\begin{align*}
+F = - k_B T \ln Z = - k_B T \ln 2 \cosh(\beta B)
+\end{align*}
+Let us now calculate the average energy - either using our formula in terms of derivatives of $Z$ or directly. Let us do both to see that the outcome is the same. First, the direct calculation is
+\begin{align*}
+\langle E \rangle &= p(s = 1) E_0 + p(s = -1) E_1 \\
+&=  \frac{1}{Z} (- B \exp(\beta B) + B \exp(-\beta B) \\
+&=  \frac{B}{Z} (\exp(-\beta B) - \exp(\beta B) ) = - 2 \frac{B}{Z} \sinh \beta B = -   B \tanh \beta B
+\end{align*}
+We already see that this is not exactly $-B$, but a bit higher, but converges to $-B$ for large values of $B$. Let us do the same calculation using the partition function.
+\begin{align*}
+\langle E \rangle &= - \frac{\partial}{\partial \beta } \ln Z = - \frac{1}{Z} \frac{\partial}{\partial \beta } Z \\
+&= - \frac{1}{Z} \frac{\partial}{\partial \beta } 2 \cosh(\beta B) = - B \frac{1}{Z} 2 \sinh \beta B 
+\end{align*}
+and we get the same result as before. 
+
+Let us now move on to the entropy. There are several ways to get this, and again we will use two of them to show that the outcome is the same. The first approach is to use the relation
+$$
+F = U - TS
+$$
+so that
+$$
+S = \frac{1}{T}(U - F)
+$$
+This involves quantities that we have already computed, so we obtain
+$$
+S = -  \frac{B}{T}  \tanh \beta B + k_B  \ln 2 \cosh(\beta B)
+$$
+The (harder) way is to calculate this is by taking the derivative of the Helmholtz potential with respect to the temperature. Thus
+\begin{align*}
+S &= - \frac{\partial F}{\partial T} = - \frac{\partial F}{\partial \beta} \frac{d \beta}{dT}  \\
+&=  - \frac{1}{T^2} \frac{\partial}{\partial \beta}  T \ln 2 \cosh(\beta B) \\
+&=  - \frac{1}{T} \frac{\partial}{\partial \beta}  \ln 2 \cosh(\beta B) - \frac{1}{T^2} \ln 2 \cosh(\beta B) \frac{dT}{d\beta} \\
+&=  - \frac{1}{T} \frac{1}{2 \cosh(\beta B)} \frac{\partial}{\partial \beta} 2 \cosh(\beta B) + \frac{1}{T^2} k_B T^2 \ln 2 \cosh(\beta B) \\
+&= - \frac{B}{T} \tanh \beta B + k_B \ln 2 \cosh(\beta B)
+\end{align*}
+giving again the same result. 
+
+So far we have considered a system with only one particle. Now suppose that we have $N$ particles which, however, do not interact, i.e. a state is given by a vector $(s_1, s_2, \dots)$ in $\{ -1, 1\}^N$. The energy of a state is then
+$$
+E(s) = - B \sum_i s_i = -B m(s)
+$$
+where we define 
+$$
+m(s) = \sum_i s_i
+$$
+Now we know that the partition function is multiplicative, so that we can immediately conclude that the partition function is given by
+$$
+Z =  2^N \cosh(\beta B)^N
+$$
+This factor $N$ then appears in front of all quantities that we obtain from $\ln Z$, like the Helmholtz free energy or the entropy, which is what we expect as these are extensive quantities. Let us now take a closer look at the energy levels of this system. Again, the lowest energy is given by 
+$$
+E_0 = - NB
+$$
+corresponding to a state where all spins are aligned with the magnetic field. In general, if $N_+$ sites have state $+1$ and $N_-$ sites have state $-1$, the energy is given by
+$$
+E = -B (N_+ - N_-)  = B(N_- - (N - N_-)) = 2 B N_- + E_0
+$$
+so that
+$$
+N_- = \frac{1}{2B} (E - E_0)
+$$
+and
+\begin{align*}
+N_+ = N - N_- &= N -  \frac{1}{2B} (E - E_0) \\
+&= - \frac{2 E_0}{2 B} -  \frac{1}{2B} (E - E_0) = \frac{- E_0 - E}{2B}
+\end{align*}
+Let us now calculate the multiplicity of a given energy level $E$, i.e. we want to many how many states $s$ we can find that have $E(s) = E$. Now the energy determines $N_-$, so this is equivalent to calculating the number of states that share the same value of $N_-$. But this is just the number of ways in which we can designate $N_-$ sites as pointing downwards, i.e. this is
+$$
+\Omega(N_-) = \binom{N}{N_-} = \frac{N!}{N_-!(N - N_-)!} = \frac{N!}{N_-!N_+!}
+$$
+For large numbers of $N$, $N_+$ and $N_-$, we can again use Stirling's formula to approximate this, and find after a short calculation that this is
+$$
+\ln \Omega = N \ln N -N_- \ln N_- - N-+ \ln N_+
+$$
+which we can rewrite as follows
+\begin{align*}
+\ln \Omega &= (N_- + N_+) \ln N -N_- \ln N_- - N_+ \ln N_+ \\
+&= - N_- \ln \frac{N_-}{N} - N_+ \ln\frac{N_+}{N}   \\
+&= \ln \Omega = - N [ n_+ \ln n_+ + n_- \ln n_-  ]
+\end{align*}
+with the abbreviation $n_{\pm} = \frac{N_\pm}{N}$. This gives us a formula for $\Omega(E)$ as
+$$
+\ln \Omega(E) =  N [ \frac{E - E_0}{2E_0}\ln \frac{E_0 - E}{2E0}  - \frac{E + E_0}{2E_0}\ln \frac{E + E_0}{2E_0}  ]
+$$
+Of course this formula breaks down if $E$ approaches the maximum or minimum energy that the system can have, as in this case $N_-$ and $N_+$ become very small and our approximations do no longer work. 
+
+At the first glance, this looks very different from $S$ - and keep in mind that these are two different things. $\Omega(E)$ is zero for almost all $E$ and only defined for the sharp energy levels that the energy of a state can take on. On the other hand, $S(U)$ is a property of the probability distribution, not a single state, so we should not expect this to be equal. However, if an energy is close to the average energy $U$, we would expect these two quantities to take similar values.
+
+To see that this holds in this case, let us consider the quantity
+$$
+q = \frac{E}{E_0}
+$$
+and rewrite our expression for $\Omega(E)$ in terms of $q$. First 
+$$
+\frac{E_0 - E}{2E_0} = \frac{1}{2} \frac{E_0 - E}{E_0} = \frac{1}{2} (1 - \frac{E}{E_0} ) = \frac{1}{2} (1 - q)
+$$
+and
+$$
+\frac{E_0 + E}{2E_0} = \frac{1}{2} \frac{E_0 + E}{E_0} = \frac{1}{2} (1 + \frac{E}{E_0} ) = \frac{1}{2} (1 + q)
+$$
+Thus if $q$ is small, we can approximate
+$$
+\frac{E - E_0}{2E_0}\ln \frac{E_0 - E}{2E0} = - \frac{1}{2} (1 - q) \ln \frac{1}{2} (1 - q) \approx  \frac{1}{2} (1 - q) (- \ln \frac{1}{2} + q) 
+$$
+and similarly
+$$
+\frac{E + E_0}{2E_0}\ln \frac{E + E_0}{2E_0} = \frac{1}{2} ( 1 + q) \ln \frac{1}{2} ( 1 + q) \approx \frac{1}{2} ( 1 + q) (\ln \frac{1}{2} + q) 
+$$
+so that
+\begin{align*}
+\ln \Omega(E) &=   \frac{N}{2} [ (1 - q) (- \ln \frac{1}{2} + q) -  ( 1 + q) (\ln \frac{1}{2} + q)  ] = N ( \ln 2  -  q^2 )
+\end{align*}
+Similarly, let us define
+$$
+u = \frac{U}{E_0} = \frac{U}{- B N}
+$$
+Our relation
+$$
+U = - N B \tanh \beta B
+$$
+shows that
+$$
+\tanh \beta B = - \frac{U}{NB} = u
+$$
+so that, for small values of $u$, we can again use a Taylor approximation for $\tanh^{-1}$ to find that
+$$
+\beta B = u
+$$
+i.e.
+$$
+\beta = \frac{1}{k_B T} = \frac{u}{B}
+$$
+so that
+$$
+\frac{B}{T} = k_B u
+$$
+The entropy is then given by
+$$
+S = - k_B N u^2 + k_B N \ln 2 = k_B N (\ln 2 - u^2)   
+$$
+Thus we find that, as expected, the macroscopic entropy of the average energy is approximately equal to the entropy of the closest energy level. 
 \section{Ideal gas and blackbody radiation}
 
-We close these notes on thermodynamics with two famous classical applications - the derivation of the laws of the ideal gas and the calculation of the energy spectrum of a black body.
+In the next sections, we will discuss two famous classical applications - the derivation of the laws of the ideal gas and the calculation of the energy spectrum of a black body.
 
 Let us start by looking, more generally, at a gas which is made of quantum mechanical particles, following the exposition in \cite{Schroeder}, section 6.7.  We assume that the particles do not interact, i.e. we ignore potential energy, and we also ignore internal kinetic energy like rotational energy. So the energy of a particle with momentum $p$ is given by
 $$
@@ -2598,13 +2759,10 @@ This looks nice. However, we have cheated a bit. Formally, you could do these ma
 $$
 \sum_i s_i = - \frac{\partial}{\partial B} E(s)
 $$
-so that
+so that by our general statements on average values of derivatives for Boltzmann distributions,
 \begin{align*}
-\langle m \rangle &= \sum_s p(s) m(s) \\
-&= \frac{1}{Z} \frac{1}{N} \sum_s  \exp(- \beta E(s))  \sum_i s_i\\
-&=  \frac{1}{\beta} \frac{1}{Z} \frac{1}{N} \sum_s \exp(- \beta E(s)) \frac{\partial}{\partial B} (- \beta E(s)) \\
-&= \frac{1}{N \beta} \frac{1}{Z} \frac{\partial}{\partial B} \sum_s   \exp(- \beta E(s)) \\
-&= \frac{1}{N \beta} \frac{1}{Z} \frac{\partial}{\partial B} Z = \frac{1}{N \beta} \frac{\partial}{\partial B} \ln Z
+\langle m \rangle &= \frac{1}{N} \langle \sum_i s_i \rangle  = - \frac{1}{N\beta} \langle \frac{\partial}{\partial B} \beta E(s)  \rangle  
+= \frac{1}{N \beta} \frac{\partial}{\partial B} \ln Z
 \end{align*}
 Going back to the mean field approximation, we can compute the derivative and find that
 $$
@@ -2765,7 +2923,19 @@ If we now let $\lambda = 1$, then $F(\lambda)$ is the true Helmholtz potential $
 $$
 F \leq F_0 + \langle E_1 \rangle 
 $$
-This looks innocent, but to understand the full power of inequality that is called the {\em Bogoliubov inequality} let us do a plot to visualize it.
+This inequality -  that is called the {\em Bogoliubov inequality} - looks trivial but is actually rather powerful. To understand why this is so useful, let us consider how this is typically used in practice. 
+
+The approximation scheme that is typically used is based on the observation that right hand side is the approximation of the true value of $F$ by a tangent, i.e. this is a {\em first order approximation}, while $F_0$ itself is only an approximation to order zero. Thus you will typically choose not $F_0$ as an approximation for the true value of $F$, but the right hand side of the Bogoliubov inequality. This quantity is often called the {\em variational free energy} and denoted by $F_v$, so
+$$
+F_v = F_0 + \langle E_1 \rangle 
+$$
+Typically, however, you have a choice when choosing your reference system $F_0$, and different choices of this model parameter will provide different values for $F_0$ and then of course $\langle E_1 \rangle$ and the approximation $F_0 + \langle E_1 \rangle$. To find out which one is the best approximation, you would like to compare them to the true value - but this is unfortunately not an option, as the true value is unknown. The Bogoliubov inequality, however, tells you that whatever choice you make, the true value will be than the variational free energy. Thus if you change your choice and find that the variational free energy gets smaller, it will be closer to the true value than before. Thus, you {\em choose the model system that makes the approximated Helmholtz potential as small as possible}. 
+
+In many cases, the choice of the reference model is expressed by some parameter or set of parameters $\Lambda$. Then $F_0 = F_0(\Lambda, X)$ where $X$ stands for all other parameters, including the temperature, of your system, and consequently the variational free energy depends on these parameters as well. Then the Bogoliubov inequality tells you that in order to obtain the best approximation, you should first "fit" the model by minimizing $F_v$ with respect to $\Lambda$, i.e. to solve
+$$
+\frac{\partial}{\partial \Lambda} F_v(\Lambda, X) = 0
+$$
+This will give you a preferred choice for $\Lambda$ that can, however, depend on $X$. You can then use this relation to express $\Lambda$ in terms of $X$ and then obtain a variational free energy that depends on $X$ alone and is the approximation for $F(X)$ you are looking for. 
 
 \section{Applications in chemistry - the law of mass action}
 
