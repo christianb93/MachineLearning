@@ -2008,12 +2008,12 @@ We will soon see that this is no coincidence, but a general phenomena - when we 
 
 The approximations that we have made for our example do in fact work reasonably well also for comparatively low numbers of $N_A$ and $N_B$. In diagram \ref{fig:BoltzmannEinsteinSolid}, we have plotted the exact values of the probability distribution (blue bars) for $N_A = 1$, $N_B = 12$ and $q_{tot} = 20$, computed using binomial coefficients, along with the prediction made by the Boltzmann distribution (yellow). We see that the actual distribution is reasonably close to a Boltzmann distribution even in this case. The average energy $U$ is $U \approx 1.54$, and the most likely energy level is $E = 0$, with a probability of $\approx 0.38$ (so there is one energy level below the most likely level and the average, a situation which is untypical and disappears if we increase the number of particles).
 	
-	\begin{figure}[ht]
+\begin{figure}[ht]
 		\centering
 		\includegraphics[scale=0.5]{BoltzmannEinsteinSolid.png}
 		\caption{Boltzmann distribution for an Einstein solid}
 		\label{fig:BoltzmannEinsteinSolid}
-	\end{figure}
+\end{figure}
 	
 	
 \end{example}
@@ -2378,9 +2378,7 @@ $$
 $$
 Of course this formula breaks down if $E$ approaches the maximum or minimum energy that the system can have, as in this case $N_-$ and $N_+$ become very small and our approximations do no longer work. 
 
-At the first glance, this looks very different from $S$ - and keep in mind that these are two different things. $\Omega(E)$ is zero for almost all $E$ and only defined for the sharp energy levels that the energy of a state can take on. On the other hand, $S(U)$ is a property of the probability distribution, not a single state, so we should not expect this to be equal. However, if an energy is close to the average energy $U$, we would expect these two quantities to take similar values.
-
-To see that this holds in this case, let us consider the quantity
+At the first glance, this looks very different from $S$ - and keep in mind that these are two different things. $\Omega(E)$ is zero for almost all $E$ and only defined for the sharp energy levels that the energy of a state can take on. On the other hand, $S(U)$ is a property of the probability distribution, not a single state, so we should not expect this to be equal. However, if an energy is close to the average energy $U$, we would expect these two quantities to take similar values. 	To see that this holds in this case, let us consider the quantity
 $$
 q = \frac{E}{E_0}
 $$
@@ -2433,6 +2431,18 @@ $$
 S = - k_B N u^2 + k_B N \ln 2 = k_B N (\ln 2 - u^2)   
 $$
 Thus we find that, as expected, the macroscopic entropy of the average energy is approximately equal to the entropy of the closest energy level. 
+
+For small values of $N$, you can calculate the exact values for the multiplicities and energy levels and plot them. Diagram \ref{fig:TwoStateEnergyLevels} contains the result of such a calculation. The upper part of the diagram shows the average energy $U$, the lowest energy $- N B$, the most likely energy level and the Helmholtz free energy (for $N = 40$, $B = 2.0$, $beta = 1.0$). The lower part of the diagram shows these values for different values of $B$. We see nicely that the most likely energy level is close to the average energy (though it is not exactly the same value), and the lowest energy level is still higher than the Helmholtz energy.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.5]{TwoStateSystemEnergyLevels.png}
+	\caption{Energy levels of a two-state system}
+	\label{fig:TwoStateEnergyLevels}
+\end{figure}
+
+In some textbooks and lecture notes, you will find the statement that the most likely state can be found by minimizing the Helmholtz energy or similar assertions. This is at least misleading. In our example, the macroscopic parameters are $T$ and $B$. Once you fix those, they determine the energy levels and therefore the Boltzmann distribution and the partition function. The most likely state is the one with lowest energy, this has nothing to do with the Helmholtz energy - in fact, the Helmholtz energy is typically much lower than the lowest energy level. It is fully determined by $T$ and $B$ as well and there is no additional free parameter that you could vary. For an individual state, the concept of Helmholtz energy does not make sense (what should the entropy of an individual state be)? Finally, you can define the Helmholtz energy of an energy level and find that the most likely energy level is the one with the lowest Helmholtz energy, but within this energy level, all states are equally likely, and as the most likely energy level tends to be very close to the average energy $U$, this is not a particularly useful additional information. So be careful when interpreting this sort of statements. 
+
 \section{Ideal gas and blackbody radiation}
 
 In the next sections, we will discuss two famous classical applications - the derivation of the laws of the ideal gas and the calculation of the energy spectrum of a black body.
