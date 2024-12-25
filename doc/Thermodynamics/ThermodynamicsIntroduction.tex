@@ -2099,26 +2099,30 @@ This probability distribution is called the {\em Boltzmann distribution} or
 {\em canonical distribution}.
 Note that the partition function depends - as the Helmholtz energy - on $T$, $V$, $N$ and potentially on other macroscopic variables.
 
-Let us now calculate the average energy of the system - or more precisely its expectation value. Of course we expect that this is equal to $U$. The expectation is given by
+Let us now calculate the average energy of the system - or more precisely its expectation value. Of course we expect that this is equal to $U$. The computation that we will do involves a general pattern that is used very frequently when working with Boltzmann distributions, so we will do this in a bit more generality.
+
+The quantity $\beta E$ will, of course, depend on the state, but it obviously also depends on the temperature (which is part of $\beta$). In a general model, however, the Energy could depend on other parameters as well. Suppose for instance that our system interacts with a magnetic field. Then the energy will have a term depending on that field as well. So let us assume in full generality that  $\beta E$ depends on some parameter $X$ (which could be the temperature or a magnetic field) in addition to the dependendy on the state. Then, typically the derivative of $\beta E$ with respect to $X$ has a certain physical meaning. For $X = \beta$, for instance,
 $$
- \langle E \rangle = \sum_s E(s) p(s)
+\frac{\partial}{\partial X} (\beta E) = E
 $$
-Using our expression for $p(s)$ we find that
+so that the partial derivative is the energy. If $E$ depends on some magnetic field, then the partial derivative of $\beta E$ with respect to that field will be the magnetic moment and so forth. Of course, $Z$ will then also depend on this parameter. Let us try to compute the derivative of $Z$ or more precisely $\ln Z$ with respect to this parameter.
 \begin{align*}
-\langle E \rangle &= \sum_s E(s) p(s) \\&= \frac{1}{Z} \sum_s E(s) e^{-\beta E(s)} \\
-&= - \frac{1}{Z} \sum_s \frac{\partial}{\partial \beta} e^{-\beta E(s)} \\
-&= - \frac{1}{Z} \frac{\partial}{\partial \beta} \sum_s e^{-\beta E(s)} 
-= - \frac{1}{Z}\frac{\partial Z}{\partial \beta} = - \frac{\partial }{\partial \beta} \ln Z
+\frac{\partial}{\partial X}  \ln Z &= \frac{1}{Z} \frac{\partial}{\partial X} \sum_s \exp(- \beta E) \\
+&= \frac{1}{Z} \sum_s \frac{\partial}{\partial X}  (\exp(- \beta E))  \\
+&= - \frac{1}{Z} \sum_s \exp(- \beta E) \frac{\partial}{\partial X} (\beta E) \\
+&= - \sum_s p(s) \frac{\partial}{\partial X} (\beta E) = - \langle \frac{\partial}{\partial X} (\beta E) \rangle 
 \end{align*}
+In other words {\em the mean value of a derivative of the energy is minus the corresponding derivative of $\ln Z$}. This is a very useful relation. We can immediately apply it to the energy which is the derivative of $\beta E$ with respect to $\beta$ and find that
+$$
+\langle E \rangle = - \frac{\partial }{\partial \beta} \ln Z
+$$
 But having our explicit expression of $\ln Z$ in terms of the Helmholtz energy, we can compute that derivative:
 \begin{align*}
 - \frac{\partial }{\partial \beta} \ln Z 
 &=  \frac{\partial }{\partial \beta} (\beta F) \\
 &= F + \beta \frac{\partial F}{\partial \beta} \\
-&= F + \beta \frac{\partial F}{\partial T} \frac{\partial T}{\partial \beta} \\
 &= F - \frac{k_B}{\beta} \frac{\partial F}{\partial T} \\
-&= F - T \frac{\partial F}{\partial T} \\
-&= F + T S = (U - TS) + TS = U 
+&= F - T \frac{\partial F}{\partial T} = F + TS = U 
 \end{align*}
 so that we eventually obtain
 $$
@@ -2148,6 +2152,7 @@ from which we obtain that
 $$
 C_V = \frac{\partial U}{\partial T} = \frac{var(E)}{k_B T^2}
 $$
+Let us try to interpret this result. First, the heat capacity of a system is typically proportional to the particle number, i.e. it is given by a constant (the molar heat capacity) times the particle number. Thus if we scale a system up by the factor $\lambda$, this goes up by a factor $\lambda$ as well. What really controls how sharp the peak of the energy distribution is, however, is not really the variance, but the variance in relation to the absolute value of the energy, or, more precisely, the quotient of the standard deviation (the square root of the variance) and the mean energy (sometimes called the coefficient of variation). By what we have just said, the standard deviation scales with $\sqrt{\lambda}$, while the energy, being an extensive quantity, should scale with $\lambda$. Thus the quotient scales with $\lambda^{-\frac{1}{2}}$ and therefore goes to zero as $\lambda \rightarrow \infty$. Thus, in the limit of a system with an infinite number of particles, the {\em thermodynamic limit}, this quantity becomes zero and the energy becomes sharp.
 
 Finally, we can express the entropy in terms of the partition function. We know of course that the entropy is minus the partial derivative of the Helmholtz energy by the temperature. So we find immediately
 $$
@@ -2647,16 +2652,120 @@ $$
 $$
 The cosh function takes all values between $+1$ and $+\infty$. Thus we immediately find that if $\beta J q < 1$, or, equivalently,
 $$
-T > \frac{Jq}{k_BT} = T_c
+T > \frac{Jq}{k_B} = T_c
 $$
 the derivative has no zeros and is everywhere positive. As the range of the $\tanh$ term is between $-1$ and $1$, we also know that $f$ tends to $-\infty$ at $M = -\infty$ and to $+\infty$ at $M = +\infty$, so that there is exactly one zero.
 
-This changes if the temperature is below the critical point $T_c$. Then the derivative has a zero, in fact is has two zeroes as the $cosh$ function itself is already symmetric. As $f$ has limits $\pm \infty$, we can conclude that there are in fact three zeroes, i.e. we find three possible magnetizations $M$ for a given value of the external field $B$. We again interpret this as a {\em phase transition}. The situation is especially interesting if $B = 0$. Then our consistency condition reads
-$$
-M = \tanh (\beta J M q ) 
-$$
-which is symmetric in $M$. Thus we find that below the critical temperature, there are three solutions for $M$: $M = 0$, and two additional solutions with the same magnitude but different signs.
+This changes if the temperature is below the critical point $T_c$. Then the derivative has a zero, in fact is has two zeroes as the $cosh$ function itself is already symmetric. As $f$ has limits $\pm \infty$, we can conclude that there are in fact three zeroes, i.e. we might find several possible magnetizations $M$ for a given value of the external field $B$. We again interpret this as a {\em phase transition}. 
 
+The situation is especially interesting if $B = 0$. Then our consistency condition reads
+$$
+M = \tanh (\beta J M q ) = \tanh(\frac{M}{\bar{T}})
+$$
+where we have again introduced the reduced temperature
+$$
+\bar{T} = \frac{T}{T_c} = \frac{T k_B}{Jq} = \frac{1}{Jq\beta}
+$$
+which is symmetric in $M$. Thus we find that below the critical temperature, there are three solutions for $M$: a magnetization of zero and two additional solutions with the same magnitude but different signs. These represent ferromagnetic states in the absence of an external field.
+
+For finite $B$, our consistency condition is - again expressed in terms of the reduced temperature - given by
+$$
+M = \tanh(\frac{1}{\bar{T}}(M + \frac{B}{Jq}))
+$$
+Clearly we can only hope for solutions in the range $[-1, 1]$ as this is the range of the $tanh$ function. For small values of $B$, this has again three solutions. However, as $B$ increases, two of the zeroes move closer together and eventually disappear, and for larger $B$, there will be only one zero and there is no phase transition any more. Diagram \ref{fig:IsingModelMagnetization} displays the consistency condition as a function for $T = 0.8 T_c$ and $J = 1$ as a function of $M$, so that the zeroes correspond to the values of $M$ that are consistent with the given field strength $B$. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.5]{IsingModelMagnetization}
+	\caption{Graphical representation of the consistency condition}
+	\label{fig:IsingModelMagnetization}
+\end{figure}
+
+At this point, let us summarize the analogies with the van der Waals model that we have found so far. We describe the system in terms of temperature, magnetization and external field strength. For a given external field strength, we find up to three values of the magnetization, very similar to the different values of the volume that we found for a given pressure in the van der Waals model. In an experimental setup, we would control and slowly change the pressure respectively the external field and then observe a phase transition, expressed by a sudden jump in the volume respectively the magnetization. The first of these parameters is therefore called the {\em control parameter}, while the parameter that indicates a change in phase is called the {\em order parameter}. We can express the control parameter as a proper function of the order parameter, but the order parameter is a multi-valued function of the control parameter. 
+
+\begin{table}	
+\centering
+\begin{tabular}{c|c}
+	\hline\hline
+{\bf van der Waals model} & {\bf Ising model}  \\
+	\hline
+Volume 	&  Magnetization $M$ \\
+	\hline
+Pressure	& External field \\
+	\hline
+Order parameter: $V$ &  Order parameter: $M$ \\
+\hline 
+Control parameter: $P$ & Control parameter: $B$ \\
+\hline
+$P = P(V)$ & $B = B(M)$ \\
+\hline
+$F = F(T, V)$ & $F = F(T, M)$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{More on mean field theory}
+
+In the previous section, we have made a heuristic argument to obtain an approximation for the true Helmholtz energy of an Ising model, and our argument that this model is only a good approximation if the self consistency condition holds contained a fair bit of handwaving. Let us now try to put this onto slightly more solid ground, following \cite{Callen}, section 20.
+
+Suppose we are considering a system in which the energy $E$ of a microstate is given by some complex relation between properties of the state and maybe external forces like a magnetic field. Our general approach to deriving thermodynamic properties would then be to sum up the partition function and derive the Helmholtz free energy from it, whose partial derivatives are the quantities of interest.
+
+Of course, this is in general hopeless, but it might be easier for a simplified energy term $E_0$. In the case of the Ising model, for instance, the energy is given by an interaction term and a term depending only on one $s_i$. Without the interaction term, the energy splits and correspondingly we can obtain the partition function as a product, with one factor for each lattice point. In the presence of interaction terms, this does no longer work.
+
+In this situation, we can try to apply perturbation theory to our problem. Thus we split our energy as
+$$
+E = E_0 + E_1
+$$
+into an "easy" term that we can hope to solve and a complex term. We then introduce a coupling parameter $\lambda$, i.e. we consider the energy
+$$
+E(\lambda) = E_0 + \lambda E_1
+$$
+and try to understand how our system changes if we vary $\lambda$. For $\lambda = 0$, we can obtain the partition function and an expression for the Helmholtz energy and we hope to learn something from this for $\lambda = 1$ as well.
+
+Thus let us try to understand how the Helmholtz energy $F(\lambda)$ changes if we vary $\lambda$. By the general pattern of how derivatives of energy terms are related to derivatives of $\ln Z$, we have
+\begin{align*}
+\frac{\partial}{\partial \lambda} F &= - \frac{1}{\beta} \frac{\partial}{\partial \lambda} \ln Z \\
+&= \frac{1}{\beta} \langle \frac{\partial}{\partial \lambda} (\beta E(\lambda))\rangle = \langle E_1 \rangle
+\end{align*}
+Note that this still depends on $\lambda$, as it should, as we take the average with respect to the Boltzmann distribution corresponding to the energy $E(\lambda)$. However, this is already encouraging - if the term $E_1$ is somehow small in the average, $F$ changes only slightly with $\lambda$, so that we can hope that our approach works. 
+
+Let us now calculate the second derivative of $F$ with respect to $\lambda$, which is a bit more complicated. First, we use our previous result to write
+\begin{align*}
+\frac{\partial^2}{\partial \lambda^2} F &= \frac{\partial}{\partial \lambda} \langle E_1 \rangle \\
+&= \frac{\partial}{\partial \lambda} \sum_s p(s) E_1(s) \\
+&=  \sum_s \frac{\partial}{\partial \lambda} \frac{1}{Z} \exp(-\beta E(\lambda, s)) E_1(s) \\
+&=  \sum_s E_1(s) \frac{\partial}{\partial \lambda} \frac{1}{Z} \exp(-\beta E(\lambda, s)) 
+\end{align*}
+When calculating the partial derivative within the sum, we need to be careful, as $Z$ depends on the parameter $\lambda$ as well. To be able to apply the product rule, let us first calculate
+\begin{align*}
+\frac{\partial}{\partial \lambda} \frac{1}{Z} = - \frac{1}{Z^2} \frac{\partial Z }{\partial \lambda} 
+= - \frac{1}{Z} \frac{\partial }{\partial \lambda} \ln Z = \frac{\beta}{Z} \langle E_1 \rangle 
+\end{align*}
+We can now use the product rule and find that
+\begin{align*}
+\frac{\partial}{\partial \lambda} \frac{1}{Z} \exp(-\beta E(\lambda, s)) &= \exp(-\beta E(\lambda, s)) \frac{\partial}{\partial \lambda} \frac{1}{Z} + \frac{1}{Z} \frac{\partial}{\partial \lambda}  \exp(-\beta E(\lambda, s)) \\
+&= \beta \langle E_1 \rangle \frac{1}{Z} \exp(-\beta E(\lambda, s)) + p(s) \frac{\partial}{\partial \lambda} (- \beta  E(\lambda, s)) \\
+&= \beta \langle E_1 \rangle p(s) - \beta p(s)  E_1 = \beta p(s) (\langle E_1 \rangle  - E_1)
+\end{align*}
+Let us now plug this result into our formula for the second derivative. We find that
+\begin{align*}
+\frac{\partial^2}{\partial \lambda^2} F &= \sum_s E_1(s) \frac{\partial}{\partial \lambda} \frac{1}{Z} \exp(-\beta E(\lambda, s)) \\
+&= \beta \sum_s E_1(s)  p(s) (\langle E_1 \rangle  - E_1) \\
+&= \beta \langle E_1 \rangle \sum_s E_1(s) p(s) - \beta \sum_s E_1(s)^2 p(s) = \beta (\langle E_1 \rangle^2 - \langle E_1^2 \rangle  ) = - \beta \, \mathrm{var}(E_1) 
+\end{align*}
+This is another interesting result - apparently our approximatio is most useful if $E_1$ is not only small in the mean value, but if its fluctuations are small. In any case, however, this tells us something about the sign of the second derivative. The variance of any probability distribution is a non-negative number, so that we immediately find that
+$$
+\frac{\partial^2}{\partial \lambda^2} F \leq 0
+$$
+This implies that, as a function of $\lambda$, $F$ is concave, and therefore we can conclude that for all $\lambda \in [0,1]$, the true value $F(\lambda)$ is equal to or below the tangent at $F(0)$, in other words
+$$
+F(\lambda) \leq F(0) + \lambda F'(0) = F_0 + \lambda \langle E_1 \rangle 
+$$
+If we now let $\lambda = 1$, then $F(\lambda)$ is the true Helmholtz potential $F$ we are interested in, and we obtain that
+$$
+F \leq F_0 + \langle E_1 \rangle 
+$$
+This looks innocent, but to understand the full power of inequality that is called the {\em Bogoliubov inequality} let us do a plot to visualize it.
 
 \section{Applications in chemistry - the law of mass action}
 
