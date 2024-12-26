@@ -2938,21 +2938,25 @@ $$
 $$
 This will give you a preferred choice for $\Lambda$ that can, however, depend on $X$. You can then use this relation to express $\Lambda$ in terms of $X$ and then obtain a variational free energy that depends on $X$ alone and is the approximation for $F(X)$ you are looking for.
 
-Let us now go back to the Ising model and, using a slightly more neutral notation, try to carry out this approach. Of course, the reference system we want to choose is a two-state system without interaction. Thus we set
+Let us now go back to the Ising model and, using a slightly more neutral notation, try to carry out this approach. Of course, the reference system we want to choose is a two-state system without interaction. It would of course be possible to start with an energy of the form
 $$
-E_0 = - (\Lambda + B) \sum_i s_i
+\Lambda  \sum_i s_i
+$$
+with a model parameter $\Lambda$. Having the results of the previous section in the back of our head, however, we choose a slightly different parametrisation and use an energy term of the from 
+$$
+E_0 = - (J q \Lambda + B) \sum_i s_i
 $$ 
-where again $\Lambda$ is the model parameter that we will later have to fit. Then
+which is course only a different - and, as we will see, more convenient - parametrisation of the same set of reference models. By definition, $E_1$ is then 
 $$
-E_1 = E - E_0 = - J \sum_{\langle i, j\rangle} s_i s_j  +  \Lambda  \sum_i s_i
+E_1 = E - E_0 = - J \sum_{\langle i, j\rangle} s_i s_j  +  J q \Lambda  \sum_i s_i
 $$
-The Helmholtz energy of our model system is then (again, this is a two-state system) by
+Now our reference model is again a two-state system without interaction, so we know that its Helmholtz energy of is
 $$
-F_0 = - k_B T N \ln 2 \cosh(\beta (\Lambda + B))
+F_0 = - k_B T N \ln 2 \cosh(\beta (J q \Lambda + B))
 $$
 To write down the variational Helmholtz energy, we now need to compute the average $\langle E_1 \rangle_0$, where we use the index to remind ourselves that the average is to be taken with respect to the model system. Looking at $E_1$, we see two terms. The last term is simply
 $$
-\Lambda \sum_i \langle s_i \rangle_0 = \Lambda N M_0 
+J q \Lambda \sum_i \langle s_i \rangle_0 = J q \Lambda N M_0 
 $$
 where $M_0$ is the average magnetisation of the reference system
 $$
@@ -2978,23 +2982,23 @@ $$
 $$
 and we arrive at the following expression for $\langle E_1 \rangle_0$.
 $$
-\langle E_1 \rangle_0 = - \frac{1}{2}J N M_0^2 q + \Lambda N M_0 
+\langle E_1 \rangle_0 = - \frac{1}{2}J N M_0^2 q + J q \Lambda N M_0 
 $$
 so that our variational Helmholtz potential is now
 $$
-F_v = F_0 - \frac{1}{2}J N M_0^2 q + \Lambda N M_0 
+F_v = F_0 - \frac{1}{2}J N M_0^2 q + J q \Lambda N M_0 
 $$
-The next step is to minimize this with respect to $\Lambda$. When taking the derivatives, we need to keep in mind that $M_0$ itself depends on $\Lambda$. To calculate the derivative of $F_0$ with respect to $\Lambda$, we can note that $\Lambda$ appears in $F_0$ in the same way as $B$, so that the derivative is equal to that with respect to $B$ which is minus the total magnetization:
+The next step is to minimize this with respect to $\Lambda$. When taking the derivatives, we need to keep in mind that $M_0$ itself depends on $\Lambda$. To calculate the derivative of $F_0$ with respect to $\Lambda$, we can note that $J q \Lambda$ appears in $F_0$ in the same way as $B$, so that the derivative is equal to that with respect to $B$ which is minus the total magnetization:
 $$
-\frac{dF_0}{d\Lambda} = \frac{dF_0}{dB} = - N M_0
+\frac{dF_0}{d\Lambda} = J q \frac{dF_0}{dB} = - J q N M_0
 $$
 Taking the derivatives of the other terms and applying the product rule yields
 $$
-\frac{dF_v}{d\Lambda} = - N M_0 -  J N q M_0 M_0'   + N M_0  + \Lambda N M_0'
+\frac{dF_v}{d\Lambda} = - J q N M_0 -  J N q M_0 M_0'   + J q N M_0  + J q \Lambda N M_0'
 $$
 Some of the terms cancel, and we obtain that
 $$
-\frac{dF_v}{d\Lambda} =  N M_0' (\Lambda -  J  q M_0) 
+\frac{dF_v}{d\Lambda} =  J  q N M_0' (\Lambda -   M_0) 
 $$
 Now the derivative of $M_0$ with respect to $\Lambda$ is nowhere zero. In fact, we even have an explicit formula for $M_0$ as this is the magnetization of the reference system which is
 $$
@@ -3002,33 +3006,35 @@ M_0 = \tanh(\beta(\Lambda + B))
 $$
 and this is a strictly monotonous function. Thus we can conclude that the derivative of $F_v$ with respect to $\Lambda$ is zero if and only if
 $$
-\Lambda =  J q M_0(\Lambda)
+\Lambda =  M_0(\Lambda)
 $$
-where we have added the explicit dependency of $M_0$ on $\Lambda$ in the notation. Thus we again obtain a self-consistency condition - our variational Helmholtz potential is the best possible approximation if and only if this condition holds.
+where we have added the explicit dependency of $M_0$ on $\Lambda$ in the notation. Thus we again obtain a self-consistency condition - our variational Helmholtz potential is the best possible approximation if and only if this condition holds. Using our formula for $M_0$, we could rephrase this as
+$$
+\Lambda =  \tanh(\beta(Jq \Lambda + B))
+$$
 
-Before we turn to a physical interpretation of this result and relate it to what we have found earlier, let us try to calculate the real magnetization - recall that $M_0$ is the magnetization of the reference system, not that of the true system. We do not know the exact Helmholtz potential $F$, but we know that it is the Helmholtz potential coming from a Boltzmann distribution with energy $E(s)$, so on general grounds, we know that the true magnetization is minus the partial derivative of the Helmholtz potential by $B$. So let us try to approximate this by taking the corresponding derivative for our variational Helmholtz potential.
-
-To calculate this, we can argue as before, as $F_0$ and $M_0$ depend on $B$ in the same way as on $\Lambda$. We get
-$$
-M = \frac{\partial F_v}{\partial B} = - N M_0 -  J N q M_0 M_0' + \Lambda N M_0' = - N M_0 + N M_0 ' (\Lambda -  J q M_0)
-$$
+Let us now try to calculate the real magnetization - recall that $M_0$ is the magnetization of the reference system, not that of the true system. We do not know the exact Helmholtz potential $F$, but we know that it is the Helmholtz potential coming from a Boltzmann distribution with energy $E(s)$, so on general grounds, we know that the true magnetization is minus the partial derivative of the Helmholtz potential by $B$. So let us try to approximate this by taking the corresponding derivative for our variational Helmholtz potential. We get
+\begin{align*}
+M = \frac{\partial F_v}{\partial B} &= \frac{\partial F_0}{\partial B}  -  J N q M_0 \frac{dM_0}{d B}  + J q \Lambda N \frac{dM_0}{d B} \\
+&= - N M_0 + (\Lambda -  M_0) J q N \frac{dM_0}{d B} 
+\end{align*}
+Now the dependency of $M_0$ on $B$ is the same as that on $J q \Lambda$, in particular the derivative is again nowhere zero. Thus the second term is zero if and only if $\Lambda = M_0$. 
 This gives us a different interpretation of our consistency condition - this is exactly the condition that we need in order for the magnetization that we obtain from the variational Helmholtz potential to be the same as $M_0$. In other words, the consistency condition ensures that the approximation of $M$ to order zero - which is $M_0$ - is the same as the approximation to first order (the derivative of $F_v$). 
 
-This now gives us the physical interpretation we are looking for. If the consistency condition holds, then the variational Helmholtz potential is
-\begin{align*}
-F_v &= F_0 - \frac{1}{2}J N M^2 q + \Lambda N M_0  \\
-&= - k_B T N \ln 2 \cosh (J q M + B) - \frac{1}{2}J N M^2 q + J q N M^2 \\
-&= - k_B T N \ln 2 \cosh (J q M + B) + \frac{1}{2}J N M^2 q
-\end{align*}
-This is exactly the expression that we have obtained earlier by starting with an energy term
+Thus we have identified our previous approximation as a variational approach, and the consistency condition as the solution to a minimization problem. Roughly speaking, we have identified the correct value for $\Lambda$ by looking for an extremum of the Helmholtz potential. However, $\Lambda$ is not a physical, macroscopic parameter to which we could apply an energy minimization or entropy maximization principle - instead, it is a model parameter that we fit to find the best possible approximation to the unknown Helmholtz potential. This subtle difference is sometimes swept under the carpet when we are just told to minimize $F$ in order to obtain the "equilibrium value" of $\Lambda$. 
+
+Armed with this understanding, let us now return to diagram \ref{fig:IsingModelMagnetization} where we have - in our current notation - plotted the function $\Lambda - M_0(\Lambda)$ whose zeroes are the values of $\Lambda$ at which the consistency condition is fulfilled. We have seen that
 $$
-E(s)  = \frac{1}{2} J q N M^2  - (J M q + B) \sum_i s_i
+\frac{\partial F_v}{\partial \Lambda} = J  q N M_0' (\Lambda -   M_0) 
 $$
-So the parameter $\Lambda$ now appears - up to the constant factor $J q$ - as the mean field which we obtained in our more heuristic derivation earlier. Morever, spelling out the consistency condition using our explicit expression for $M_0$, reads
+with a factor $J q N M_0'$ that is positive for all values of $\Lambda$. Thus, qualitatively the derivative behaves like $\Lambda - M_0$ that we have plotted. We can now understand the nature of the third solution to the consistency condition lying between the other two solutions. At this solution, the slope of our plot is negative, and the above relation tells us that 
 $$
-\Lambda = J q \tanh(\beta(\Lambda + B))
-$$ 
-which is, again up to the constant factors, the same condition that we have obtained in the previous section. Thus the variational approach leads to the same mean field approximation and the same consistency as before. 
+\frac{\partial F_v}{\partial \Lambda} < 0
+$$
+at these points. This, however, implies that the extremum that we have found is not a minimum, but a maximum. Our variational approach, however, instructs us to choose $\Lambda$ so as to minimize $F_v$, so that this third solution is not a valid one. This is often paraphrased by arguing that this is not a "stable state", however recall that $\Lambda$ does not actually parametrize physical states but approximative solutions, so that appealing to stability principles is tempting, but - at least in my opinion - misleading.
+
+
+	
 
 \section{Applications in chemistry - the law of mass action}
 
