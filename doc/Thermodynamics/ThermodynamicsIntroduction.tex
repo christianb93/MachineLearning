@@ -2307,6 +2307,16 @@ We already see that this is not exactly $-B$, but a bit higher, but converges to
 \end{align*}
 and we get the same result as before. 
 
+Another quantity that is of interest and that we will meet again later is magnetization of our system, i.e. the average $\langle s\rangle$ of the spin. This is again easy to calculate
+\begin{align*}
+\langle s \rangle &= p(s = 1) - p(s = -1) \\
+&= \frac{1}{Z} (\exp(\beta B) - \exp(-\beta B)) \\
+&=  \frac{1}{2 \cosh \beta B} 2 \sinh(\beta B) =  \tanh(\beta B)
+\end{align*}
+Again, as $s$ is a derivative of the energy (it is minus the derivative of the energy with respect to the magnetic field $B$), we could also calculate this as 
+$$
+\langle s \rangle = - \frac{\partial F}{\partial B}
+$$
 Let us now move on to the entropy. There are several ways to get this, and again we will use two of them to show that the outcome is the same. The first approach is to use the relation
 $$
 F = U - TS
@@ -2693,7 +2703,7 @@ d(i, j) =
 0 & \text{otherwise}
 \end{cases}
 $$
-and a constant $J$ that describes the size of the interaction. It is common to use the notation $\langle i, j \rangle$ for a pair of lattice points that are direct neighbors. With this convention, our formula reads
+and a constant $J$ that describes the size of the interaction. Note that $d(i, i) = 0$, i.e. there is no self-interaction in this model. It is common to use the notation $\langle i, j \rangle$ for a pair of lattice points that are direct neighbors. With this convention, our formula reads
 $$
 E(s) =  - J \sum_{\langle i, j \rangle }  s_i s_j - B \sum_i s_i 
 $$
@@ -2709,27 +2719,7 @@ The idea behind this model is as follows. Given our previous discussion of the B
 
 If we now slowly turn off the external field, it might happen that the system initially remains in this state. If now one of the spins flips spontaneously and is now anti-aligned, the energy will increase, so that our state remains the state with the lowest energy and the body remains magnetic even though the external field has been switched off. This is called {\em ferromagnetism} and this is what Ising wanted to explain with his model. 
 
-To prepare for our discussion of the Ising model, let us first consider the case that $J = 0$, i.e. there is no interaction, and let us try to compute the partition function for this simple case. As now
-$$
-E(s) = - B \sum_i s_i 
-$$
-we have
-\begin{align*}
-Z &= \sum_s \exp(-\beta E(s)) \\
-&= \sum_s \exp(\beta B \sum_i s(i) ) = \sum_s \exp(\beta B N m(s) )
-\end{align*}
-
-This looks daunting, but recall that there is no interaction - the energy that we consider is the sum of the individual contributions $-B s_i$ for each site $i$, so we can try to exploit the fact that the partition function is multiplicative. To do this, we first need to calculate the partition function $Z_1$ for the case $N = 1$. This is easy, as there are only two possible states:
-$$
-Z_1 = \sum_{s = -1, 1} \exp(\beta B s) ) = \exp(- \beta B) + \exp(\beta B) = 2 \cosh(\beta B)
-$$
-With this and the fact that the partition function is multiplicative, we immediately obtain the expression
-$$
-Z = Z_1^N = 2^N \cosh(\beta B)^N
-$$
-for the case $J = 0$.
-
-Of course, the situation is much more complicated in the case $J \neq 0$, and it appears hopeless to find a closed expression for the general model (there are, however, closed expressions for the case $d=1$ due to Ising himself and for the case $B = 0$ and $d = 2$ due to Onsager). However, there is an approximation method that already displays some of the real behaviour of the model. To motivate this method, let us spell out the interaction in terms of the average magnetization $M$, or, more precisely, on the deviations $s_i - M$ that reflect the fluctuations of the spins. Now trivially
+In the case $J = 0$, this model is easily solved - in fact, this is just an instance of the two-state model that we have seen before. Of course, the situation is much more complicated in the case $J \neq 0$, and it appears hopeless to find a closed expression for the general model (there are, however, closed expressions for the case $d=1$ due to Ising himself and for the case $B = 0$ and $d = 2$ due to Onsager). However, there is an approximation method that already displays some of the real behaviour of the model. To motivate this method, let us spell out the interaction in terms of the average magnetization $M$, or, more precisely, on the deviations $s_i - M$ that reflect the fluctuations of the spins. Now trivially
 \begin{align*}
 s_i s_j &= ((s_i - M) + M)((s_j - M)+ M) \\
 &= (s_i - M)(s_j - M) + (s_i - M)M + (s_j - M) M + M^2
@@ -2929,6 +2919,7 @@ This implies that, as a function of $\lambda$, $F$ is concave, and therefore we 
 $$
 F(\lambda) \leq F(0) + \lambda F'(0) = F_0 + \lambda \langle E_1 \rangle 
 $$
+Note that the average here is taken for $\lambda = 0$ (this is the derivative at $\lambda = 0$), i.e. with respect to the distribution of the model system. 
 If we now let $\lambda = 1$, then $F(\lambda)$ is the true Helmholtz potential $F$ we are interested in, and we obtain that
 $$
 F \leq F_0 + \langle E_1 \rangle 
@@ -2945,7 +2936,99 @@ In many cases, the choice of the reference model is expressed by some parameter 
 $$
 \frac{\partial}{\partial \Lambda} F_v(\Lambda, X) = 0
 $$
-This will give you a preferred choice for $\Lambda$ that can, however, depend on $X$. You can then use this relation to express $\Lambda$ in terms of $X$ and then obtain a variational free energy that depends on $X$ alone and is the approximation for $F(X)$ you are looking for. 
+This will give you a preferred choice for $\Lambda$ that can, however, depend on $X$. You can then use this relation to express $\Lambda$ in terms of $X$ and then obtain a variational free energy that depends on $X$ alone and is the approximation for $F(X)$ you are looking for.
+
+Let us now go back to the Ising model and, using a slightly more neutral notation, try to carry out this approach. Of course, the reference system we want to choose is a two-state system without interaction. Thus we set
+$$
+E_0 = - (\Lambda + B) \sum_i s_i
+$$ 
+where again $\Lambda$ is the model parameter that we will later have to fit. Then
+$$
+E_1 = E - E_0 = - J \sum_{\langle i, j\rangle} s_i s_j  +  \Lambda  \sum_i s_i
+$$
+The Helmholtz energy of our model system is then (again, this is a two-state system) by
+$$
+F_0 = - k_B T N \ln 2 \cosh(\beta (\Lambda + B))
+$$
+To write down the variational Helmholtz energy, we now need to compute the average $\langle E_1 \rangle_0$, where we use the index to remind ourselves that the average is to be taken with respect to the model system. Looking at $E_1$, we see two terms. The last term is simply
+$$
+\Lambda \sum_i \langle s_i \rangle_0 = \Lambda N M_0 
+$$
+where $M_0$ is the average magnetisation of the reference system
+$$
+M_0 = \frac{1}{N} \sum_i \langle s_i \rangle_0 
+$$
+The first term is
+$$
+- J \frac{1}{2} \sum_{i, j} d(i, j) \langle s_i s_j \rangle_0
+$$
+This looks more complicated, but recall that for our model system, $s_i$ and $s_j$ are uncorrelated (mathematically speaking this is because the Boltzmann distribution is a product distribution in the absence of interactions) for $i \neq j$. As $d(i, i) = $, terms with $i = j$ do not appear, so we can write this as
+\begin{align*}
+- \frac{1}{2} J  \sum_{i, j} d(i, j) \langle s_i s_j \rangle_0 &= - \frac{1}{2} J  \sum_{i, j} d(i, j) \langle s_i\rangle_0 \langle s_j \rangle_0 \\
+&= - \frac{1}{2} J \sum_i \langle s_i\rangle_0 \sum_j d(i, j)  \langle s_j \rangle_0
+\end{align*}
+The next observation that we can make is that in fact, $\langle s_i \rangle_0$ is the same for all $i$. Intuitely, this is clear - the average magnetisation should not depend on the lattice point in equlibrium due to translational invariance. Mathematically, this is again due to the fact that our distribution is the product of the same distribution in every factor, so that the probabilities $p(s_i = a)$ do not depend on $i$. Thus
+$$
+M_0 = \langle s_i \rangle_0
+$$
+holds for all $i$. 
+Therefore we obtain that
+$$
+- \frac{1}{2} J \sum_i \langle s_i\rangle_0 \sum_j d(i, j)  \langle s_j \rangle_0 = - \frac{1}{2} J \sum_i M_0^2 \sum_j d(i, j)  = - \frac{1}{2} J N M_0^2 q
+$$
+and we arrive at the following expression for $\langle E_1 \rangle_0$.
+$$
+\langle E_1 \rangle_0 = - \frac{1}{2}J N M_0^2 q + \Lambda N M_0 
+$$
+so that our variational Helmholtz potential is now
+$$
+F_v = F_0 - \frac{1}{2}J N M_0^2 q + \Lambda N M_0 
+$$
+The next step is to minimize this with respect to $\Lambda$. When taking the derivatives, we need to keep in mind that $M_0$ itself depends on $\Lambda$. To calculate the derivative of $F_0$ with respect to $\Lambda$, we can note that $\Lambda$ appears in $F_0$ in the same way as $B$, so that the derivative is equal to that with respect to $B$ which is minus the total magnetization:
+$$
+\frac{dF_0}{d\Lambda} = \frac{dF_0}{dB} = - N M_0
+$$
+Taking the derivatives of the other terms and applying the product rule yields
+$$
+\frac{dF_v}{d\Lambda} = - N M_0 -  J N q M_0 M_0'   + N M_0  + \Lambda N M_0'
+$$
+Some of the terms cancel, and we obtain that
+$$
+\frac{dF_v}{d\Lambda} =  N M_0' (\Lambda -  J  q M_0) 
+$$
+Now the derivative of $M_0$ with respect to $\Lambda$ is nowhere zero. In fact, we even have an explicit formula for $M_0$ as this is the magnetization of the reference system which is
+$$
+M_0 = \tanh(\beta(\Lambda + B))
+$$
+and this is a strictly monotonous function. Thus we can conclude that the derivative of $F_v$ with respect to $\Lambda$ is zero if and only if
+$$
+\Lambda =  J q M_0(\Lambda)
+$$
+where we have added the explicit dependency of $M_0$ on $\Lambda$ in the notation. Thus we again obtain a self-consistency condition - our variational Helmholtz potential is the best possible approximation if and only if this condition holds.
+
+Before we turn to a physical interpretation of this result and relate it to what we have found earlier, let us try to calculate the real magnetization - recall that $M_0$ is the magnetization of the reference system, not that of the true system. We do not know the exact Helmholtz potential $F$, but we know that it is the Helmholtz potential coming from a Boltzmann distribution with energy $E(s)$, so on general grounds, we know that the true magnetization is minus the partial derivative of the Helmholtz potential by $B$. So let us try to approximate this by taking the corresponding derivative for our variational Helmholtz potential.
+
+To calculate this, we can argue as before, as $F_0$ and $M_0$ depend on $B$ in the same way as on $\Lambda$. We get
+$$
+M = \frac{\partial F_v}{\partial B} = - N M_0 -  J N q M_0 M_0' + \Lambda N M_0' = - N M_0 + N M_0 ' (\Lambda -  J q M_0)
+$$
+This gives us a different interpretation of our consistency condition - this is exactly the condition that we need in order for the magnetization that we obtain from the variational Helmholtz potential to be the same as $M_0$. In other words, the consistency condition ensures that the approximation of $M$ to order zero - which is $M_0$ - is the same as the approximation to first order (the derivative of $F_v$). 
+
+This now gives us the physical interpretation we are looking for. If the consistency condition holds, then the variational Helmholtz potential is
+\begin{align*}
+F_v &= F_0 - \frac{1}{2}J N M^2 q + \Lambda N M_0  \\
+&= - k_B T N \ln 2 \cosh (J q M + B) - \frac{1}{2}J N M^2 q + J q N M^2 \\
+&= - k_B T N \ln 2 \cosh (J q M + B) + \frac{1}{2}J N M^2 q
+\end{align*}
+This is exactly the expression that we have obtained earlier by starting with an energy term
+$$
+E(s)  = \frac{1}{2} J q N M^2  - (J M q + B) \sum_i s_i
+$$
+So the parameter $\Lambda$ now appears - up to the constant factor $J q$ - as the mean field which we obtained in our more heuristic derivation earlier. Morever, spelling out the consistency condition using our explicit expression for $M_0$, reads
+$$
+\Lambda = J q \tanh(\beta(\Lambda + B))
+$$ 
+which is, again up to the constant factors, the same condition that we have obtained in the previous section. Thus the variational approach leads to the same mean field approximation and the same consistency as before. 
 
 \section{Applications in chemistry - the law of mass action}
 
