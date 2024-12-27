@@ -3110,7 +3110,25 @@ The same is displayed in diagram \ref{fig:IsingModelCritical} from a slightly di
 
 \section{Building intuition - sampling and superselection}
 
+Let us now take a closer look at the mechanics behind phase transition from a statistical point of view. At the first glance, it is extremely surprising that there is a non-zero net magnetization in the case $B = 0$ because this seems to contradict the existence of the $\Z_2$ symmetry. In fact, as there are not fixed points, we can write
+\begin{align*}
+\langle m \rangle = \sum_{s} \frac{1}{Z} m(s) \exp(-\beta E(s)) \\
+&= \sum_{s} \frac{1}{Z} m(-s) \exp(-\beta E(-s)) \\ 
+&= \sum_{s} \frac{1}{Z} - m(s) \exp(-\beta E(s)) = - \langle m \rangle
+\end{align*}
+which should yield that the net magnetization is zero.  A second point which is at least confusing is that $\langle m \rangle $ is not completely determined by $T$ and $B$, but takes different values for different phases. In fact, the partition function is merely simply the sum
+$$
+Z = \sum_s \exp(-\beta E(s))
+$$
+which only depends on $T$ and $B$, and therefore the same should be true for $F = F(T, B)$ and hence for $\langle m \rangle$ which is a partial derivative of $F$.
 
+It is difficult to get precise answers to this in standard textbooks. While creating these notes, I have built a certain intuition why this is not really a contradiction, and even though I do not know whether this intuition and reasoning is correct, I still decided to share it. They key reasoning from my point of view is that both arguments above fail for the same reason - the observable quantities that we use in the macroscopic description of our system do not correspond to sums over the entire state space, but merely to sums over regions in the state space, so called {\em sectors}. Different sectors correspond to different phases, and each sector comes with its own partition function and consequently Helmholtz function. Moreover, sectors break the symmetry, so that the net magnetization within a sector can be different from zero.
+
+But what do I mean by a sector? To explain this, we need to remind ourselves that physical systems are not always in equilibrium. Imagine, for instance, we have a lattice of particles with spin as described by the Ising model, and we start with a very high magnetic field so that all spins will be aligned. When we now remove the field, the system is clearly no longer in equilibrium. However, due to thermal fluctuations, it will start to adjust its state and sooner or later reach a new equilibrium state. 
+
+How exactly this happens is of course a question about the microscopic details of the system, which we do not know - so we need a model for it. The model that I tend to use is the {\em Gibbs sampling algorithm}, so let us quickly recall how this works.
+
+Markov chain, not ergodic any more, gets stuck near local minima, these form sectors. Introduce term superselection - all states that we actually observe have the same magnetization sign, so not all values of an observable are possible.
 	
 
 \section{Applications in chemistry - the law of mass action}
@@ -3686,6 +3704,9 @@ M. Schwartz, {\em Statistical mechanics lecture notes}, available at \url{https:
 
 \bibitem{Tong}
 D. Tong, {\em Statistical physics - lecture notes}, available at \url{https://www.damtp.cam.ac.uk/user/tong/statphys.html}
+
+\bibitem{Williams},
+M. Williams, {\em Introduction to statistical physics - lecture notes}, MIT OpenCourseWare, available at \url{https://ocw.mit.edu/courses/res-8-010-introduction-to-statistical-physics-summer-2018/pages/lecture-notes/}
 
 \end{thebibliography}
 \end{document}
