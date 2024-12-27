@@ -2307,15 +2307,44 @@ We already see that this is not exactly $-B$, but a bit higher, but converges to
 \end{align*}
 and we get the same result as before. 
 
-Another quantity that is of interest and that we will meet again later is magnetization of our system, i.e. the average $\langle s\rangle$ of the spin. This is again easy to calculate
+Another quantity that is of interest and that we will meet again later is magnetization $M$ of our system, i.e. the average $M = \langle s\rangle$ of the spin. This is again easy to calculate
 \begin{align*}
-\langle s \rangle &= p(s = 1) - p(s = -1) \\
+M = \langle s \rangle &= p(s = 1) - p(s = -1) \\
 &= \frac{1}{Z} (\exp(\beta B) - \exp(-\beta B)) \\
 &=  \frac{1}{2 \cosh \beta B} 2 \sinh(\beta B) =  \tanh(\beta B)
 \end{align*}
 Again, as $s$ is a derivative of the energy (it is minus the derivative of the energy with respect to the magnetic field $B$), we could also calculate this as 
 $$
-\langle s \rangle = - \frac{\partial F}{\partial B}
+M = \langle s \rangle = - \frac{\partial F}{\partial B}
+$$
+Note that this relation allows us to eliminate the external field $B$ from the expressions for the energy and the Helmholtz potential. In fact, we have seen that
+$$
+U = \langle E \rangle = - B \tanh \beta B
+$$
+and comparing this to our expression for the magnetization yields
+$$
+U = - M B
+$$
+For the free energy, the procedure is a bit more difficult and requires us to use a few simple relations between the hyperbolic trigonometric functions. As $\cosh(x) > 0$ for all $x$, we can use
+$$
+\cosh^2 x - \sinh^2 x  = 1
+$$
+to conclude that
+$$
+1 - \tanh^2 x = \frac{1}{\cosh^2 x} 
+$$
+and therefore
+$$
+\cosh x = (1 - \tanh^2 x)^{- \frac{1}{2}}
+$$
+Thus
+\begin{align*}
+\ln 2 \cosh(\beta B)   &=  \ln 2 + \ln (1 - \tanh^2 (\beta B))^{- \frac{1}{2}} \\
+&= \ln 2 - \frac{1}{2} \ln (1 - M^2) 
+\end{align*}
+and we obtain
+$$
+F = - k_B T \ln 2 +  \frac{k_B T}{2} \ln (1 - M^2) 
 $$
 Let us now move on to the entropy. There are several ways to get this, and again we will use two of them to show that the outcome is the same. The first approach is to use the relation
 $$
@@ -3012,6 +3041,10 @@ where we have added the explicit dependency of $M_0$ on $\Lambda$ in the notatio
 $$
 \Lambda =  \tanh(\beta(Jq \Lambda + B))
 $$
+Note that if this condition holds, we can use it to eliminate $\Lambda$ in favor of $M_0$ from the expression for $F_v$ and obtain
+$$
+F_v = F_0 + \frac{1}{2}J N M_0^2 q  = - k_B T N \ln 2 \cosh(\beta(JqM_0 + B)) + \frac{1}{2} J q N M_0^2 
+$$
 
 Let us now try to calculate the real magnetization - recall that $M_0$ is the magnetization of the reference system, not that of the true system. We do not know the exact Helmholtz potential $F$, but we know that it is the Helmholtz potential coming from a Boltzmann distribution with energy $E(s)$, so on general grounds, we know that the true magnetization is minus the partial derivative of the Helmholtz potential by $B$. So let us try to approximate this by taking the corresponding derivative for our variational Helmholtz potential. We get
 \begin{align*}
@@ -3019,9 +3052,13 @@ M = \frac{\partial F_v}{\partial B} &= \frac{\partial F_0}{\partial B}  -  J N q
 &= - N M_0 + (\Lambda -  M_0) J q N \frac{dM_0}{d B} 
 \end{align*}
 Now the dependency of $M_0$ on $B$ is the same as that on $J q \Lambda$, in particular the derivative is again nowhere zero. Thus the second term is zero if and only if $\Lambda = M_0$. 
-This gives us a different interpretation of our consistency condition - this is exactly the condition that we need in order for the magnetization that we obtain from the variational Helmholtz potential to be the same as $M_0$. In other words, the consistency condition ensures that the approximation of $M$ to order zero - which is $M_0$ - is the same as the approximation to first order (the derivative of $F_v$). 
+This gives us a different interpretation of our consistency condition - this is exactly the condition that we need in order for the magnetization that we obtain from the variational Helmholtz potential to be the same as $M_0$. In other words, the consistency condition ensures that the approximation of $M$ to order zero - which is $M_0$ - is the same as the approximation to first order (the derivative of $F_v$). With $M_0 = M$, our expression for $F_v$ becomes
+$$
+F_v = - k_B T N \ln 2 \cosh(\beta(JqM + B)) + \frac{Jq}{2}  N M^2 
+$$
+which is exactly the value of $F$ that we have obtained as the result of our approximation in the previous section.
 
-Thus we have identified our previous approximation as a variational approach, and the consistency condition as the solution to a minimization problem. Roughly speaking, we have identified the correct value for $\Lambda$ by looking for an extremum of the Helmholtz potential. However, $\Lambda$ is not a physical, macroscopic parameter to which we could apply an energy minimization or entropy maximization principle - instead, it is a model parameter that we fit to find the best possible approximation to the unknown Helmholtz potential. This subtle difference is sometimes swept under the carpet when we are just told to minimize $F$ in order to obtain the "equilibrium value" of $\Lambda$. 
+Thus we have identified our previous result as the outcome of a variational approach, and the consistency condition as the solution to a minimization problem. Roughly speaking, we have identified the correct value for $\Lambda$ by looking for an extremum of the Helmholtz potential. However, $\Lambda$ is not a physical, macroscopic parameter to which we could apply an energy minimization or entropy maximization principle - instead, it is a model parameter that we fit to find the best possible approximation to the unknown Helmholtz potential. This subtle difference is sometimes swept under the carpet when we are just told to minimize $F$ in order to obtain the "equilibrium value" of $\Lambda$. 
 
 Armed with this understanding, let us now return to diagram \ref{fig:IsingModelMagnetization} where we have - in our current notation - plotted the function $\Lambda - M_0(\Lambda)$ whose zeroes are the values of $\Lambda$ at which the consistency condition is fulfilled. We have seen that
 $$
@@ -3033,7 +3070,7 @@ $$
 $$
 at these points. This, however, implies that the extremum that we have found is not a minimum, but a maximum. Our variational approach, however, instructs us to choose $\Lambda$ so as to minimize $F_v$, so that this third solution is not a valid one. This is often paraphrased by arguing that this is not a "stable state", however recall that $\Lambda$ does not actually parametrize physical states but approximative solutions, so that appealing to stability principles is tempting, but - at least in my opinion - misleading.
 
-
+One of the most interesting consequences of the phase transition that we obtain (or at least that our approximation indicates - note that this approximation works perfectly well for $d = 1$, even though the classical result of Ising states that there is no phase transition in $d = 1$, reminding us that this is only an approximation) is that we can observe a spontaneous magnetisation even in the absence of an external field $B$. This is exactly the model for ferromagnetism that Ising was seeking, so it is worth spending some more time on the special case $B = 0$. 		
 	
 
 \section{Applications in chemistry - the law of mass action}
