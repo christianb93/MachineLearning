@@ -3033,7 +3033,7 @@ Now the derivative of $M_0$ with respect to $\Lambda$ is nowhere zero. In fact, 
 $$
 M_0 = \tanh(\beta(\Lambda + B))
 $$
-and this is a strictly monotonous function. Thus we can conclude that the derivative of $F_v$ with respect to $\Lambda$ is zero if and only if
+and this is a strictly monotonous function. Therefore we can conclude that the derivative of $F_v$ with respect to $\Lambda$ is zero if and only if
 $$
 \Lambda =  M_0(\Lambda)
 $$
@@ -3070,7 +3070,47 @@ $$
 $$
 at these points. This, however, implies that the extremum that we have found is not a minimum, but a maximum. Our variational approach, however, instructs us to choose $\Lambda$ so as to minimize $F_v$, so that this third solution is not a valid one. This is often paraphrased by arguing that this is not a "stable state", however recall that $\Lambda$ does not actually parametrize physical states but approximative solutions, so that appealing to stability principles is tempting, but - at least in my opinion - misleading.
 
+
 One of the most interesting consequences of the phase transition that we obtain (or at least that our approximation indicates - note that this approximation works perfectly well for $d = 1$, even though the classical result of Ising states that there is no phase transition in $d = 1$, reminding us that this is only an approximation) is that we can observe a spontaneous magnetisation even in the absence of an external field $B$. This is exactly the model for ferromagnetism that Ising was seeking, so it is worth spending some more time on the special case $B = 0$. 		
+
+The special feature of this case is that there is an additional symmetry. In fact, for every state $s$, the state $-s$ has exactly the same energy, as in the absence of a magnetic field, the energy only contains terms of the form $s_i s_j$ where the signs cancel. Put differently, in the absence of a magnetic field, there is no preferred orientation any more to which most spins will spontaneously align. It is very surprising that in this case, the average magnetization is not zero, as one would expect - we will discuss this in a bit more detail in the next section. In fact, we have seen that our consistency condition gives us two values for the magnetization given by the solutions of
+$$
+M = \tanh(\beta(Jq M))
+$$
+Note that here the symmetry appears again - if $M$ is a solution to this equation, then $-M$ is the second solution, simply because $\tanh (x) = - \tanh (-x)$. Put differently, $F_v$ is symmetric in $M$. To get a feeling for the shape of $F_v$, let us rephrase it in terms of the reduced temperature 
+$$
+\bar{T} = \frac{T}{T_c} = \frac{1}{\beta Jq}
+$$
+Plugging this into our equation for $F_v$, we find that
+\begin{align*}
+F_v &= - Jq \bar{T}  N \ln 2 \cosh(\frac{M}{\bar{T}} )  + \frac{1}{2} J N M^2 q
+\end{align*}
+and our consistency condition turns into
+$$
+M = \tanh(\frac{M}{\bar{T}})
+$$
+In diagram \ref{fig:IsingModelHelmholtz}, we have plotted the value of the variational Helmholtz energy $F_v$ for different values of the magnetization (on the x-axis) and for different temperatures ($\bar{T} = 0.6, 0.8 1.0. 1,2$ from the top to the bottom). We see that far below the critical point, we have two clearly separated minima relatively far apart, and a local maximum at $M = 0$. When we increase the temperature, the two minima move closer together, until they coincide at $T = T_c$. For $T > T_c$, only the minimum at $M = 0$ will survive, i.e. there is no phase transition any more.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.5]{IsingModelHelmholtzEnergy}
+	\caption{Variational Helmholtz energy}
+	\label{fig:IsingModelHelmholtz}
+\end{figure}
+
+The same is displayed in diagram \ref{fig:IsingModelCritical} from a slightly different point of view. Here, we have displayed the two minima depending on the temperature in a range from $\bar{T} = 0.8$ up to $T_c$, i.e. the phase diagram of the Ising model. We again see that for each temperature $T < T_c$, there are two values for the magnetization of the form $M$ and $-M$. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.5]{IsingModelCriticalTemperature	}
+	\caption{Phase diagram of the Ising model for $B = 0$}
+	\label{fig:IsingModelCritical}
+\end{figure}
+
+
+\section{Building intuition - sampling and superselection}
+
+
 	
 
 \section{Applications in chemistry - the law of mass action}
