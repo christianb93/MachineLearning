@@ -3121,13 +3121,13 @@ Z = \sum_s \exp(-\beta E(s))
 $$
 which only depends on $T$ and $B$, and therefore the same should be true for $F = F(T, B)$ and hence for $\langle m \rangle$ which is a partial derivative of $F$.
 
-It is difficult to find precise answers to this in standard textbooks. While creating these notes, I have built a certain intuition why this is not really a contradiction, and even though I do not know whether this intuition and reasoning is correct, I still decided to share it. They key reasoning from my point of view is that both arguments above fail for the same reason - the observable quantities that we use in the macroscopic description of our system do not correspond to sums over the entire state space, but merely to sums over regions in the state space, so called {\em sectors}. Different sectors correspond to different phases, and each sector comes with its own partition function and consequently Helmholtz function. Moreover, sectors break the symmetry, so that the net magnetization within a sector can be different from zero.
+It is difficult to find precise answers to this in standard textbooks. While creating these notes, I have built a certain intuition why this is not really a contradiction, and even though I do not know whether this intuition and reasoning is correct, I still decided to share it. They key reasoning from my point of view is that both arguments above fail for the same reason - the observable quantities that we use in the macroscopic description of our system do not correspond to sums over the entire state space, but merely to sums over distinct regions in the state space. Different regions correspond to different signs of the magnetization, and each region comes with its own partition function and consequently Helmholtz function. 
 
-But what do I mean by a sector? To explain this, we need to remind ourselves that physical systems are not always in equilibrium. Imagine, for instance, we have a lattice of particles with spin as described by the Ising model, and we start with a very high magnetic field so that all spins will be aligned. When we now remove the field, the system is clearly no longer in equilibrium. However, due to thermal fluctuations, it will start to adjust its state and sooner or later reach a new equilibrium state. 
+What exactly is such a region? To explain this, we need to remind ourselves that physical systems are not always in equilibrium. Imagine, for instance, we have a lattice of particles with spin as described by the Ising model, and we start with a very high magnetic field so that all spins will be aligned. When we now remove the field, the system is clearly no longer in equilibrium. However, due to thermal fluctuations, it will start to adjust its state and sooner or later reach a new equilibrium state. 
 
 How exactly this happens is of course a question about the microscopic details of the system, which we do not know - so we need a model for it. The model that I tend to use is the {\em Gibbs sampling algorithm}, so let us quickly recall how this works. Gibbs sampling is a Monte-Carlo method that, under mild assumptions, converges to a given distribution, in our case the Boltzmann distribution. To run a Gibbs sampler, you start with a random initial state. You then randomly select a spin site and consider the new state which is obtained from our initial state by flipping the spin at site $i$. You then calculate the energy difference $\Delta E$. If this is negative, i.e. the new state has lower energy - corresponding to a higher probability - you move to it. If it is positive, you move to it only with probability $\exp(\beta \Delta E) < 0$. Thus the algorithm is moving towards regions in the state space with the lowest energy, i.e. highest probability, but can randomly also decide to move away from a local minimum to reach the true global minimum, i.e. it can overcome energy walls. 
 
-Now suppose that our energy has two mimima, which, however, are far apart in the sense that you need to flip many spins to get from one of the minima to the second minima. This is exactly the situation we have in our Ising model with $B = 0$ - the two states are $s$ and $-s$ with different magnetizations $m$ and $-m$, and you need to flip {\em all} $N$ spins to get from one of them to the other. There is a finite, non-zero probability that the algorithm will take these $N$ steps, but it is really tiny - the probability to do one step aways from a local minimum is already small, and the probability to go the entire way is this to the power of $N$.  Thus for large $N$, this will essentially never happen. Consequently, the state space is essentially split into two sectors around the two states with lowest probability, which have the same energy and magnetizations $m$ and $-m$, and the system will never move from one sector to the other as it would have to cross a region of very low probabilities or, correspondingly, a wall of very high energies, as visualized in diagram \ref{fig:Sectors}.
+Now suppose that our energy has two mimima, which, however, are far apart in the sense that you need to flip many spins to get from one of the minima to the second minima. This is exactly the situation we have in our Ising model with $B = 0$ - the two states are $s$ and $-s$ with different magnetizations $m$ and $-m$, and you need to flip {\em all} $N$ spins to get from one of them to the other. There is a finite, non-zero probability that the algorithm will take these $N$ steps, but it is really tiny - the probability to do one step aways from a local minimum is already small, and the probability to go the entire way is this to the power of $N$.  Thus for large $N$, this will essentially never happen. Consequently, the state space is essentially split into two regions around the two states with lowest probability, which have the same energy and magnetizations $m$ and $-m$, and the system will never move from one regions to the other as it would have to cross a region of very low probabilities or, correspondingly, a wall of very high energies, as visualized in diagram \ref{fig:Domains}.
 
 
 \begin{figure}[ht]
@@ -3148,17 +3148,17 @@ Now suppose that our energy has two mimima, which, however, are far apart in the
 		\end{tikzpicture}
 	\end{center}
 	\caption{Non-ergodicity of the Ising model}
-	\label{fig:Sectors}
+	\label{fig:Domains}
 \end{figure}
 
 
-In quantum physics, two subspaces of a Hilbert space are called sectors if $\langle a | H | b \rangle = 0$ for any two vectors $a, b$ in the two different subspaces. As the Hamiltonian governs the time development of the system, this means that you can never move from state $a$ to state $b$ in finite time, i.e. you can never cross sector boundaries. This is exactly what happens here - our system is no longer ergodic, and is trapped in either a region with positive magnetization or a region with negative magnetization.
+In quantum physics, two subspaces of a Hilbert space are called sectors if $\langle a | H | b \rangle = 0$ for any two vectors $a, b$ in the two different subspaces. As the Hamiltonian governs the time development of the system, this means that you can never move from state $a$ to state $b$ in finite time, i.e. you can never cross sector boundaries. This is exactly what happens here - our system is no longer ergodic, and is trapped in either a region with positive magnetization or a region with negative magnetization. Therefore, I will also use the term sector for these regions in our state space.
 
-The quantities that you measure, though, are really {\em time averages}, i.e. the average across fluctuations around an attracting state, but averaged across the time. If the system is ergodic, this is the same as average with respect to probabilities. If, however, ergodicity is broken, we effectively take the average only over all states in one sector, not over all states in the state space. This is the reason why the average magnetization can be non zero - if the system is stuck in a sector with, say, positive magnetization, the average is only taken over the states in this sector and is therefore positive. Also note that the sectors break the $\Z_2$ symmetry, as this symmetry does not preserve the sectors.
+The quantities that you measure, though, are really {\em time averages}, i.e. the average across fluctuations around an attracting state, but averaged across the time. If the system is ergodic, this is the same as average with respect to probabilities. If, however, ergodicity is broken, we effectively take the average only over all states in one domein, not over all states in the state space. This is the reason why the average magnetization can be non zero - if the system is stuck in a sector with, say, positive magnetization, the average is only taken over the states in this sector and is therefore positive. Also note that the sectors break the $\Z_2$ symmetry, as this symmetry does not preserve the sector and hence does not stipulate a group action on the individual sectors. This is the reason why the argument that I cooked up at the beginning of this section is wrong - in reality, we only sum over one sector, and the symmetry argument breaks down.
 
-Similarly, the partition function splits into a sum over the first sector and a sum over the second sector. Each of these two sums can itself be considered a partition function over the reduced state space corresponding to this sector, and we can use that partition function to derive a Helmholtz potential for this sector. This is the reason why, for one value of $B$, you can essentially get two values for the Helmholtz potential - these two values are simply the two different Helmholtz potentials, evaluated on the same values of $T$ and $B$. 
+Similarly, the partition function splits into a sum over the first sector and a sum over the second sector. Each of these two sums can itself be considered a partition function over the reduced state space corresponding to this sector, and we can use that partition function to derive a Helmholtz potential for this sector. This is the reason why, for one value of $B$, you can essentially get two values for the Helmholtz potential - these two values are simply the two different Helmholtz potentials, evaluated on the  values of $T$ and $B$. 
 
-Another point that might leave a student puzzled is that often, the Helmholtz potential is considered to be a function of $T$, $B$ and $m$, not only of $T$ and $B$ alone, and then an appeal to a general principle that the Helmholtz energy is to be minimized is made to argue that one should minize this expression with respect to $m$. This is again confusing, as $m$ is depending on $B$ and $T$ and is not an independent thermodynamical parameter. The considerations above have hopefully helped us to understand that the Helmholtz potential does depend on the sign of the magnetization, corresponding to the two different sectors, Maybe we can take this further to promote $m$ to a fully independent variable?
+Another point that might leave a student puzzled is that often, the Helmholtz potential is considered to be a function of $T$, $B$ and $m$, not only of $T$ and $B$ alone, and then an appeal to a general principle that the Helmholtz energy is to be minimized is made to argue that one should minize this expression with respect to $m$. This is again confusing, as $m$ is depending on $B$ and $T$ and is not an independent thermodynamical parameter. The considerations above have hopefully helped us to understand that the Helmholtz potential does depend on the sign of the magnetization, corresponding to the two different sectors. Maybe we can take this further to promote $m$ to a fully independent variable?
 
 Let us try this. We return to considering the magnetization $ = \sum_s s_i$ of a single state. For each given value $m$, we can now write down a partition function that only takes states with $m(s) = m$ into account. Let us call this $Z(m)$, so that
 $$
@@ -3177,7 +3177,7 @@ and of course
 $$
 Z = \sum_m Z(m)
 $$
-We can now of course define a Helmholtz potential $F(m)$ by using the same relation between $Z(m)$ and $F(m)$ as we have between $Z$ and $F$, i.e. 
+We can now of course define a quantity $F(m)$ - often called the {\em Landau free energy} by using the same relation between $Z(m)$ and $F(m)$ as we have between $Z$ and $F$, i.e. 
 $$
 F(m) = - \frac{1}{\beta} \ln Z(m)
 $$
@@ -3191,11 +3191,39 @@ F = F(m) + k_B T \ln p(m) \leq F(m)
 $$
 where the inequality holds because $p(m) \leq 1$. 
 
-Now this tells us a few things. First, we see that $F(m)$ is minimized if $p(m)$ is maximized. In addition, in most cases we should expect that the probability is more or less sharply peaked around a maximum $p_max$. As $k_B$ is tiny, this means that if we plug $p_{max}$ into this equation, the second term will be very small, and $F$ is a good approximation to $F(m)$ in this case. Thus we have found another variational principle: {\em we can obtain the Helmholtz energy of our system by writing down an expression for $F(m)$ and minimizing that with respect to $m$}. This is exactly what many textbooks tell us. The same relation also shows us that 
+Now this tells us a few things. First, we see that $F(m)$ is minimized if $p(m)$ is maximized. In addition, in most cases we should expect that the probability is more or less sharply peaked around a maximum $p_{max}$ which might still be small, but not astronomically small. As $k_B$ is tiny, this means that if we plug $p_{max}$ into this equation, the second term will be very small, and $F$ is a good approximation to $F(m)$ in this case. The situation is visualized in diagram \ref{fig:LandauFreeEnergy}.
+
+\begin{figure}[ht]
+	\begin{center}
+		\begin{tikzpicture}[domain=-4:4]
+
+			% axes
+			\draw[->, thick] (-4,-1)--(4,-1) node[below]{$m$};
+			\draw[->, thick] (-3, -1)--(-3,5) node[left]{Energy};
+			
+			% Energies
+			\draw[color=black] plot (\x,0.2*\x*\x + .5) node[below right]{$F(m)$};			
+			\draw[dashed] (-4,-.2)--(4,-.2) node[below]{$F$};
+			
+			% Labels
+			\draw[<->] (0, -.2) -- (0 , .5) node[below right] {$\Delta = - k_B T \ln p(m)$};
+			
+
+		\end{tikzpicture}
+	\end{center}
+	\caption{Helmholtz free energy and Landau free energy}
+	\label{fig:LandauFreeEnergy}
+\end{figure}
+
+
+
+Thus we have found another variational principle: {\em we can obtain the Helmholtz energy of our system by writing down an expression for $F(m)$ and minimizing that with respect to $m$}. This is exactly what many textbooks tell us to do. The same relation also shows us that 
 $$
 p(m) = \exp(-\beta(F(m) - F))
 $$
 In other words, if we move away from the minimum of $F(m)$, the probability decreases rapidly, which again implies that it is very unlikely for magnetization to move from one local minimum to another one, as the system would again have to cross regions with very low probability. 
+
+Is $F(m)$ the Helmholtz energy of any physical system? In a certain sense yes - if you could somehow, by some miraculous device, fix the magnetization at some value $m$, then $F(m)$ would be the Helmholtz energy of this system. If you now let $m$ vary again, then the classical minimization principle for the Helmholtz energy would tell us that $m$ takes on the value that minimizes $F(m)$. However, I prefer to think of the Landau free energy as the quantity that we have just defined, in order to avoid potential confusion, see also the notes at the end of the next section. 
 
 Now in general, we will hardly been able to find an expression for $F(m)$. However, we can of course try to find an approximation, for instance using our mean field approach again. Recall from our discussion of the mean field approximation that we can approximate the energy of our Ising model as
 $$
@@ -3300,9 +3328,77 @@ Therefore our condition becomes
 $$
 M = \tanh (\beta (JqM + B))
 $$
-which is exactly the consistency condition that we have already obtained. Thus, starting with the mean field approximation and applying our newly derived minimization principle for the Helmholtz potential, we arrive at the same result that we have already derived twice. Howevr, this time, the physical interpretion is different - this is the value of $m$ respectively $M$ that has the highest probability given the temperature and magnetic field. Consequently, it is the value around which the system will fluctuate, and in this sense, this is really an equilibrium state. So the textbooks are not wrong, but I found this additional way of deriving this very helpful to understand why it is legitimate to appeal to an energy minimization principle even though $m$ is not a free parameter.
+which is exactly the consistency condition that we have already obtained. Thus, starting with the mean field approximation and applying our newly derived minimization principle for the Helmholtz potential, we arrive at the same result that we have already derived twice. However, this time, the physical interpretion is different - this is the value of $m$ respectively $M$ that has the highest probability given the temperature and magnetic field. Consequently, it is the value around which the system will fluctuate, and in this sense, this is really an equilibrium state. So the textbooks are not wrong, but I found this additional way of deriving this very helpful to understand why it is legitimate to appeal to an energy minimization principle even though $m$ is not a free parameter.
 
+\section{A glimpse at Landau theory}
 
+One of the reasons why this approach is to helpful is that the structure of $F$ contains a lot of information about the behaviour of our system near the critical point. This is the idea behind what is commonly known as {\em Landau theory}. To explain this, let us go back and see what we have done. First, we have identified an {\em order parameter} - a parameter, depending on the state of the system, that allows us to differentiate between different phases. In the case of the Ising model, this could be the magnetization $m$, in the case of the van der Waals model, it could be the volume or the density. Let us choose a neutral notation and call this order parameter $\psi$. 
+
+Next, we have written down a free energy term depending on $\psi$ and any other macroscopic parameters of our system, like temperature and external field, so that the free energy is obtained by minimizing this energy term with respect to the order parameter. This is the basic assumption of Landau theory - there is a function $F_L$ that depends on the order parameter and potentially on the other parameters of the system so that the Helmholtz energy can be obtained by minimizing $F_L$ with respect to $m$, and so that the observed values of $m$ are the location of the minima. So 
+$$
+F(T, \dots) = \min_{\psi} F(T, \psi, \dots)
+$$
+In the case of the Ising model, we have demonstrated this in the mean field approximation. In general, it will be very difficult to find an expression for $F_L$. However, the idea of Landau theory is that this is not even needed - there are some general statements about the system that we can derive even without an explicit formula for $F_L$. 
+
+To do this, we need an additional assumption, namely that $F_L$ is analytic in $T$ and $\psi$. We then expand $F_L$ as
+$$
+F_L(T, \psi) = F_0(T) + a_1(T) \psi + \frac{1}{2} a_2(T) \psi^2 + \dots
+$$
+The next step is to take symmetry into consideration. In the case of the Ising model with vanishing external field $B$, for instance, we have a $\Z_2$ symmetry changing $\psi$ to $-\psi$ but leaving the energy unchanged. If we assume that this is reflected in the free energy, then
+$$
+F_L(T, -\psi) = F_L(T, \psi)
+$$
+and we obtain that all odd coefficients are zero. Let us also make the assumption that the values of the order parameter are small enough that we can ignore the terms of order 6 and higher. Then
+$$
+F_L(T, \psi) = F_0(T) + a(T) \psi^2 + b(T)\psi^4
+$$
+Now we know that $F_L(T, \psi) \geq F(T)$, so that $b$ must be positive, otherwise we would get arbitrarily small values for $F_L$. Then there are two possibilities for the sign of $a$. If $a(T) > 0$, then there is exactly one minimum, namely that at $m = 0$. Thus there is no phase transition and one value of $m$ for every temperature. 
+
+If, however, $a(T) < 0$, then $F_L$ looks like the upper two curves in diagram \ref{fig:IsingModelHelmholtz}. The extremum at $m = 0$ is a maximum, and there are two symmetrically located minima, i.e. we have two phases. We can even relate the coefficients to these minima as they solve the relation
+$$
+0 = 2 a m + 4 b m^3
+$$
+i.e.
+$$
+m = \pm \sqrt{- \frac{a}{2b}}
+$$	
+Thus the critical point where the temperature range in which a phases split starts is the critical point, so that we can conclude that $a(T_c) = 0$. The value of $F_L$ at the minimum is then equal to the value of $F$, i.e. we obtain
+$$
+F(T < T_c) = F_0(T) -  \frac{a(T)^2}{2b(T)} + b(T) \frac{a(T)^2}{4b(T)^2} =  F_0(T) -  \frac{a(T)^2}{4b(T)} 	
+$$
+Above the critical temperature, the minimum is zero, so the minimum value is simply $F_0(T)$, so that 
+$$
+F( T > T_c) = F_0(T)
+$$
+It is interesting to take the derivative of the additional term that appears at low temperatures. This is
+$$
+-  \frac{a(T)}{2b(T)} a'(T) + \frac{a(T)^2}{4b(T)^2}
+$$
+This is zero at $T = T_c$, as $a(T_c) = 0$. Thus the entropy - which is minus the derivative of $F$ with respect to $T$ - is continous at $T = T_c$, in other words there is no latent heat in our second order phase transition. 
+
+Finally, we can also make assumptions about the shape of $a$ and $b$ near the critical point. For example, we know that the quotient $a / b$ is zero at $T = T_c$. Thus to first order, we should be able to write
+$$
+\frac{a(T)}{b(T)} = c (T - T_c)
+$$
+near the critical point. Plugging this into the expression for the minimum gives that we have found above yields
+$$
+m \approx \pm \sqrt{\frac{c}{2}} (T - T_c)^{\frac{1}{2}} 
+$$
+The derivative of this with respect to $T$ diverges as we approach the critical temperature, just as we have seen it in the phase diagram (diagram \ref{fig:IsingModelCritical}) that we have derived for the Ising model. The exponent $1/2$ is called the {\em critical exponent}. The beauty of the Landau approach is that it predicts {\em universality} - the behaviour of the system close to the critical point does not depend on the exact details of the system but only on its symmetry. 
+
+So far, our order parameter has been a value of the state alone and constant along the lattice. We could now go a step further and promote the order parameter to a {\em field}. We could, for instance, assign to each lattice point the average magnetization over a small region around the lattice point, a procedure known as {\em coarse graining}, i.e. we consider only sites within a distance $\Lambda$ when taking the average. Put differently, we throw away all fluctuations below that range, or in momentum space above a certain frequency called the {\em cut off}. The Landau free energy then becomes a function and the integral that we need to carry out over all values of the order parameter to obtain the partition function turns into a path integral. This development is known as {\em Landau-Ginzburg theory}.
+
+It is important to emphasize, in aligment with Goldenfeld (see \cite{Goldenfeld}, chapter 5), that historically, the Landau free energy was not derived bottom up as we have done it for the mean field Ising model, simply because this is in practice rarely ever possible. The whole point of the Landau approach is that even without having an explicit expression for the Landau free energy, one can derive useful insights based on symmetry and analyticity considerations. Also note that, as explained in great detail in section 5.6 of \cite{Goldenfeld}, the Landau free energy is not obtained by simply expressing $B$ in terms of $M$ for the Ising model or $V$ in terms of $p$ for the van der Waals model to make the Helmholtz potential a function of $M$ respectively $V$, i.e. 
+$$
+F_L(T, M, B) \neq F(T, B(M))
+$$
+and this does also not become true if we use the Gibbs energy, i.e.
+$$
+F_L(T, M, B) \neq F(T, B(M)) + BM = G(T, M)
+$$
+for instance because the Landau free energy is not convex in the regions between the two minima while the real Gibbs energy is convex.
+ 
+ 
 \section{Applications in chemistry - the law of mass action}
 
 In this and the next section, we take a closer look at some applications of thermodynamical concepts to chemistry. In a typical chemical reaction, all thermodynamical properties that we have discussed so far tend to change. The number of particles of a given species changes (this is the very nature of a reaction) as reactants are converted into products of the reaction, and chemical energy is converted into other forms of energy. Many reactions involve a change in volume, for instance because a gas is produced or the densities of the involved reactants differ, and this change in volume in turn results in work being done on the environment. Often, excess energy is transferred to the environment in the form of heat. And finally, the entropy changes as well - if for instance two molecules which were initially separated are combined into a new molecule, the number of degrees of freedom and thus the entropy are reduced. We will see that a strategy to deal with this complexity is to fix certain thermodynamic variables like temperature or pressure and to use Legendre transforms to effectively focus on some of the changing quantities in isolation.
@@ -3879,6 +3975,12 @@ D. Tong, {\em Statistical physics - lecture notes}, available at \url{https://ww
 
 \bibitem{Williams},
 M. Williams, {\em Introduction to statistical physics - lecture notes}, MIT OpenCourseWare, available at \url{https://ocw.mit.edu/courses/res-8-010-introduction-to-statistical-physics-summer-2018/pages/lecture-notes/}
+
+\bibitem{SFT}
+D. Tong, {\em Lectures on statistical field theory}, available at \url{https://www.damtp.cam.ac.uk/user/tong/sft.html}
+
+\bibitem{Goldenfeld}
+N. Goldenfeld, {\em Lectures on phase transitions and the Renormalization group}, CRC Press 2018
 
 \end{thebibliography}
 \end{document}
