@@ -2738,11 +2738,11 @@ E(s) =  - J \sum_{\langle i, j \rangle }  s_i s_j - B \sum_i s_i
 $$
 as we count every pair only once. The model is called {\em ferromagnetic} if $J > 0$ which we will assume. For a given state $s$, we define the {\em magnetization} to be
 $$
-m(s) = \frac{1}{N} \sum_i s_i
+m(s) = \sum_i s_i
 $$
 and the quantity that we are primarily interested in is the average magnetization
 $$
-M = \langle m \rangle = \sum_s p(s) m(s)
+M = \frac{1}{N} \langle m \rangle = \frac{1}{N}  \sum_s p(s) m(s)
 $$
 The idea behind this model is as follows. Given our previous discussion of the Boltzmann distribution, we should expect that for a given temperature $T$, those states are most likely that minimize the energy. This can be achieved in two ways - a spin can align with the external field $B$ or it can align with the neighboring spins to minimize the first part of the energy (this is why we have chosen $J > 0$). For a strong external magnetic field $B$, the first contribution will probably dominate, so we should expect that the states of lowest energies are those were all spins are aligned with the external field. In this state, all the spins are aligned with the field and consequently among each other. This creates a magnetic moment, i.e. the overall system becomes magnetic, a fact which is well known under the name {\em paramagnetism}. 
 
@@ -2784,14 +2784,14 @@ The remaining term, however, is formally the same as that in the case without in
 $$
 Z = \exp( - \frac{1}{2} \beta J q N M^2) 2^N \cosh(\beta (J M q + B))^N
 $$
-This looks nice. However, we have cheated a bit. Formally, you could do these manipulations for every value of $M$. Physically, however, we know that this only has a chance to be a good approximation if $M$ is actually the average magnetisation of our probability distribution, i.e $M = \langle m \rangle$. So let us calculate this magnetization. We know that
+This looks nice. However, we have cheated a bit. Formally, you could do these manipulations for every value of $M$. Physically, however, we know that this only has a chance to be a good approximation if $M$ is actually the average magnetisation of our probability distribution, i.e $M = N^{-1} \langle m \rangle$. So let us calculate this magnetization. We know that
 $$
 \sum_i s_i = - \frac{\partial}{\partial B} E(s)
 $$
 so that by our general statements on average values of derivatives for Boltzmann distributions,
 \begin{align*}
-\langle m \rangle &= \frac{1}{N} \langle \sum_i s_i \rangle  = - \frac{1}{N\beta} \langle \frac{\partial}{\partial B} \beta E(s)  \rangle  
-= \frac{1}{N \beta} \frac{\partial}{\partial B} \ln Z
+\langle m \rangle &= \langle \sum_i s_i \rangle  = - \frac{1}{\beta} \langle \frac{\partial}{\partial B} \beta E(s)  \rangle  
+= \frac{1}{\beta} \frac{\partial}{\partial B} \ln Z
 \end{align*}
 Going back to the mean field approximation, we can compute the derivative and find that
 $$
@@ -2807,7 +2807,7 @@ $$
 $$
 i.e.
 $$
-\langle m \rangle = \tanh (\beta (J M q + B)) 
+M = \frac{1}{N}  \langle m \rangle = \tanh (\beta (J M q + B)) 
 $$
 Thus for the mean field approximation to hold, we need to impose the additional {\em consistency condition}
 $$
@@ -3048,8 +3048,8 @@ $$
 
 Let us now try to calculate the real magnetization - recall that $M_0$ is the magnetization of the reference system, not that of the true system. We do not know the exact Helmholtz potential $F$, but we know that it is the Helmholtz potential coming from a Boltzmann distribution with energy $E(s)$, so on general grounds, we know that the true magnetization is minus the partial derivative of the Helmholtz potential by $B$. So let us try to approximate this by taking the corresponding derivative for our variational Helmholtz potential. We get
 \begin{align*}
-M = \frac{\partial F_v}{\partial B} &= \frac{\partial F_0}{\partial B}  -  J N q M_0 \frac{dM_0}{d B}  + J q \Lambda N \frac{dM_0}{d B} \\
-&= - N M_0 + (\Lambda -  M_0) J q N \frac{dM_0}{d B} 
+M = \frac{1}{N} \frac{\partial F_v}{\partial B} &= \frac{1}{N} \frac{\partial F_0}{\partial B}  -  J  q M_0 \frac{dM_0}{d B}  + J q \Lambda  \frac{dM_0}{d B} \\
+&= -  M_0 + (\Lambda -  M_0) J q  \frac{dM_0}{d B} 
 \end{align*}
 Now the dependency of $M_0$ on $B$ is the same as that on $J q \Lambda$, in particular the derivative is again nowhere zero. Thus the second term is zero if and only if $\Lambda = M_0$. 
 This gives us a different interpretation of our consistency condition - this is exactly the condition that we need in order for the magnetization that we obtain from the variational Helmholtz potential to be the same as $M_0$. In other words, the consistency condition ensures that the approximation of $M$ to order zero - which is $M_0$ - is the same as the approximation to first order (the derivative of $F_v$). With $M_0 = M$, our expression for $F_v$ becomes
@@ -3058,7 +3058,7 @@ F_v = - k_B T N \ln 2 \cosh(\beta(JqM + B)) + \frac{Jq}{2}  N M^2
 $$
 which is exactly the value of $F$ that we have obtained as the result of our approximation in the previous section.
 
-Thus we have identified our previous result as the outcome of a variational approach, and the consistency condition as the solution to a minimization problem. Roughly speaking, we have identified the correct value for $\Lambda$ by looking for an extremum of the Helmholtz potential. However, $\Lambda$ is not a physical, macroscopic parameter to which we could apply an energy minimization or entropy maximization principle - instead, it is a model parameter that we fit to find the best possible approximation to the unknown Helmholtz potential. This subtle difference is sometimes swept under the carpet when we are just told to minimize $F$ in order to obtain the "equilibrium value" of $\Lambda$. 
+Thus we have identified our previous result as the outcome of a variational approach, and the consistency condition as the solution to a minimization problem. Roughly speaking, we have identified the correct value for $\Lambda$ by looking for an extremum of the Helmholtz potential. However, $\Lambda$ is not a physical, macroscopic parameter to which we could apply an energy minimization or entropy maximization principle - instead, it is a model parameter that we fit to find the best possible approximation to the unknown Helmholtz potential. This subtle difference is sometimes swept under the carpet when we are just told to minimize $F$ in order to obtain the "equilibrium value" of $\Lambda$. There is a different wy to look at this, though, to which we will return in the next section.
 
 Armed with this understanding, let us now return to diagram \ref{fig:IsingModelMagnetization} where we have - in our current notation - plotted the function $\Lambda - M_0(\Lambda)$ whose zeroes are the values of $\Lambda$ at which the consistency condition is fulfilled. We have seen that
 $$
@@ -3068,12 +3068,11 @@ with a factor $J q N M_0'$ that is positive for all values of $\Lambda$. Thus, q
 $$
 \frac{\partial F_v}{\partial \Lambda} < 0
 $$
-at these points. This, however, implies that the extremum that we have found is not a minimum, but a maximum. Our variational approach, however, instructs us to choose $\Lambda$ so as to minimize $F_v$, so that this third solution is not a valid one. This is often paraphrased by arguing that this is not a "stable state", however recall that $\Lambda$ does not actually parametrize physical states but approximative solutions, so that appealing to stability principles is tempting, but - at least in my opinion - misleading.
+at these points. This, however, implies that the extremum that we have found is not a minimum, but a maximum. Our variational approach, however, instructs us to choose $\Lambda$ so as to minimize $F_v$, so that this third solution is not a valid one. 
 
+One of the most interesting consequences of the phase transition that we obtain a spontaneous magnetisation even in the absence of an external field $B$. This is exactly the model for ferromagnetism that Ising was seeking, so it is worth spending some more time on the special case $B = 0$. This, however, is an approximation, and we cannot exclude the probability that the two different solutions for $M$ are simply a consequence of a crude approximation. This is actually the case for $d = 1$ for which Ising proved in his original work that there is no phase transition. For $d = 2$. however, there is an exact solution at least for the case $B = 0$, and it turns out that the phase transition is real. 
 
-One of the most interesting consequences of the phase transition that we obtain (or at least that our approximation indicates - note that this approximation works perfectly well for $d = 1$, even though the classical result of Ising states that there is no phase transition in $d = 1$, reminding us that this is only an approximation) is that we can observe a spontaneous magnetisation even in the absence of an external field $B$. This is exactly the model for ferromagnetism that Ising was seeking, so it is worth spending some more time on the special case $B = 0$. 		
-
-The special feature of this case is that there is an additional symmetry. In fact, for every state $s$, the state $-s$ has exactly the same energy, as in the absence of a magnetic field, the energy only contains terms of the form $s_i s_j$ where the signs cancel. Put differently, in the absence of a magnetic field, there is no preferred orientation any more to which most spins will spontaneously align. It is very surprising that in this case, the average magnetization is not zero, as one would expect - we will discuss this in a bit more detail in the next section. In fact, we have seen that our consistency condition gives us two values for the magnetization given by the solutions of
+So let us spend some more time discussing the case $B = 0$. A special feature of this case is that there is an additional {\em symmetry}. In fact, for every state $s$, the state $-s$ has exactly the same energy, as in the absence of a magnetic field, the energy only contains terms of the form $s_i s_j$ where the signs cancel. Put differently, in the absence of a magnetic field, there is no preferred orientation any more to which most spins will spontaneously align. It is very surprising that in this case, the average magnetization is not zero, as one would expect - we will discuss this in a bit more detail in the next section. In fact, we have seen that our consistency condition gives us two values for the magnetization given by the solutions of
 $$
 M = \tanh(\beta(Jq M))
 $$
@@ -3116,20 +3115,56 @@ Let us now take a closer look at the mechanics behind phase transition from a st
 &= \sum_{s} \frac{1}{Z} m(-s) \exp(-\beta E(-s)) \\ 
 &= \sum_{s} \frac{1}{Z} - m(s) \exp(-\beta E(s)) = - \langle m \rangle
 \end{align*}
-which should yield that the net magnetization is zero.  A second point which is at least confusing is that $\langle m \rangle $ is not completely determined by $T$ and $B$, but takes different values for different phases. In fact, the partition function is merely simply the sum
+which should yield that the net magnetization is zero.  A second point which is at least confusing is that $\langle m \rangle $ is not completely determined by $T$ and $B$, but takes different values for different phases. At the end of the day, the partition function is nothing but the sum
 $$
 Z = \sum_s \exp(-\beta E(s))
 $$
 which only depends on $T$ and $B$, and therefore the same should be true for $F = F(T, B)$ and hence for $\langle m \rangle$ which is a partial derivative of $F$.
 
-It is difficult to get precise answers to this in standard textbooks. While creating these notes, I have built a certain intuition why this is not really a contradiction, and even though I do not know whether this intuition and reasoning is correct, I still decided to share it. They key reasoning from my point of view is that both arguments above fail for the same reason - the observable quantities that we use in the macroscopic description of our system do not correspond to sums over the entire state space, but merely to sums over regions in the state space, so called {\em sectors}. Different sectors correspond to different phases, and each sector comes with its own partition function and consequently Helmholtz function. Moreover, sectors break the symmetry, so that the net magnetization within a sector can be different from zero.
+It is difficult to find precise answers to this in standard textbooks. While creating these notes, I have built a certain intuition why this is not really a contradiction, and even though I do not know whether this intuition and reasoning is correct, I still decided to share it. They key reasoning from my point of view is that both arguments above fail for the same reason - the observable quantities that we use in the macroscopic description of our system do not correspond to sums over the entire state space, but merely to sums over regions in the state space, so called {\em sectors}. Different sectors correspond to different phases, and each sector comes with its own partition function and consequently Helmholtz function. Moreover, sectors break the symmetry, so that the net magnetization within a sector can be different from zero.
 
 But what do I mean by a sector? To explain this, we need to remind ourselves that physical systems are not always in equilibrium. Imagine, for instance, we have a lattice of particles with spin as described by the Ising model, and we start with a very high magnetic field so that all spins will be aligned. When we now remove the field, the system is clearly no longer in equilibrium. However, due to thermal fluctuations, it will start to adjust its state and sooner or later reach a new equilibrium state. 
 
-How exactly this happens is of course a question about the microscopic details of the system, which we do not know - so we need a model for it. The model that I tend to use is the {\em Gibbs sampling algorithm}, so let us quickly recall how this works.
+How exactly this happens is of course a question about the microscopic details of the system, which we do not know - so we need a model for it. The model that I tend to use is the {\em Gibbs sampling algorithm}, so let us quickly recall how this works. Gibbs sampling is a Monte-Carlo method that, under mild assumptions, converges to a given distribution, in our case the Boltzmann distribution. To run a Gibbs sampler, you start with a random initial state. You then randomly select a spin site and consider the new state which is obtained from our initial state by flipping the spin at site $i$. You then calculate the energy difference $\Delta E$. If this is negative, i.e. the new state has lower energy - corresponding to a higher probability - you move to it. If it is positive, you move to it only with probability $\exp(\beta \Delta E) < 0$. Thus the algorithm is moving towards regions in the state space with the lowest energy, i.e. highest probability, but can randomly also decide to move away from a local minimum to reach the true global minimum, i.e. it can overcome energy walls. 
 
-Markov chain, not ergodic any more, gets stuck near local minima, these form sectors. Introduce term superselection - all states that we actually observe have the same magnetization sign, so not all values of an observable are possible.
-	
+Now suppose that our energy has two mimima, which, however, are far apart in the sense that you need to flip many spins to get from one of the minima to the second minima. This is exactly the situation we have in our Ising model with $B = 0$ - the two states are $s$ and $-s$ with different magnetizations $m$ and $-m$, and you need to flip {\em all} $N$ spins to get from one of them to the other. There is a finite, non-zero probability that the algorithm will take these $N$ steps, but it is really tiny - the probability to do one step aways from a local minimum is already small, and the probability to go the entire way is this to the power of $N$.  Thus for large $N$, this will essentially never happen. Consequently, the state space is essentially split into two sectors around the two states with lowest probability, which have the same energy and magnetizations $m$ and $-m$, and the system will never move from one sector to the other as it would have to cross a region of very low probabilities or, correspondingly, a wall of very high energies, as visualized in diagram \ref{fig:Sectors}.
+
+
+\begin{figure}[ht]
+	\begin{center}
+		\begin{tikzpicture}
+			
+			% The state space
+			\draw[dashed] plot [smooth  cycle] coordinates {(2,4) (4.5, 6) (10, 7) (10.5, 4) (9, 1.5) (4, 2)};
+			
+			% The wall
+			\draw (3, 1) -- (11, 7);
+			\node at (12.3, 6.5) {\parbox{2	 cm}{Wall of low probabilities}};
+			
+			% The two points
+			\draw [fill] (5.0,5.0) circle (.1cm) node[below right] {$(E_0, m)$};
+			\draw [fill] (7.0,3.0) circle (.1cm) node[below right] {$(E_0, -m)$};			
+			
+		\end{tikzpicture}
+	\end{center}
+	\caption{Non-ergodicity of the Ising model}
+	\label{fig:Sectors}
+\end{figure}
+
+
+In quantum physics, two subspaces of a Hilbert space are called sectors if $\langle a | H | b \rangle = 0$ for any two vectors $a, b$ in the two different subspaces. As the Hamiltonian governs the time development of the system, this means that you can never move from state $a$ to state $b$ in finite time, i.e. you can never cross sector boundaries. This is exactly what happens here - our system is no longer ergodic, and is trapped in either a region with positive magnetization or a region with negative magnetization.
+
+The quantities that you measure, though, are really {\em time averages}, i.e. the average across fluctuations around an attracting state, but averaged across the time. If the system is ergodic, this is the same as average with respect to probabilities. If, however, ergodicity is broken, we effectively take the average only over all states in one sector, not over all states in the state space. This is the reason why the average magnetization can be non zero - if the system is stuck in a sector with, say, positive magnetization, the average is only taken over the states in this sector and is therefore positive. Also note that the sectors break the $\Z_2$ symmetry, as this symmetry does not preserve the sectors.
+
+Similarly, the partition function splits into a sum over the first sector and a sum over the second sector. Each of these two sums can itself be considered a partition function over the reduced state space corresponding to this sector, and we can use that partition function to derive a Helmholtz potential for this sector. This is the reason why, for one value of $B$, you can essentially get two values for the Helmholtz potential - these two values are simply the two different Helmholtz potentials, evaluated on the same values of $T$ and $B$. 
+
+Another point that might leave a student puzzled is that often, the Helmholtz potential is considered to be a function of $T$, $B$ and $m$, not only of $T$ and $B$ alone, and then an appeal to a general principle that the Helmholtz energy is to be minimized is made to argue that one should minize this expression with respect to $m$. This is again confusing, as $m$ is depending on $B$ and $T$ and is not an independent thermodynamical parameter. The considerations above have hopefully helped us to understand that the Helmholtz potential does depend on the sign of the magnetization, corresponding to the two different sectors, Maybe we can take this further to promote $m$ to a fully independent variable?
+
+Let us try this. We return to considering the magnetization $ = \sum_s s_i$ of a single state. For each given value $m$, we can now write down a partition function that only takes states with $m(s) = m$ into account. Let us call this $Z(m)$, so that
+$$
+Z(m) = \sum_{s | m(s) = m} \exp(-\beta E(s))
+$$
+Now this depends explicitly on $m$, but of course still on $T$ due to the factor $\beta$ in the exponential, and on any other parameters on which $E(s)$ depends, for instance an external field $B$. 	
 
 \section{Applications in chemistry - the law of mass action}
 
