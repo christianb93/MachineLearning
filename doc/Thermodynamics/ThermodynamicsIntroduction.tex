@@ -3164,7 +3164,144 @@ Let us try this. We return to considering the magnetization $ = \sum_s s_i$ of a
 $$
 Z(m) = \sum_{s | m(s) = m} \exp(-\beta E(s))
 $$
-Now this depends explicitly on $m$, but of course still on $T$ due to the factor $\beta$ in the exponential, and on any other parameters on which $E(s)$ depends, for instance an external field $B$. 	
+Now this depends explicitly on $m$, but of course still on $T$ due to the factor $\beta$ in the exponential, and on any other parameters on which $E(s)$ depends, for instance an external field $B$. The probability to find the system in a state with a given magnetization $m_0$ is then simply
+\begin{align*}
+p(m = m_0) &= \sum_{s | m(s) = m_0} p(s)\\
+&= \frac{1}{Z} \sum_{s | m(s) = m_0} \exp(-\beta E(s)) = \frac{Z(m)}{Z}
+\end{align*}
+or
+$$
+Z(m) = p(m) Z
+$$
+and of course
+$$
+Z = \sum_m Z(m)
+$$
+We can now of course define a Helmholtz potential $F(m)$ by using the same relation between $Z(m)$ and $F(m)$ as we have between $Z$ and $F$, i.e. 
+$$
+F(m) = - \frac{1}{\beta} \ln Z(m)
+$$
+so that
+$$
+Z(m) = \exp(-\beta F(m)) = p(m) \exp(-\beta F)
+$$
+which gives us the relation
+$$
+F = F(m) + k_B T \ln p(m) \leq F(m)
+$$
+where the inequality holds because $p(m) \leq 1$. 
+
+Now this tells us a few things. First, we see that $F(m)$ is minimized if $p(m)$ is maximized. In addition, in most cases we should expect that the probability is more or less sharply peaked around a maximum $p_max$. As $k_B$ is tiny, this means that if we plug $p_{max}$ into this equation, the second term will be very small, and $F$ is a good approximation to $F(m)$ in this case. Thus we have found another variational principle: {\em we can obtain the Helmholtz energy of our system by writing down an expression for $F(m)$ and minimizing that with respect to $m$}. This is exactly what many textbooks tell us. The same relation also shows us that 
+$$
+p(m) = \exp(-\beta(F(m) - F))
+$$
+In other words, if we move away from the minimum of $F(m)$, the probability decreases rapidly, which again implies that it is very unlikely for magnetization to move from one local minimum to another one, as the system would again have to cross regions with very low probability. 
+
+Now in general, we will hardly been able to find an expression for $F(m)$. However, we can of course try to find an approximation, for instance using our mean field approach again. Recall from our discussion of the mean field approximation that we can approximate the energy of our Ising model as
+$$
+E(s) = \frac{1}{2} J q N M^2  - (J M q + B) m(s)
+$$
+where $M = N^{-1} \langle m \rangle $. If we now fix $m$, so that $\langle m \rangle = m$, then the energy depends only on $m$, i.e. all states with the same value of $m(s)$ have the same energy given by
+$$
+E(m) = - \frac{1}{2} J q N^{-1} m^2  - B m
+$$
+The partition function for fixed $m$ is then of course simply
+$$
+Z(m) = \Omega(m) \exp(-\beta E(m)))
+$$
+where $\Omega(m)$ is the number of states with $m(s) = m$. So let us find an expression for this quantity. For that purpose, let $N_+$ denote the number of spins pointing upward and $N_-$ be the number of spins pointing downward. These quantities are related to the magnetization by $m  = N_+ - N_-$, and as of course $N = N_+ + N_-$, we find
+\begin{align*}
+N_+ &= \frac{1}{2}(N + m) \\
+N_- &= \frac{1}{2}(N - m)
+\end{align*}
+Now the number of possible states is equal to the number of ways how we can pick $N_+$ sites on our lattice, i.e.
+$$
+\Omega(m) = \binom{N}{N_+} = \frac{N!}{N_+! N_-!}
+$$
+Using once more Stirling's approximation, we find that
+$$
+\ln \Omega^m = N \ln N - N_+ \ln N_+ - N_- \ln N_-
+$$
+Let us express this in terms of $m$. We have
+\begin{align*}	
+\ln \Omega^m &= N \ln N - \frac{1}{2}(N + m) \ln \frac{1}{2}(N + m) - \frac{1}{2}(N - m) \ln \frac{1}{2}(N - m)
+\end{align*}
+The first term is a constant that does not depend on $N$. The second term can be written as
+\begin{align*}
+- \frac{1}{2}(N + m) \ln \frac{1}{2}(N + m) &= - \frac{1}{2}(N + m) (\ln (N + m) - \ln 2) \\
+&= - \frac{1}{2} N \ln (N + m) - \frac{m}{2}  \ln (N + m) + \frac{N}{2}  \ln 2 + \frac{m}{2}  \ln 2
+\end{align*}
+Similarly, the last term is
+\begin{align*}
+	- \frac{1}{2}(N - m) \ln \frac{1}{2}(N - m) &= - \frac{1}{2}(N - m) (\ln (N - m) - \ln 2) \\
+	&= - \frac{1}{2} N \ln (N - m) + \frac{1}{2} m \ln (N - m) + \frac{N}{2}  \ln 2 - \frac{m}{2}  \ln 2
+\end{align*}
+The sum of all three terms is therefore
+\begin{align*}
+	\ln \Omega(m) = N \ln 2 N  - \frac{N}{2} \ln (N^2 - m^2)  + \frac{1}{2} m \ln \frac{N - m}{N + m}
+\end{align*}
+or, phrased in terms of the magnetization density $M = N^{-1} m$ as
+$$
+\ln \Omega(m) = N \ln 2   - \frac{N}{2} \ln (1 - M^2)  + \frac{N}{2} M  \ln \frac{1 - M}{1 + M}
+$$
+As
+\begin{align*}
+F(m) = \ln \Omega(m) \exp(-\beta E(m)) = \ln \Omega(m) - \beta E(m) 
+\end{align*}
+we therefore find that
+$$
+F(m) = - \beta E(m) + N \ln 2   - \frac{N}{2} \ln (1 - M^2)  + \frac{N}{2} M  \ln \frac{1 - M}{1 + M}
+$$
+To determine the extrema, we now have to take the derivative of this with respect to $m$. The first part yields
+$$
+\frac{dE}{dm} = - J q N^{-1} m - B = - J q M - B
+$$
+The second part is most easily obtained by first taking the derivative with respect to $M$. The second term yields
+$$
+\frac{NM}{1 - M^2}
+$$
+and the third term yields
+\begin{align*}
+\frac{N}{2} \ln \frac{1 - M}{1 + M} + \frac{N}{2} M  \frac{1 + M}{1 - M} [\frac{d}{dm} \frac{1 - M}{1 + M}] 
+\end{align*}
+or
+\begin{align*}
+\frac{N}{2} \ln \frac{1 - M}{1 + M}  - NM   \frac{1}{1 - M^2}
+\end{align*}
+which adds up to
+$$
+\frac{N}{2} \ln \frac{1 - M}{1 + M}
+$$
+As this is the derivative with respect to $M$, we still have to divide this by $N$, and we obtain
+$$
+\frac{dF}{dm} =  \beta(J q M + B) + \frac{1}{2} \ln \frac{1 - M}{1 + M}
+$$
+so the condition for this to be zero is
+$$
+2 \beta(J q M - B) = \ln \frac{1 + M}{1 - M}
+$$
+Let us now bring this into a form which is closer to what we have seen before. For that purpose, we use the abbreviation $B_{eff} = J q M - B$ and exponentiate our expression. We obtain
+$$
+\exp(2 \beta B_{eff}) = \frac{1 + M}{1 - M}
+$$
+Multiplying on both sides by $1 - M$ (be careful, we are assuming that $M < 1$ here, if $M$ is exactly one, all spins point up and our Stirling approximation breaks down anyway) yields
+$$
+\exp(2 \beta B_{eff}) - M \exp(2 \beta B_{eff}) = 1 + M
+$$
+or
+$$
+M = \frac{\exp(2 \beta B_{eff}) - 1}{\exp(2 \beta B_{eff}) + 1} 
+$$
+But the left hand side is easily recognized as a hyperbolic tangens. In fact
+$$
+\frac{e^{2x} - 1}{e^{2x} + 1} = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}} = \frac{\sinh x }{\cosh x} = \tanh x
+$$
+Therefore our condition becomes
+$$
+M = \tanh (\beta (JqM + B))
+$$
+which is exactly the consistency condition that we have already obtained. Thus, starting with the mean field approximation and applying our newly derived minimization principle for the Helmholtz potential, we arrive at the same result that we have already derived twice. Howevr, this time, the physical interpretion is different - this is the value of $m$ respectively $M$ that has the highest probability given the temperature and magnetic field. Consequently, it is the value around which the system will fluctuate, and in this sense, this is really an equilibrium state. So the textbooks are not wrong, but I found this additional way of deriving this very helpful to understand why it is legitimate to appeal to an energy minimization principle even though $m$ is not a free parameter.
+
 
 \section{Applications in chemistry - the law of mass action}
 
