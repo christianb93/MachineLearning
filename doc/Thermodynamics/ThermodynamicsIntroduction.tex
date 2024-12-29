@@ -3223,7 +3223,7 @@ p(m) = \exp(-\beta(F(m) - F))
 $$
 In other words, if we move away from the minimum of $F(m)$, the probability decreases rapidly, which again implies that it is very unlikely for magnetization to move from one local minimum to another one, as the system would again have to cross regions with very low probability. 
 
-Is $F(m)$ the Helmholtz energy of any physical system? In a certain sense yes - if you could somehow, by some miraculous device, fix the magnetization at some value $m$, then $F(m)$ would be the Helmholtz energy of this system. If you now let $m$ vary again, then the classical minimization principle for the Helmholtz energy would tell us that $m$ takes on the value that minimizes $F(m)$. However, I prefer to think of the Landau free energy as the quantity that we have just defined, in order to avoid potential confusion, see also the notes at the end of the next section. 
+Is $F(m)$ the Helmholtz energy of any physical system? In a certain sense yes - if you could somehow, by some miraculous device, fix the magnetization at some value $m$, then $F(m)$ would be the Helmholtz energy of this system. If you now let $m$ vary again, then the classical minimization principle for the Helmholtz energy would tell us that $m$ takes on the value that minimizes $F(m)$. However, I prefer to think of the Landau free energy as the quantity that we have just defined, in order to avoid potential confusion, see also the notes at the end of the next section. 	
 
 Now in general, we will hardly been able to find an expression for $F(m)$. However, we can of course try to find an approximation, for instance using our mean field approach again. Recall from our discussion of the mean field approximation that we can approximate the energy of our Ising model as
 $$
@@ -3272,37 +3272,45 @@ or, phrased in terms of the magnetization density $M = N^{-1} m$ as
 $$
 \ln \Omega(m) = N \ln 2   - \frac{N}{2} \ln (1 - M^2)  + \frac{N}{2} M  \ln \frac{1 - M}{1 + M}
 $$
-As
-\begin{align*}
-F(m) = \ln \Omega(m) \exp(-\beta E(m)) = \ln \Omega(m) - \beta E(m) 
-\end{align*}
-we therefore find that
+Now we have defined $F(m)$ by the relation
 $$
-F(m) = - \beta E(m) + N \ln 2   - \frac{N}{2} \ln (1 - M^2)  + \frac{N}{2} M  \ln \frac{1 - M}{1 + M}
+- \beta F(m) = \ln Z(m)
+$$
+so that 
+\begin{align*}
+F(m) = - k_B T \ln \Omega(m) + E(m) 
+\end{align*}
+Combining this with the expression for $\Omega$ that we have just derived, we find that
+$$
+F(m) =  E(m) - k_B T  N \ln 2   + k_B T \frac{N}{2} \ln (1 - M^2)  - k_B T \frac{N}{2} M  \ln \frac{1 - M}{1 + M}
 $$
 To determine the extrema, we now have to take the derivative of this with respect to $m$. The first part yields
 $$
 \frac{dE}{dm} = - J q N^{-1} m - B = - J q M - B
 $$
-The second part is most easily obtained by first taking the derivative with respect to $M$. The second term yields
+The second term does not depend on $m$. The next part is most easily obtained by first taking the derivative with respect to $M$. The third term yields
 $$
-\frac{NM}{1 - M^2}
+- k_B T \frac{NM}{1 - M^2}
 $$
-and the third term yields
+and the last term yields
 \begin{align*}
-\frac{N}{2} \ln \frac{1 - M}{1 + M} + \frac{N}{2} M  \frac{1 + M}{1 - M} [\frac{d}{dm} \frac{1 - M}{1 + M}] 
+- k_B T \frac{N}{2} \ln \frac{1 - M}{1 + M} - k_B T \frac{N}{2} M  \frac{1 + M}{1 - M} [\frac{d}{dM} \frac{1 - M}{1 + M}] 
 \end{align*}
-or
-\begin{align*}
-\frac{N}{2} \ln \frac{1 - M}{1 + M}  - NM   \frac{1}{1 - M^2}
-\end{align*}
-which adds up to
+Now 
 $$
-\frac{N}{2} \ln \frac{1 - M}{1 + M}
+\frac{d}{dM} \frac{1 - M}{1 + M} = \frac{-2}{(1 + M)^2}
+$$
+so that the contribution of the last term reads
+\begin{align*}
+- k_B T \frac{N}{2} \ln \frac{1 - M}{1 + M}  + k_B T    \frac{NM}{1 - M^2}
+\end{align*}
+Adding up all terms not coming from the energy therefore yields
+$$
+- k_B T \frac{N}{2} \ln \frac{1 - M}{1 + M}
 $$
 As this is the derivative with respect to $M$, we still have to divide this by $N$, and we obtain
 $$
-\frac{dF}{dm} =  \beta(J q M + B) + \frac{1}{2} \ln \frac{1 - M}{1 + M}
+\frac{dF}{dm} =  - (J q M + B) - k_B T  \frac{1}{2} \ln \frac{1 - M}{1 + M}
 $$
 so the condition for this to be zero is
 $$
@@ -3385,6 +3393,41 @@ $$
 m \approx \pm \sqrt{\frac{c}{2}} (T - T_c)^{\frac{1}{2}} 
 $$
 The derivative of this with respect to $T$ diverges as we approach the critical temperature, just as we have seen it in the phase diagram (diagram \ref{fig:IsingModelCritical}) that we have derived for the Ising model. The exponent $1/2$ is called the {\em critical exponent}. The beauty of the Landau approach is that it predicts {\em universality} - the behaviour of the system close to the critical point does not depend on the exact details of the system but only on its symmetry. 
+
+It is instructive to carry this out for the mean field approximation to the Ising model. Recall that in this case, we obtain the following expression for the free energy (we set $B = 0$ again)
+$$
+F(m) =  - \frac{1}{2} \beta J q N M^2  - k_B T  N \ln 2   + k_B T \frac{N}{2} \ln (1 - M^2)  - k_B T \frac{N}{2} M  \ln \frac{1 - M}{1 + M}
+$$
+To get rid of the factors $N$, it is more convenient to work with the energy density defined as $f = N^{-1} F$ which then becomes
+$$
+f(M) = - \frac{1}{2} J q M^2  - k_B T \ln 2   + k_B T \frac{1}{2} \ln (1 - M^2)  + k_B T \frac{1}{2} M  \ln \frac{1 + M}{1 - M}
+$$
+Let us now assume that we are close to the critical point so that the equilibrium value of $M$ becomes small. In this region, we can then simplify this expression by doing a Taylor expansion in $M$ around $M = 0$, using
+$$
+\ln 1 + x \approx x - \frac{1}{2} x^2  + \frac{1}{3} x^3
+$$ 
+The third term then turns into
+$$
+k_B T \frac{1}{2} \ln (1 - M^2) \approx - k_B T \frac{1}{2} M^2 - k_B T \frac{1}{4} M^4
+$$
+where we ignore everything of order higher than four in M, and the last term is
+$$
+k_B T \frac{1}{2} M  [ \ln (1 + M) - \ln (1 - M)] \approx k_B T  M^2 + \frac{2}{3} M^3
+$$
+so that our expansion becomes
+$$
+f(m) \approx - k_B T \ln 2   + k_B \frac{1}{2} (T - \frac{Jq}{k_B} ) M^2 + k_B T \frac{1}{12} M^4 + \dots
+$$
+or, recalling our definition of the critical temperature
+$$
+f(m) \approx - k_B T \ln 2   + k_B \frac{1}{2} (T - T_c ) M^2 + k_B T \frac{1}{12} M^4 + \dots
+$$
+This has exactly the form that we need - it is symmetric in $m$ and has 
+\begin{align*}
+a(T) &= k_B \frac{1}{2} (T - T_c ) \\
+b(T) &=  k_B T \frac{1}{12} > 0
+\end{align*}
+so that, as predicted, $a$ switches sign at the critical point and $b$ is positive for every temperature. 
 
 So far, our order parameter has been a value of the state alone and constant along the lattice. We could now go a step further and promote the order parameter to a {\em field}. We could, for instance, assign to each lattice point the average magnetization over a small region around the lattice point, a procedure known as {\em coarse graining}, i.e. we consider only sites within a distance $\Lambda$ when taking the average. Put differently, we throw away all fluctuations below that range, or in momentum space above a certain frequency called the {\em cut off}. The Landau free energy then becomes a function and the integral that we need to carry out over all values of the order parameter to obtain the partition function turns into a path integral. This development is known as {\em Landau-Ginzburg theory}.
 
