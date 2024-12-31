@@ -3735,7 +3735,7 @@ $$
 $$
 between the molar Gibbs energy of the solute and the gas at standard conditions, a value which is again tabulated. In equilibrium, the two chemical potentials need to be equal
 $$
-\mu^0_{gas} + RT \ln \frac{P}{P_0}  = \mu_{solute}^0 + RT \ln \ln \frac{c}{c_0}
+\mu^0_{gas} + RT \ln \frac{P}{P_0}  = \mu_{solute}^0 + RT \ln \frac{c}{c_0}
 $$
 and rearranging yields
 $$
@@ -3760,6 +3760,54 @@ $$
 where we would have to multiply the right hand side by mol / l to fix our units. 
 
 An important consequence of this is the fact that the concentration increases with increasing partial pressure. Suppose for instance that a diver, who usually uses a breathing gas which is supplied at roughly ambient pressure, descends. Over time, the ambient pressure increases, and with that, the concentration of gases like nitrogen that are part of the breathing gas dissolve in the divers blood. When the diver surfaces again, the pressure decreases, and - by the above relation - so does the solubility. This implies that gas will diffuse again. This gas can then form bubbles that can block blood flow or cause other types of damage, a condition known as {\em decompression sickness}. Therefore, divers have to stop at certain points during the ascent to give to allow the gas to leave the circulation and ultimately the body with the exhaled breathing gas.
+
+Let us close this section with another classical law that can be derived from our considerations. At the beginning of this section, we have derived the expression
+$$
+G = g(T, P, m_A ) +  m_B f(T, P) +  m_B RT \ln \frac{m_B}{m_A} - m_B T R 
+$$
+for the Gibbs entropy of a solution where $A$ was the solvent and $B$ was the solute. So far, we have mainly been interested in the solute, but let us see what this equation tells us about the solvent. If we take the derivative with respect to $m_A$, we immediately find that the chemical potential of the solvent in presence of a solute is also altered and becomes
+$$
+\mu_{A} = \frac{dG}{dm_A} = \mu_A^0  - RT \frac{m_B}{m_A}
+$$
+where $\mu^0_A$ is the chemical potential of the solvent in isolation. This implies that the chemical potential of the solvent in a solution is reduced compared to the chemical potential of the pure solvent. Thus if, for instance, you separate pure water and water containing dissolved NaCl by a membrane through which the water can pass, the difference in the chemical potentials will result in a flow of particles from the pure water into the solution, a fact which is known as {\em osmosis}. 
+
+Now image a solution of a non-volatile substance, say NaCl, in a volatile liquid, say water, both under constant pressure and temperature. The above change in the chemical potential compared to the pure solvent should have an impact on the vapor pressure of the solution. In fact, the vapor pressure is determined by the equilibrium condition
+$$
+\mu_{gas}(T, P) = \mu_{solvent}(T, P)
+$$
+Let $P_0$ be the vapor pressure of the pure solvent, so that
+$$
+\mu_{gas}(T, P_0) = \mu_{solvent}^0(T, P_0)
+$$
+Let us now do a Taylor approximation around $P = P_0$. With that, our equilibrium condition turns into
+$$
+\mu_{gas}(T, P_0) + (P - P_0) \frac{\partial \mu_{gas}}{\partial P} =  \mu_{solvent}(T, P_0) + (P - P_0)\frac{\partial \mu_{solvent}}{\partial P}
+$$
+which, using our above formula for the chemical potential of the solvent, turns into
+$$
+\mu_{gas}(T, P_0) + (P - P_0) \frac{\partial \mu_{gas}}{\partial P} =  \mu_{solvent}^0(T, P_0) - RT \frac{m_{solute}}{m_{solvent}} + (P - P_0)\frac{\partial \mu_{solvent}}{\partial P}
+$$
+Because we have equilibrium at pressure $P_0$, the first two terms cancel, and we find that
+$$
+(P - P_0) \frac{\partial \mu_{gas}}{\partial P} =   - \frac{m_{solute}}{m_{solvent}} + (P - P_0)\frac{\partial \mu_{solvent}}{\partial P}
+$$
+Now the chemical potential is the same thing as the molar Gibbs energy. Therefore the derivative of the chemical potential with respect to the pressure at constant temperature is the molar volume, i.e. the volume divided by the particle number in moles. Thus
+$$
+(P - P_0) \frac{V_{gas}}{N_{gas}} =   - RT \frac{m_{solute}}{m_{solvent}} + \frac{V_{liquid}}{N_{liquid}}
+$$
+The molar volume of a liquid is typically much lower than that of the corresponding vapor, so we ignore this term. The molar volume of an ideal gas is given by the ideal gas law and is
+$$
+\frac{V}{N} = \frac{RT}{P} \approx \frac{RT}{P_0} 
+$$
+Using this, our equation becomes
+$$
+\frac{P - P_0}{P_0} =   -  \frac{m_{solute}}{m_{solvent}} 
+$$
+In other words, we have found that the relative shift of the vapor pressure by adding a solute is equal to the fraction of particle numbers of solute and solvent. This is known as {\em Raoult's law}. Note that this law if often stated in a different form, namely
+$$
+P = P_0 (1 - \frac{m_{solute}}{m_{solvent}}) \approx P_0 \frac{m_{solvent}}{m_{total}}
+$$
+which now says that the vapor pressure of the solvent is the product of the mol fraction of the solvent in the solution times the vapor pressure of the pure solvent (see for instance \cite{Petrucci}, section 14.6). Our derivation shows that in this form, this also holds for an ideal mixture of different volatile liquids. 
 
 \section{Applications in chemistry - the reaction quotient}
 
