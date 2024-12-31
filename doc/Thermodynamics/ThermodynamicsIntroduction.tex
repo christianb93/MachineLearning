@@ -3689,6 +3689,78 @@ c(H_3O^+)  = 1 \times 10^{-7}
 $$
 Minus the logarithm of the concentration of oxonium $H_3 O^+$ iones is by definition the pH-value, and we recover the well-known fact that the pH-value of pure water is 7.
 
+
+There is another interesting application of these ideas that is related to the {\em solubility} of gas in a liquid. Suppose we are given a mixture of ideal gases in contact with a solvent, and assume that one constituent of the mixture can dissolve in water. Thus at the surface of the solvent, a reaction of the form
+$$
+A(g) \longrightarrow A(aq)
+$$
+will take place. However, in general this reaction will not go to completion, and there is again an equilibrium that determines how much of the gas will be dissolved in water, i.e. the solubility of the 
+gas.
+
+To calculate this equilibrium, we need an expression for the chemical potential of a gas in an ideal mixture. Recall from the section on ideal gases that the chemical potential of constituent $i$ is given by
+$$
+\mu_i = -T s_{0, i} - T R \ln \big[ \big(  \frac{T}{T_0} \big)^{c} \frac{V}{N_i V_0} \big] + (c_i+1) RT
+$$
+where $N_i$ is the molarity of constituent $i$ and $V_0$ is an arbitrarily chosen reference volume. The ideal gas law tells us that
+$$
+\frac{V}{N_i} = \frac{RT}{P_i}
+$$
+where $P_i$ is the partial pressure of constituent $i$. This allows us to rewrite the formula for the chemical potential as
+$$
+\mu_i = f(T)  + T R \ln  \frac{P_i V_0}{RT}
+$$
+with a function $f$ depending only on $T$. If we now fix a reference value $P_0$ for the partial pressure, we obtain that
+$$
+\mu_i(T, P_i) = \mu^0_i(T) +  T R \ln  \frac{P_i}{P_0}
+$$
+where $\mu^0_i$ is the chemical potential at temperature $T$ and at partial pressure $P_0$. Usually, this is again chosen to be room temperature and 1 atm and referred to as standard conditions. 
+
+Let us now drop the index $i$, as we will focus on one particular constituent, and use the letter $P$ to denote its partial pressure in the surrounding gas mixture. We then find that the dependency of the chemical potential of a gas in a mixture of ideal gases is given by
+$$
+\mu_{gas} = \mu^0_{gas} + RT \ln \frac{P}{P_0} 
+$$
+which looks very similar to the formula for the chemical potential of the gas dissolved in water which is of course the general expression for the chemical potential of a dilute solution
+$$
+\mu_{solute} = \mu_{solute^0} + RT \ln \frac{c}{c_0}
+$$
+where $c$ is the concentration of the solute and $c_0$ is a standard concentration which is typically chosen to have the numerical value one (still we choose to leave this in our equation to fix units). In other words, we have found that the activity of an ideal gas is its partial pressure.
+
+We can now repeat the derivation that we have done above to determine the equilibrium value of the concentration. First we note that the difference
+$$
+\mu_{solute}^0 - \mu_{gas}^0 
+$$
+is again nothing but the difference 
+$$
+\Delta G^0
+$$
+between the molar Gibbs energy of the solute and the gas at standard conditions, a value which is again tabulated. In equilibrium, the two chemical potentials need to be equal
+$$
+\mu^0_{gas} + RT \ln \frac{P}{P_0}  = \mu_{solute}^0 + RT \ln \ln \frac{c}{c_0}
+$$
+and rearranging yields
+$$
+\Delta G^0 = RT (\ln \frac{P}{P_0} - \ln \frac{c}{c_0})
+$$	
+or
+$$
+- \frac{\Delta G^0}{RT} =  \ln \frac{c P_0 }{c_0 P}
+$$
+Taking the exponential on both sides then gives us
+$$
+\frac{c P_0 }{c_0 P} = \exp(- \frac{\Delta G^0}{RT})
+$$
+In other words, we have shown that the quotient of concentration and partial pressure is a constant 
+$$
+\frac{c}{P / P_0} = K
+$$ 
+that only depends on the involved substances, a fact which is known as {\em Henry's law}. We also see that the constant is numerically (recall that $c_0$ has the numerical value $1.0$) equal to 
+$$
+K = \exp(- \frac{\Delta G^0}{RT})
+$$
+where we would have to multiply the right hand side by mol / l to fix our units. 
+
+An important consequence of this is the fact that the concentration increases with increasing partial pressure. Suppose for instance that a diver, who usually uses a breathing gas which is supplied at roughly ambient pressure, descends. Over time, the ambient pressure increases, and with that, the concentration of gases like nitrogen that are part of the breathing gas dissolve in the divers blood. When the diver surfaces again, the pressure decreases, and - by the above relation - so does the solubility. This implies that gas will diffuse again. This gas can then form bubbles that can block blood flow or cause other types of damage, a condition known as {\em decompression sickness}. Therefore, divers have to stop at certain points during the ascent to give to allow the gas to leave the circulation and ultimately the body with the exhaled breathing gas.
+
 \section{Applications in chemistry - the reaction quotient}
 
 Let us now see how the Gibbs free energy comes into play if we consider reactions away from equilibrium. For that purpose, let us consider a reaction that takes place at standard temperature and pressure, but at non-standard concentrations $c_i$. As in the previous section, we can then describe the extent to which the reaction takes place by a parameter $\xi$, and, using the same arguments as above, we find that
